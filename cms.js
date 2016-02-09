@@ -53,6 +53,7 @@ if (!run) {
         currentVol: null,
     };
 
+    var gitroot = 'http://chilloutmusica.github.io/cms';
     var functions = {
         fade: function() {
             $('.main_content').fadeToggle('slow');
@@ -113,14 +114,14 @@ if (!run) {
                     '<span>'+motd+'</span><br><br>',
                     '<span>For Bugs and Suggestions Please Go To:</span><br>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="https://github.com/mitchdev/cms"> Our Github </a>',
+                        '<a target="_blank" href="'+gitroot+'"> Our Github </a>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
                     '</span><br><br><br>',
                 '</li>'
             ].join('');
             var mainmenu = [
-                '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/css/toast.css">',
-                '<link rel="stylesheet" type="text/css" href="https://rawgit.com/Mitchdev/CMS/master/main.css">',
+                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/toast.css">',
+                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/main.css">',
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
@@ -244,7 +245,7 @@ if (!run) {
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
             ].join('');
-            var css = '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/test.css">';
+            var css = '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/test.css">';
  	        var ac = '<div class="autocomplete" style="display: none;"></div>';
             $('head').append(css);
             $('.pusher-chat-widget-input').append(ac);
@@ -508,7 +509,7 @@ if (!run) {
             if (!options.chatmode) {
                 options.chatmode = true;
                 $('#main_player').fadeToggle('slow');
-                $('head').append('<link class="chatmodecss" rel="stylesheet" href="https://mitchdev.net/CMS/css/chatmode.css">');
+                $('head').append('<link class="chatmodecss" rel="stylesheet" href="'+gitroot+'/assets/chatmode.css">');
                 functions.enable('.chatmode');
             } else {
                 options.chatmode = false;
