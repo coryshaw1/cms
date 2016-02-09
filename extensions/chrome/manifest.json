@@ -1,0 +1,19 @@
+{
+
+	"name": "CMS",
+	"description": "Loads CMS onto dubtrack.fm",
+	"version": "1.0",
+
+	"manifest_version": 2,
+
+	"icons": {
+		"128": "logo.png"
+	},
+
+	"content_scripts": [{
+		"matches": ["https://www.dubtrack.fm/*"],
+		"js": ["content.js"],
+		"run_at": "document_end"
+	}]
+
+}
