@@ -1,0 +1,10 @@
+.right_section {
+	width: 100% !important;
+	margin: 0 auto !important;
+	right: initial !important;
+	position: relative !important;
+	float: inherit !important;
+}
+.activity-row .text img {
+	max-height: 20rem !important;
+}
