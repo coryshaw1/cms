@@ -2,7 +2,7 @@
 
 	"name": "CMS",
 	"description": "Loads CMS onto dubtrack.fm",
-	"version": "1.0",
+	"version": "1.1",
 
 	"manifest_version": 2,
 
