@@ -53,7 +53,7 @@ if (!run) {
         currentVol: null,
     };
 
-    var gitroot = 'http://chilloutmusica.github.io/cms';
+    var gitroot = 'https://chilloutmusica.github.io/cms';
     var functions = {
         fade: function() {
             $('.main_content').fadeToggle('slow');
