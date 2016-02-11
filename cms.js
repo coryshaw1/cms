@@ -18,8 +18,8 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Updates Updates ( ͡° ͜ʖ ͡° )';
-    var version = 'Version - 11.9.2';
+    var motd = 'Hide Avatars';
+    var version = 'Version - 11.9.3';
     var options = {
         autovote: false,
         randomvote: false,
@@ -51,9 +51,9 @@ if (!run) {
         hidebackground: false,
         snooze: false,
         currentVol: null,
+        hideavatars: false,
     };
 
-    var gitroot = 'https://chilloutmusica.github.io/cms';
     var functions = {
         fade: function() {
             $('.main_content').fadeToggle('slow');
@@ -114,14 +114,14 @@ if (!run) {
                     '<span>'+motd+'</span><br><br>',
                     '<span>For Bugs and Suggestions Please Go To:</span><br>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="'+gitroot+'"> Our Github </a>',
+                        '<a target="_blank" href="https://github.com/chilloutmusica/cms/"> Our Github </a>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
                     '</span><br><br><br>',
                 '</li>'
             ].join('');
             var mainmenu = [
-                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/toast.css">',
-                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/main.css">',
+                '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/css/toast.css">',
+                '<link rel="stylesheet" type="text/css" href="https://rawgit.com/Mitchdev/CMS/master/main.css">',
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
@@ -145,6 +145,10 @@ if (!run) {
                                 '<p class="main_content_p">Auto Join</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
+                            '<li onclick="functions.hideavatars();" class="main_content_li main_content_feature avatars">',
+                                '<p class="main_content_p">Hide Avatars</p>',
+                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                            '</li>',
                             '<li onclick="functions.autoclearchat();" class="main_content_li main_content_feature clearchat">',
                                 '<p class="main_content_p">Auto Clear Chat</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -161,6 +165,14 @@ if (!run) {
                                 '<p class="main_content_p">Hide Deleted Messages</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
+                            //'<li onclick="functions.acm();" class="main_content_li main_content_feature acm">',
+                            //    '<p class="main_content_p">Auto Complete Mentions</p>',
+                            //    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                            //'</li>',
+                            //'<li onclick="functions.ace();" class="main_content_li main_content_feature ace">',
+                            //    '<p class="main_content_p">Auto Complete Emotes</p>',
+                            //    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                            //'</li>',
                             '<li onclick="functions.hidebackground();" class="main_content_li main_content_feature hidebackground">',
                                 '<p class="main_content_p">Hide Background</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -245,8 +257,8 @@ if (!run) {
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
             ].join('');
-            var css = '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/test.css">';
- 	        var ac = '<div class="autocomplete" style="display: none;"></div>';
+            var css = '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/test.css">';
+            var ac = '<div class="autocomplete" style="display: none;"></div>';
             $('head').append(css);
             $('.pusher-chat-widget-input').append(ac);
             setTimeout(function() {
@@ -446,6 +458,8 @@ if (!run) {
                             } else {
                                 functions.notification('info', 'Updub in '+minu+' minutes and '+seco+' seconds');
                             }
+                        } else if (substr[0] === 0) {
+                            functions.notification('info', 'Updub in '+second+' seconds');
                         } else {
                             functions.notification('info', 'Updub in '+minute+' minutes and '+second+' seconds');
                         }
@@ -509,7 +523,7 @@ if (!run) {
             if (!options.chatmode) {
                 options.chatmode = true;
                 $('#main_player').fadeToggle('slow');
-                $('head').append('<link class="chatmodecss" rel="stylesheet" href="'+gitroot+'/assets/chatmode.css">');
+                $('head').append('<link class="chatmodecss" rel="stylesheet" href="https://mitchdev.net/CMS/css/chatmode.css">');
                 functions.enable('.chatmode');
             } else {
                 options.chatmode = false;
@@ -938,23 +952,6 @@ if (!run) {
                 functions.disable('.cmentoggle');
             }
         },
-        newupdate: function(e) {
-            var message = e.message;
-            var user = e.user.userInfo.userid;
-            var id = '55ff8bf7196f170300cc0b2a';
-            if (message.indexOf("/nu") >-1 && id === user) {
-                var msg = [
-                    '<div id="nu" class="toast-top-right" style="position: fixed;display: none;" aria-live="polite" role="alert">',
-                        '<div class="toast toast-success" style="display: block;">',
-                            '<div class="toast-message">New version of CMS!<br>Please Refresh To Update.</div>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-                $('body').append(msg);
-                $('.toast-top-right').fadeToggle('slow');
-                Dubtrack.room.chat.mentionChatSound.play();
-            }
-        },
         snooze: function() {
             if (!options.snooze) {
                 options.currentVol = Number(Dubtrack.room.player.player_volume_level);
@@ -1023,21 +1020,21 @@ if (!run) {
                 });
             }
         },
-        ace: function() {
-            functions.notification('error', 'This feature is currently unavailable');
-        },
-        acm: function() {
-            functions.notification('error', 'This feature is currently unavailable');
-        },
+        //ace: function() {
+        //    functions.notification('error', 'This feature is currently unavailable');
+        //},
+        //acm: function() {
+        //    functions.notification('error', 'This feature is currently unavailable');
+        //},
         addToChat: function(e) {
             $('.chat-main').append('<li class="system"><div class="chatDelete" onclick="functions.chatdel(this)"><span class="icon-close"></span></div><div class="text">'+e+'</div></li>');
             
         },
- 	    userHasPerm: function() {
- 		    return Dubtrack.room.users.getIfMod(Dubtrack.session.id) || Dubtrack.room.users.getIfManager(Dubtrack.session.id) || Dubtrack.room.users.getIfOwner(Dubtrack.session.id);
- 	    },
- 	    hidebackground: function() {
- 	        if (!options.hidebackground) {
+        userHasPerm: function() {
+            return Dubtrack.room.users.getIfMod(Dubtrack.session.id) || Dubtrack.room.users.getIfManager(Dubtrack.session.id) || Dubtrack.room.users.getIfOwner(Dubtrack.session.id);
+        },
+        hidebackground: function() {
+            if (!options.hidebackground) {
                 functions.enable('.hidebackground');
                 functions.storage('hidebackground', 'true');
                 options.hidebackground = true;
@@ -1050,9 +1047,9 @@ if (!run) {
                 $('.backstretch').show();
                 $('.CMSbg').show();
             }
- 	    },
- 	    boothal: function() {
- 	        if (!options.boothalert) {
+        },
+        boothal: function() {
+            if (!options.boothalert) {
                 functions.enable('.boothalert');
                 functions.storage('boothalert', 'true');
                 options.boothalert = true;
@@ -1061,10 +1058,10 @@ if (!run) {
                 functions.storage('boothalert', 'false');
                 options.boothalert = false;
             }
- 	    },
- 	    boothalert: function(e) {
- 	        if (e.startTime < 2) {
- 	            var position = Number($('.queue-position').text());
+        },
+        boothalert: function(e) {
+            if (e.startTime < 2) {
+                var position = Number($('.queue-position').text());
                 if (position === 2 && options.boothalert) {
                     setTimeout(function() {
                         functions.notification('info', 'It\'s almost your turn to DJ');
@@ -1072,8 +1069,38 @@ if (!run) {
                         Dubtrack.room.chat.mentionChatSound.play();
                     }, 5500);
                 }
- 	        }
- 	    }
+            }
+        },
+        hideavatars: function() {
+            if (!options.hideavatars) {
+                functions.enable('.avatars');
+                options.hideavatars = true;
+                functions.storage('avatars', 'true');
+                $('head').append('<link class="hideavatars" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/avatars.css">');
+            } else {
+                functions.disable('.avatars');
+                functions.storage('avatars', 'false');
+                options.hideavatars = false;
+                $('.hideavatars').remove();
+            }
+        }//,
+        //autocompleteuser: function() {
+        //    setTimeout(function() {
+        //        Dubtrack.room.users.collection.models.forEach(function(e) {
+        //            var user = e.attributes._user.username;
+        //            var id = e.attributes._user._id;
+        //            var append = [
+        //                '<div class="autocompleteuser">',
+        //                    '<div class="autocompleteuser-image">',
+        //                        '<img src="https://api.dubtrack.fm/user/'+id+'/image">',
+        //                    '</div>',
+        //                    '<span class="autocompleteuser-name" id="'+user.toLowerCase()+'">@'+user.toLowerCase()+'</span>',
+        //                '</div>'
+        //            ].join('');
+        //            $('.autocomplete').append(append);
+        //        });
+        //    }, 2000);
+        //}
     };
     
     functions.mainmenu();
@@ -1126,6 +1153,9 @@ if (!run) {
         if (localStorage.getItem('cleardelmsg') === 'true') {
             functions.autocleardelmsg();
         }
+        if (localStorage.getItem('avatars') === 'true') {
+            functions.hideavatars();
+        }
         if (localStorage.getItem('cmen')) {
             functions.cmen();
         }
@@ -1133,7 +1163,6 @@ if (!run) {
             functions.afkmsg();
         }
 
-        Dubtrack.Events.bind('realtime:chat-message', functions.newupdate);
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
         Dubtrack.Events.bind('realtime:chat-message', functions.cmench);
         Dubtrack.Events.bind('realtime:chat-message', functions.commands);
@@ -1151,6 +1180,7 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
+        //functions.autocompleteuser();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
