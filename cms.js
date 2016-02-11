@@ -19,7 +19,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Hide Avatars';
-    var version = 'Version - 11.9.3';
+    var version = 'Version - 11.9.4';
     var options = {
         autovote: false,
         randomvote: false,
@@ -304,8 +304,10 @@ if (!run) {
                 }
             }, 1000);
         },
-        updatedowndublist: function() {
-            $('#user-downdub').remove();
+        updatedowndublist: function(e) {
+            if (e.startTime < 2) {
+                $('#user-downdub').remove();
+            }
         },
         updubhover: function() {
             $('.dubup').hover(function() {
@@ -328,8 +330,10 @@ if (!run) {
                 }
             }, 1000);
         },
-        updateupdublist: function() {
-            $('#user-updub').remove();
+        updateupdublist: function(e) {
+            if (e.startTime < 2) {
+                $('#user-updub').remove();
+            }
         },
         grabhover: function() {
             $('.add-to-playlist-button').hover(function() {
@@ -349,8 +353,10 @@ if (!run) {
                 $('.grablistpeople').append('<p id="user-grab" class="g-user-'+user+'">@'+user+'</p>');
             }, 1000);
         },
-        updategrablist: function() {
-            $('#user-grab').remove();
+        updategrablist: function(e) {
+            if (e.startTime < 2) {
+                $('#user-grab').remove();
+            }
         },
         autocleardelmsg: function() {
             if (!options.cleardelmsg) {
