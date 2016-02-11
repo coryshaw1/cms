@@ -683,7 +683,7 @@ if (!run) {
             if (message.indexOf('/help') >-1 && id === user) {
                 var help = [
                     '<li class="system">',
-                        '<div class="chatDelete" onclick="functions.cdel(this)"><span class="icon-close"></span></div>',
+                        '<div class="chatDelete" onclick="functions.chatdel(this)"><span class="icon-close"></span></div>',
                             '<br>',
                         '<span>CMS HELP</span>',
                             '<br>',
@@ -700,7 +700,7 @@ if (!run) {
             if (message.indexOf('/commands') >-1 && id === user) {
                 var commands = [
                     '<li class="system">',
-                        '<div class="chatDelete" onclick="functions.cdel(this)"><span class="icon-close"></span></div>',
+                        '<div class="chatDelete" onclick="functions.chatdel(this)"><span class="icon-close"></span></div>',
                             '<br>',
                         '<span>CMS COMMANDS</span>',
                             '<br>',
@@ -1030,7 +1030,7 @@ if (!run) {
             functions.notification('error', 'This feature is currently unavailable');
         },
         addToChat: function(e) {
-            $('.chat-main').append('<li class="system"><div class="chatDelete" onclick="functions.cdel(this)"><span class="icon-close"></span></div><div class="text">'+e+'</div></li>');
+            $('.chat-main').append('<li class="system"><div class="chatDelete" onclick="functions.chatdel(this)"><span class="icon-close"></span></div><div class="text">'+e+'</div></li>');
             
         },
  	    userHasPerm: function() {
