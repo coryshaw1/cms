@@ -19,7 +19,8 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Hide Avatars';
-    var version = 'Version - 11.9.4';
+    var version = 'Version - 11.9.5';
+    var username = Dubtrack.session.get('username');
     var options = {
         autovote: false,
         randomvote: false,
@@ -109,7 +110,7 @@ if (!run) {
             ].join('');
             var welcome = [
                 '<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br>',
-                    '<span>Welcome '+Dubtrack.session.get('username')+'!</span><br>',
+                    '<span>Welcome '+username+'!</span><br>',
                     '<span>CMS '+version+'</span><br>',
                     '<span>'+motd+'</span><br><br>',
                     '<span>For Bugs and Suggestions Please Go To:</span><br>',
@@ -257,9 +258,7 @@ if (!run) {
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
             ].join('');
-            var css = '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/test.css">';
             var ac = '<div class="autocomplete" style="display: none;"></div>';
-            $('head').append(css);
             $('.pusher-chat-widget-input').append(ac);
             setTimeout(function() {
                 $('.chat-main').append(welcome);
