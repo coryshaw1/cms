@@ -121,8 +121,8 @@ if (!run) {
                 '</li>'
             ].join('');
             var mainmenu = [
-                '<link rel="stylesheet" type="text/css" href="https://mitchdev.net/cms/css/toast.css">',
-                '<link rel="stylesheet" type="text/css" href="https://rawgit.com/Mitchdev/CMS/master/main.css">',
+                '<link rel="stylesheet" type="text/css" href="https://chilloutmusica.github.io/cms/assets/toast.css">',
+                '<link rel="stylesheet" type="text/css" href="https://chilloutmusica.github.io/cms/assets/main.css">',
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
