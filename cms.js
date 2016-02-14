@@ -528,7 +528,7 @@ if (!run) {
             if (!options.chatmode) {
                 options.chatmode = true;
                 $('#main_player').fadeToggle('slow');
-                $('head').append('<link class="chatmodecss" rel="stylesheet" href="https://mitchdev.net/CMS/css/chatmode.css">');
+                $('head').append('<link class="chatmodecss" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/chatmode.css">');
                 functions.enable('.chatmode');
             } else {
                 options.chatmode = false;
