@@ -55,6 +55,7 @@ if (!run) {
         hideavatars: false,
     };
 
+    var gitroot = 'https://chilloutmusica.github.io/cms';
     var functions = {
         fade: function() {
             $('.main_content').fadeToggle('slow');
@@ -115,14 +116,14 @@ if (!run) {
                     '<span>'+motd+'</span><br><br>',
                     '<span>For Bugs and Suggestions Please Go To:</span><br>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="https://github.com/chilloutmusica/cms/"> Our Github </a>',
+                        '<a target="_blank" href="'+gitroot+'"> Our Github </a>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
                     '</span><br><br><br>',
                 '</li>'
             ].join('');
             var mainmenu = [
-                '<link rel="stylesheet" type="text/css" href="https://chilloutmusica.github.io/cms/assets/toast.css">',
-                '<link rel="stylesheet" type="text/css" href="https://chilloutmusica.github.io/cms/assets/main.css">',
+                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/toast.css">',
+                '<link rel="stylesheet" type="text/css" href="'+gitroot+'/assets/main.css">',
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
@@ -528,7 +529,7 @@ if (!run) {
             if (!options.chatmode) {
                 options.chatmode = true;
                 $('#main_player').fadeToggle('slow');
-                $('head').append('<link class="chatmodecss" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/chatmode.css">');
+                $('head').append('<link class="chatmodecss" rel="stylesheet" href="'+gitroot+'/assets/chatmode.css">');
                 functions.enable('.chatmode');
             } else {
                 options.chatmode = false;
@@ -1043,14 +1044,12 @@ if (!run) {
                 functions.enable('.hidebackground');
                 functions.storage('hidebackground', 'true');
                 options.hidebackground = true;
-                $('.backstretch').hide();
-                $('.CMSbg').hide();
+                $('head').append('<link class="hide_background" rel="stylesheet" type="text/css" href="'+gitroot+'/assets/settings/hide_background.css">');
             } else {
                 functions.disable('.hidebackground');
                 functions.storage('hidebackground', 'false');
                 options.hidebackground = false;
-                $('.backstretch').show();
-                $('.CMSbg').show();
+                $('.hide_background').remove();
             }
         },
         boothal: function() {
@@ -1081,14 +1080,14 @@ if (!run) {
                 functions.enable('.avatars');
                 options.hideavatars = true;
                 functions.storage('avatars', 'true');
-                $('head').append('<link class="hideavatars" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/avatars.css">');
+                $('head').append('<link class="hideavatars" rel="stylesheet" href="'+gitroot+'/assets/avatars.css">');
             } else {
                 functions.disable('.avatars');
                 functions.storage('avatars', 'false');
                 options.hideavatars = false;
                 $('.hideavatars').remove();
             }
-        }//,
+        },
         //autocompleteuser: function() {
         //    setTimeout(function() {
         //        Dubtrack.room.users.collection.models.forEach(function(e) {
@@ -1105,7 +1104,17 @@ if (!run) {
         //            $('.autocomplete').append(append);
         //        });
         //    }, 2000);
-        //}
+        //},
+        msgdata: function(e) {
+            var message = e.message;
+            var chatid = e.chatid;
+            if ($('li').hasClass('chat-id-'+chatid+'')) {
+                $('.chat-id-'+chatid+'').attr('data-message', ''+message+'');
+            }
+            if ($('li').hasClass('deleted-message')) {
+               // ?!
+            }
+        }
     };
     
     functions.mainmenu();
@@ -1168,6 +1177,7 @@ if (!run) {
             functions.afkmsg();
         }
 
+        Dubtrack.Events.bind('realtime:chat-message', functions.msgdata);
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
         Dubtrack.Events.bind('realtime:chat-message', functions.cmench);
         Dubtrack.Events.bind('realtime:chat-message', functions.commands);
