@@ -19,7 +19,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Hide Avatars';
-    var version = 'Version - 11.9.5';
+    var version = 'Version - 11.9.7';
     var username = Dubtrack.session.get('username');
     var options = {
         autovote: false,
@@ -164,7 +164,7 @@ if (!run) {
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
                             '<li onclick="functions.autocleardelmsg();" class="main_content_li main_content_feature autocleardelmsg">',
-                                '<p class="main_content_p">Hide Deleted Messages</p>',
+                                '<p class="main_content_p">Hide Deleted Message</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
                             //'<li onclick="functions.acm();" class="main_content_li main_content_feature acm">',
@@ -362,21 +362,33 @@ if (!run) {
             if (!options.cleardelmsg) {
                 functions.enable('.autocleardelmsg');
                 options.cleardelmsg = true;
-                functions.cleardelmsg();
+                Dubtrack.Events.bind('realtime:delete-chat-message', functions.cleardelmsg);
                 functions.storage('cleardelmsg', 'true');
             } else {
                 functions.disable('.autocleardelmsg');
                 functions.storage('cleardelmsg', 'false');
                 options.cleardelmsg = false;
-                $('.deleted-message').show();
+                Dubtrack.Events.unbind('realtime:delete-chat-message', functions.cleardelmsg);
             }
         },
         cleardelmsg: function() {
-            setInterval(function() {
-                if (options.cleardelmsg) {
-                    $('.deleted-message').hide();
-                }
-            }, 2000);
+            $('.deleted-message').hide();
+            $('.deleted').hide();
+        },
+        msgdata: function(e) {
+            var message = e.message;
+            var chatid = e.chatid;
+            if ($('li').hasClass('chat-id-'+chatid+'')) {
+                $('.chat-id-'+chatid+'').attr('data-message', ''+message+'');
+            }
+        },
+        msgdatadel: function(e) {
+            var chatid = e.chatid;
+            var deleter = e.user.username;
+            var username = $('.chat-id-'+chatid+'').find('.username').text().replace(" ", "");
+            var message = $('.chat-id-'+chatid+'').attr('data-message');
+            $('.chat-id-'+chatid+'').find('.deleted').remove();
+            $('.chat-id-'+chatid+'').find('.text').append('<a class="username">@'+username+'\'s message was deleted by @'+deleter+'</a><p class="deleted">'+message+'</p>');
         },
         cssconfirm: function() {
             var text = $('.input.css').val();
@@ -1087,7 +1099,7 @@ if (!run) {
                 options.hideavatars = false;
                 $('.hideavatars').remove();
             }
-        },
+        }
         //autocompleteuser: function() {
         //    setTimeout(function() {
         //        Dubtrack.room.users.collection.models.forEach(function(e) {
@@ -1105,16 +1117,6 @@ if (!run) {
         //        });
         //    }, 2000);
         //},
-        msgdata: function(e) {
-            var message = e.message;
-            var chatid = e.chatid;
-            if ($('li').hasClass('chat-id-'+chatid+'')) {
-                $('.chat-id-'+chatid+'').attr('data-message', ''+message+'');
-            }
-            if ($('li').hasClass('deleted-message')) {
-               // ?!
-            }
-        }
     };
     
     functions.mainmenu();
@@ -1176,7 +1178,8 @@ if (!run) {
         if (localStorage.getItem('afkmsg')) {
             functions.afkmsg();
         }
-
+        
+        Dubtrack.Events.bind('realtime:delete-chat-message', functions.msgdatadel);
         Dubtrack.Events.bind('realtime:chat-message', functions.msgdata);
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
         Dubtrack.Events.bind('realtime:chat-message', functions.cmench);
