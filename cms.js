@@ -50,7 +50,7 @@ if (!run) {
         autojoin: false,
         boothalert: false,
         hidebackground: false,
-        snooze: false,
+        snoozed: false,
         currentVol: null,
         hideavatars: false,
     };
@@ -114,9 +114,9 @@ if (!run) {
                     '<span>Welcome '+username+'!</span><br>',
                     '<span>CMS '+version+'</span><br>',
                     '<span>'+motd+'</span><br><br>',
-                    '<span>For Bugs and Suggestions Please Go To:</span><br>',
+                    '<span>PLEASE FILL OUT THIS FORM ABOUT THE CURRENT FUNCTIONS</span>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="'+gitroot+'"> Our Github </a>',
+                        '<a target="_blank" href="https://cms3.typeform.com/to/x4jIDC">Here</a>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
                     '</span><br><br><br>',
                 '</li>'
@@ -270,8 +270,10 @@ if (!run) {
                 }
             }, 5000);
             setTimeout(function() {
-                $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0.5rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.eta();" class="eta">ETA</span>');
-                $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.snooze();" class="snooze">SNOOZE</span>');
+                $('.player_sharing').append('<span class="icon-history eta_btn" onclick="functions.eta();" onmouseover="functions.eta_tooltip();" onmouseout="functions.hide_eta_tooltip();"></span>');
+                $('.player_sharing').append('<span class="icon-mute snooze_btn" onclick="functions.snooze();" onmouseover="functions.snooze_tooltip();" onmouseout="functions.hide_snooze_tooltip();"></span>');
+                // $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0.5rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.eta();" class="eta">ETA</span>');
+                // $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.snooze();" class="snooze">SNOOZE</span>');
                 $(dtapi).insertAfter('#main-menu-left .navigate.room-active-link');
                 $(ebtn).insertAfter('#main-menu-left .navigate.lobby-link');
                 $(btn).insertAfter('.player_header .room-info-display');
@@ -792,6 +794,12 @@ if (!run) {
                 functions.notification('info', 'ETA: You\'re not in the queue');
             }
         },
+        eta_tooltip: function() {
+            $('.snooze_btn').append('<div class="eta_tooltip" style="position: absolute;font: 1rem/1.5 proxima-nova,sans-serif;display: block;left: -33px;cursor: pointer;border-radius: 1.5rem;padding: 8px 16px;background: rgba(47,47,47,0.85);font-weight: 700;font-size: 13.6px;color: #fff;text-align: center;z-index: 9;">Show ETA</div>');
+        },
+        hide_eta_tooltip: function() {
+            $('.eta_tooltip').remove();
+        },
         whois: function(username) {
             $.ajax({
                 type: 'GET',
@@ -869,14 +877,21 @@ if (!run) {
             }
         },
         cmench: function(e) {
+            var username = e.user.username;
             var content = e.message.toLowerCase();
             var user = Dubtrack.session.id;
             var id = e.user.userInfo.userid;
             if (options.cmen) {
                 if (options.cmentoggle && user !== id && localStorage.getItem('cmen')) {
                     var customMentions = localStorage.getItem('cmen').toLowerCase().split(',');
-                    if(customMentions.some(function(f) { return content.indexOf(f.trim(' ')) >= 0; })) {
+                    if (customMentions.some(function(f) {return content.indexOf(f.trim(' ')) >= 0;})) {
                         Dubtrack.room.chat.mentionChatSound.play();
+                        customMentions.forEach(function(a) {
+                            var mention = a.trim();
+                            if (content.indexOf(mention) >= 0) {
+                                functions.addToChat('' + username + ' mentioned you -' + a);
+                            }
+                        });
                     }
                 }
             }
@@ -971,22 +986,28 @@ if (!run) {
             }
         },
         snooze: function() {
-            if (!options.snooze) {
+            if (!options.snoozed && Dubtrack.room.player.player_volume_level > 2) {
                 options.currentVol = Number(Dubtrack.room.player.player_volume_level);
                 Dubtrack.room.player.setVolume(0);
-                options.snooze = true;
+                options.snoozed = true;
                 functions.notification('info', 'Snooze enabled<br>Sound muted until next song');
-            } else if (options.snooze) {
+            } else if (options.snoozed) {
                 Dubtrack.room.player.setVolume(options.currentVol);
-                options.snooze = false;
+                options.snoozed = false;
                 functions.notification('info', 'Snooze disabled');
             }
         },
+        snooze_tooltip: function() {
+            $('.snooze_btn').append('<div class="snooze_tooltip" style="position: absolute;font: 1rem/1.5 proxima-nova,sans-serif;display: block;left: -33px;cursor: pointer;border-radius: 1.5rem;padding: 8px 16px;background: rgba(47,47,47,0.85);font-weight: 700;font-size: 13.6px;color: #fff;text-align: center;z-index: 9;">Mute current song</div>');
+        },
+        hide_snooze_tooltip: function() {
+            $('.snooze_tooltip').remove();
+        },
         songadvance: function(e) {
             if (e.startTime < 2) {
-                if (options.snooze) {
+                if (options.snoozed) {
                     Dubtrack.room.player.setVolume(options.currentVol);
-                    options.snooze = false;
+                    options.snoozed = false;
                 }
                 return true;
             }
