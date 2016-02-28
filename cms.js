@@ -19,7 +19,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Show Deleted Messages';
-    var version = 'Version - 11.9.8';
+    var version = 'Version - 11.9.7';
     var username = Dubtrack.session.get('username');
     var options = {
         autovote: false,
@@ -877,7 +877,9 @@ if (!run) {
             }
         },
         cmench: function(e) {
-            var username = e.user.username;
+            console.log(e);
+            var chatid = e.chatid;
+            var message = e.message;
             var content = e.message.toLowerCase();
             var user = Dubtrack.session.id;
             var id = e.user.userInfo.userid;
@@ -889,7 +891,15 @@ if (!run) {
                         customMentions.forEach(function(a) {
                             var mention = a.trim();
                             if (content.indexOf(mention) >= 0) {
-                                functions.addToChat('' + username + ' mentioned you -' + a);
+                                var newmsg = message.replace(''+a+'', '<span class="username-handle">'+a+'</span>');
+                                console.log(message);
+                                console.log(a);
+                                console.log(newmsg);
+                                console.log(chatid);
+                                var username = $('.chat-id-'+chatid+'').find('.meta-info').find('.username').text();
+                                console.log(username);
+                                $('.chat-id-'+chatid+'').find('.text').find('p').remove();
+                                $('.chat-id-'+chatid+'').find('.text').append('<p><a class="username">'+username+'</a>'+newmsg+'</p>');
                             }
                         });
                     }
