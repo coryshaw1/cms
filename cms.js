@@ -18,8 +18,8 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Show Deleted Messages';
-    var version = 'Version - 11.9.7';
+    var motd = 'Hide Deleted Messages';
+    var version = 'Version - 11.9.9';
     var username = Dubtrack.session.get('username');
     var options = {
         autovote: false,
