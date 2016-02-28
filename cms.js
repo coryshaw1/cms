@@ -877,7 +877,6 @@ if (!run) {
             }
         },
         cmench: function(e) {
-            console.log(e);
             var chatid = e.chatid;
             var message = e.message;
             var content = e.message.toLowerCase();
@@ -892,12 +891,7 @@ if (!run) {
                             var mention = a.trim();
                             if (content.indexOf(mention) >= 0) {
                                 var newmsg = message.replace(''+a+'', '<span class="username-handle">'+a+'</span>');
-                                console.log(message);
-                                console.log(a);
-                                console.log(newmsg);
-                                console.log(chatid);
                                 var username = $('.chat-id-'+chatid+'').find('.meta-info').find('.username').text();
-                                console.log(username);
                                 $('.chat-id-'+chatid+'').find('.text').find('p').remove();
                                 $('.chat-id-'+chatid+'').find('.text').append('<p><a class="username">'+username+'</a>'+newmsg+'</p>');
                             }
