@@ -263,7 +263,6 @@ if (!run) {
                 }
             }, 5000);
             setTimeout(function() {
-                $('head').append('<link rel="stylesheet" href="https://mitchdev.net/test.css">');
                 $('head').append('<script src="https://mitchdev.net/jquery.textcomplete.js"></script>');
                 $('.player_sharing').append('<span class="icon-history eta_btn" onclick="functions.eta();" onmouseover="functions.eta_tooltip();" onmouseout="functions.hide_eta_tooltip();"></span>');
                 $('.player_sharing').append('<span class="icon-mute snooze_btn" onclick="functions.snooze();" onmouseover="functions.snooze_tooltip();" onmouseout="functions.hide_snooze_tooltip();"></span>');
