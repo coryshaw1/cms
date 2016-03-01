@@ -117,6 +117,13 @@
 #main_player .player_header span {
     opacity: 1;
 }
+.snooze_btn:after {
+    content: '1';
+    vertical-align: top;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
 /* OTHER N' COLOURS */
 
 /* CMS CHAT */
@@ -283,4 +290,51 @@ ul.avatar-list li.user-mitch p.dubs:before {
 
 .snooze {
 	margin-right: 25px !important;
+}
+
+#textcomplete-dropdown-1,
+.dropdown-menu,
+.textcomplete-dropdown {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: block;
+    position: absolute;
+    bottom: 54px;
+    background-color: #1a1a1a;
+    opacity: 0.95;
+    width: 100%;
+    height: auto;
+    max-height: 337px;
+    padding: 0;
+    z-index: 5;
+    margin: 0;
+    border-bottom: 1px solid #878c8e;
+    border-top: 1px solid #878c8e;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    top: auto !important;
+    bottom: 56px !important;
+    left: auto !important;
+}
+.textcomplete-item {
+    padding: 5px;
+    display: flex;
+    border-bottom: 1px solid #878c8e;
+    align-items: center;
+}
+.textcomplete-item a {
+    margin: 7px;
+    margin-bottom: 0px;
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 13px;
+}
+.textcomplete-dropdown .active {
+    background-color: #4D4D4D;
+}
+.textcomplete-item a img {
+    width: 25px;
+    height: 25px;
+    margin-right: 40px;
 }
