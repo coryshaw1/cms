@@ -18,9 +18,8 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Hide Deleted Messages';
-    var version = 'Version - 11.9.9';
-    var username = Dubtrack.session.get('username');
+    var motd = 'Autocomple! The new autocomplete is out for cms be careful it\'s case sensitive!';
+    var version = 'Version - 11.10.00';
     var options = {
         autovote: false,
         randomvote: false,
@@ -53,6 +52,7 @@ if (!run) {
         snoozed: false,
         currentVol: null,
         hideavatars: false,
+        autocomplete: false,
     };
 
     var gitroot = 'https://chilloutmusica.github.io/cms';
@@ -111,12 +111,11 @@ if (!run) {
             ].join('');
             var welcome = [
                 '<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br>',
-                    '<span>Welcome '+username+'!</span><br>',
                     '<span>CMS '+version+'</span><br>',
                     '<span>'+motd+'</span><br><br>',
-                    '<span>PLEASE FILL OUT THIS FORM ABOUT THE CURRENT FUNCTIONS</span><br>',
+                    '<span>Tell us what functions you have enabled!</span><br>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="https://cms3.typeform.com/to/x4jIDC">Here</a>',
+                        '<a target="_blank" href="https://cms3.typeform.com/to/x4jIDC"> Here </a>',
                         '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
                     '</span><br><br><br>',
                 '</li>'
@@ -127,7 +126,7 @@ if (!run) {
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
-                        '<span class="main_content_version"><center>'+version+'<br>'+motd+'<br><br>/help - For help about cms!</center></span>',
+                        '<span class="main_content_version"><center>'+version+'<br>/help - For help about cms!</center></span>',
                     '</div>',
                     '<ul class="main_content_ul">',
                         '<ul>',
@@ -145,6 +144,10 @@ if (!run) {
                             '</li>',
                             '<li onclick="functions.aj();" class="main_content_li main_content_feature autojoin">',
                                 '<p class="main_content_p">Auto Join</p>',
+                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                            '</li>',
+                            '<li onclick="functions.autocomplete();" class="main_content_li main_content_feature autocomplete">',
+                                '<p class="main_content_p">Auto Complete</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
                             '<li onclick="functions.hideavatars();" class="main_content_li main_content_feature avatars">',
@@ -167,14 +170,6 @@ if (!run) {
                                 '<p class="main_content_p">Hide Deleted Message</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
-                            //'<li onclick="functions.acm();" class="main_content_li main_content_feature acm">',
-                            //    '<p class="main_content_p">Auto Complete Mentions</p>',
-                            //    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            //'</li>',
-                            //'<li onclick="functions.ace();" class="main_content_li main_content_feature ace">',
-                            //    '<p class="main_content_p">Auto Complete Emotes</p>',
-                            //    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            //'</li>',
                             '<li onclick="functions.hidebackground();" class="main_content_li main_content_feature hidebackground">',
                                 '<p class="main_content_p">Hide Background</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -259,8 +254,6 @@ if (!run) {
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
             ].join('');
-            var ac = '<div class="autocomplete" style="display: none;"></div>';
-            $('.pusher-chat-widget-input').append(ac);
             setTimeout(function() {
                 $('.chat-main').append(welcome);
                 $(settingbtn).insertAfter('.chat-option-buttons-sound');
@@ -270,6 +263,8 @@ if (!run) {
                 }
             }, 5000);
             setTimeout(function() {
+                $('head').append('<link rel="stylesheet" href="https://mitchdev.net/test.css">');
+                $('head').append('<script src="https://mitchdev.net/jquery.textcomplete.js"></script>');
                 $('.player_sharing').append('<span class="icon-history eta_btn" onclick="functions.eta();" onmouseover="functions.eta_tooltip();" onmouseout="functions.hide_eta_tooltip();"></span>');
                 $('.player_sharing').append('<span class="icon-mute snooze_btn" onclick="functions.snooze();" onmouseover="functions.snooze_tooltip();" onmouseout="functions.hide_snooze_tooltip();"></span>');
                 // $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0.5rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.eta();" class="eta">ETA</span>');
@@ -358,6 +353,19 @@ if (!run) {
         updategrablist: function(e) {
             if (e.startTime < 2) {
                 $('#user-grab').remove();
+            }
+        },
+        autocomplete: function() {
+            if (!options.autocomplete) {
+                functions.enable('.autocomplete');
+                options.autocomplete = true;
+                functions.storage('autocomplete', 'true');
+                functions.autocompleteue();
+            } else {
+                functions.disable('.autocomplete');
+                functions.storage('autocomplete', 'false');
+                options.autocomplete = false;
+                $('.textcomplete-dropdown').remove();
             }
         },
         autocleardelmsg: function() {
@@ -779,6 +787,9 @@ if (!run) {
             if (message.indexOf("/eta") >-1 && id === user) {
                 functions.eta();
             }
+            if (message.indexOf("/snooze") >-1 && id === user) {
+                functions.snooze();
+            }
         },
         eta: function() {
             var average = 4;
@@ -1063,12 +1074,6 @@ if (!run) {
                 });
             }
         },
-        //ace: function() {
-        //    functions.notification('error', 'This feature is currently unavailable');
-        //},
-        //acm: function() {
-        //    functions.notification('error', 'This feature is currently unavailable');
-        //},
         addToChat: function(e) {
             $('.chat-main').append('<li class="system"><div class="chatDelete" onclick="functions.chatdel(this)"><span class="icon-close"></span></div><div class="text">'+e+'</div></li>');
             
@@ -1124,24 +1129,129 @@ if (!run) {
                 options.hideavatars = false;
                 $('.hideavatars').remove();
             }
+        },
+        autocompleteue: function() {
+            if (options.autocomplete) {
+                var emo = ['-1','100','1234','8ball','a','ab','abc','abcd','accept','aerial_tramway','airplane','alarm_clock','alien','ambulance','anchor','angel',
+                'anger','angry','anguished','ant','apple','aquarius','aries','arrow_backward','arrow_double_down','arrow_double_up','arrow_down','arrow_down_small','arrow_forward',
+                'arrow_heading_down','arrow_heading_up','arrow_left','arrow_lower_left','arrow_lower_right','arrow_right','arrow_right_hook','arrow_up','arrow_up_down','arrow_up_small',
+                'arrow_upper_left','arrow_upper_right','arrows_clockwise','arrows_counterclockwise','art','articulated_lorry','astonished','atm','b','baby','baby_bottle','baby_chick',
+                'baby_symbol','back','baggage_claim','balloon','ballot_box_with_check','bamboo','banana','bangbang','bank','bar_chart','barber','baseball','basketball','bath',
+                'bathtub','battery','bear','bee','beer','beers','beetle','beginner','bell','bento','bicyclist','bike','bikini','bird','birthday','black_circle','black_joker',
+                'black_medium_small_square','black_medium_square','black_nib','black_small_square','black_square','black_square_button','blossom','blowfish','blue_book','blue_car',
+                'blue_heart','blush','boar','boat','bomb','book','bookmark','bookmark_tabs','books','boom','boot','bouquet','bow','bowling','bowtie','boy','bread','bride_with_veil',
+                'bridge_at_night','briefcase','broken_heart','bug','bulb','bullettrain_front','bullettrain_side','bus','busstop','bust_in_silhouette','busts_in_silhouette','cactus',
+                'cake','calendar','calling','camel','camera','cancer','candy','capital_abcd','capricorn','car','card_index','carousel_horse','cat','cat2','cd','chart',
+                'chart_with_downwards_trend','chart_with_upwards_trend','checkered_flag','cherries','cherry_blossom','chestnut','chicken','children_crossing','chocolate_bar',
+                'christmas_tree','church','cinema','circus_tent','city_sunrise','city_sunset','cl','clap','clapper','clipboard','clock1','clock10','clock1030','clock11',
+                'clock1130','clock12','clock1230','clock130','clock2','clock230','clock3','clock330','clock4','clock430','clock5','clock530','clock6','clock630','clock7',
+                'clock730','clock8','clock830','clock9','clock930','closed_book','closed_lock_with_key','closed_umbrella','cloud','clubs','cn','cocktail','coffee','cold_sweat',
+                'collision','computer','confetti_ball','confounded','confused','congratulations','construction','construction_worker','convenience_store','cookie','cool','cop',
+                'copyright','corn','couple','couple_with_heart','couplekiss','cow','cow2','credit_card','crocodile','crossed_flags','crown','cry','crying_cat_face','crystal_ball',
+                'cupid','curly_loop','currency_exchange','curry','custard','customs','cyclone','dancer','dancers','dango','dart','dash','date','de','deciduous_tree','department_store',
+                'diamond_shape_with_a_dot_inside','diamonds','disappointed','disappointed_relieved','dizzy','dizzy_face','do_not_litter','dog','dog2','dollar','dolls','dolphin','donut',
+                'door','doughnut','dragon','dragon_face','dress','dromedary_camel','droplet','dvd','e-mail','ear','ear_of_rice','earth_africa','earth_americas','earth_asia','egg',
+                'eggplant','eight','eight_pointed_black_star','eight_spoked_asterisk','electric_plug','elephant','email','end','envelope','es','euro','european_castle',
+                'european_post_office','evergreen_tree','exclamation','expressionless','eyeglasses','eyes','facepunch','factory','fallen_leaf','family','fast_forward','fax','fearful',
+                'feelsgood','feet','ferris_wheel','file_folder','finnadie','fire','fire_engine','fireworks','first_quarter_moon','first_quarter_moon_with_face','fish','fish_cake',
+                'fishing_pole_and_fish','fist','five','flags','flashlight','floppy_disk','flower_playing_cards','flushed','foggy','football','fork_and_knife','fountain','four',
+                'four_leaf_clover','fr','free','fried_shrimp','fries','frog','frowning','fu','fuelpump','full_moon','full_moon_with_face','game_die','gb','gem','gemini','ghost',
+                'gift','gift_heart','girl','globe_with_meridians','goat','goberserk','godmode','golf','grapes','green_apple','green_book','green_heart','grey_exclamation','grey_question',
+                'grimacing','grin','grinning','guardsman','guitar','gun','haircut','hamburger','hammer','hamster','hand','handbag','hankey','hash','hatched_chick','hatching_chick',
+                'headphones','hear_no_evil','heart','heart_decoration','heart_eyes','heart_eyes_cat','heartbeat','heartpulse','hearts','heavy_check_mark','heavy_division_sign',
+                'heavy_dollar_sign','heavy_exclamation_mark','heavy_minus_sign','heavy_multiplication_x','heavy_plus_sign','helicopter','herb','hibiscus','high_brightness','high_heel',
+                'hocho','honey_pot','honeybee','horse','horse_racing','hospital','hotel','hotsprings','hourglass','hourglass_flowing_sand','house','house_with_garden','hurtrealbad',
+                'hushed','ice_cream','icecream','id','ideograph_advantage','imp','inbox_tray','incoming_envelope','information_desk_person','information_source','innocent','interrobang',
+                'iphone','it','izakaya_lantern','jack_o_lantern','japan','japanese_castle','japanese_goblin','japanese_ogre','jeans','joy','joy_cat','jp','key','keycap_ten','kimono',
+                'kiss','kissing','kissing_cat','kissing_closed_eyes','kissing_face','kissing_heart','kissing_smiling_eyes','koala','koko','kr','large_blue_circle','large_blue_diamond',
+                'large_orange_diamond','last_quarter_moon','last_quarter_moon_with_face','laughing','leaves','ledger','left_luggage','left_right_arrow','leftwards_arrow_with_hook','lemon',
+                'leo','leopard','libra','light_rail','link','lips','lipstick','lock','lock_with_ink_pen','lollipop','loop','loudspeaker','love_hotel','love_letter','low_brightness',
+                'm','mag','mag_right','mahjong','mailbox','mailbox_closed','mailbox_with_mail','mailbox_with_no_mail','man','man_with_gua_pi_mao','man_with_turban','mans_shoe','maple_leaf',
+                'mask','massage','meat_on_bone','mega','melon','memo','mens','metal','metro','microphone','microscope','milky_way','minibus','minidisc','mobile_phone_off',
+                'money_with_wings','moneybag','monkey','monkey_face','monorail','moon','mortar_board','mount_fuji','mountain_bicyclist','mountain_cableway','mountain_railway',
+                'mouse','mouse2','movie_camera','moyai','muscle','mushroom','musical_keyboard','musical_note','musical_score','mute','nail_care','name_badge','neckbeard','necktie',
+                'negative_squared_cross_mark','neutral_face','new','new_moon','new_moon_with_face','newspaper','ng','nine','no_bell','no_bicycles','no_entry','no_entry_sign','no_good',
+                'no_mobile_phones','no_mouth','no_pedestrians','no_smoking','non-potable_water','nose','notebook','notebook_with_decorative_cover','notes','nut_and_bolt','o','o2','ocean',
+                'octocat','octopus','oden','office','ok','ok_hand','ok_woman','older_man','older_woman','on','oncoming_automobile','oncoming_bus','oncoming_police_car','oncoming_taxi',
+                'one','open_file_folder','open_hands','open_mouth','ophiuchus','orange_book','outbox_tray','ox','package','page_facing_up','page_with_curl','pager','palm_tree',
+                'panda_face','paperclip','parking','part_alternation_mark','partly_sunny','passport_control','paw_prints','peach','pear','pencil','pencil2','penguin','pensive',
+                'performing_arts','persevere','person_frowning','person_with_blond_hair','person_with_pouting_face','phone','pig','pig2','pig_nose','pill','pineapple','pisces','pizza',
+                'plus1','point_down','point_left','point_right','point_up','point_up_2','police_car','poodle','poop','post_office','postal_horn','postbox','potable_water','pouch',
+                'poultry_leg','pound','pouting_cat','pray','princess','punch','purple_heart','purse','pushpin','put_litter_in_its_place','question','rabbit','rabbit2','racehorse',
+                'radio','radio_button','rage','rage1','rage2','rage3','rage4','railway_car','rainbow','raised_hand','raised_hands','raising_hand','ram','ramen','rat','recycle',
+                'red_car','red_circle','registered','relaxed','relieved','repeat','repeat_one','restroom','revolving_hearts','rewind','ribbon','rice','rice_ball','rice_cracker',
+                'rice_scene','ring','rocket','roller_coaster','rooster','rose','rotating_light','round_pushpin','rowboat','ru','rugby_football','runner','running','running_shirt_with_sash',
+                'sa','sagittarius','sailboat','sake','sandal','santa','satellite','satisfied','saxophone','school','school_satchel','scissors','scorpius','scream','scream_cat','scroll',
+                'seat','secret','see_no_evil','seedling','seven','shaved_ice','sheep','shell','ship','shipit','shirt','shit','shoe','shower','signal_strength','six','six_pointed_star',
+                'ski','skull','sleeping','sleepy','slot_machine','small_blue_diamond','small_orange_diamond','small_red_triangle','small_red_triangle_down','smile','smile_cat','smiley',
+                'smiley_cat','smiling_imp','smirk','smirk_cat','smoking','snail','snake','snowboarder','snowflake','snowman','sob','soccer','soon','sos','sound','space_invader','spades',
+                'spaghetti','sparkle','sparkler','sparkles','sparkling_heart','speak_no_evil','speaker','speech_balloon','speedboat','squirrel','star','star2','stars','station',
+                'statue_of_liberty','steam_locomotive','stew','straight_ruler','strawberry','stuck_out_tongue','stuck_out_tongue_closed_eyes','stuck_out_tongue_winking_eye','sun_with_face',
+                'sunflower','sunglasses','sunny','sunrise','sunrise_over_mountains','surfer','sushi','suspect','suspension_railway','sweat','sweat_drops','sweat_smile','sweet_potato',
+                'swimmer','symbols','syringe','tada','tanabata_tree','tangerine','taurus','taxi','tea','telephone','telephone_receiver','telescope','tennis','tent','thought_balloon',
+                'three','thumbsdown','thumbsup','ticket','tiger','tiger2','tired_face','tm','toilet','tokyo_tower','tomato','tongue','top','tophat','tractor','traffic_light','train',
+                'train2','tram','triangular_flag_on_post','triangular_ruler','trident','triumph','trolleybus','trollface','trophy','tropical_drink','tropical_fish','truck','trumpet',
+                'tshirt','tulip','turtle','tv','twisted_rightwards_arrows','two','two_hearts','two_men_holding_hands','two_women_holding_hands','u5272','u5408','u55b6','u6307','u6708',
+                'u6709','u6e80','u7121','u7533','u7981','u7a7a','uk','umbrella','unamused','underage','unlock','up','us','v','vertical_traffic_light','vhs','vibration_mode',
+                'video_camera','video_game','violin','virgo','volcano','vs','walking','waning_crescent_moon','waning_gibbous_moon','warning','watch','water_buffalo','watermelon',
+                'wave','wavy_dash','waxing_crescent_moon','waxing_gibbous_moon','wc','weary','wedding','whale','whale2','wheelchair','white_check_mark','white_circle','white_flower',
+                'white_large_square','white_medium_small_square','white_medium_square','white_small_square','white_square','white_square_button','wind_chime','wine_glass','wink','wink2',
+                'wolf','woman','womans_clothes','womans_hat','womens','worried','wrench','x','yellow_heart','yen','yum','zap','zero','zzz'];
+                var men = [];
+                Dubtrack.room.users.collection.models.forEach(function(e) {
+                       men.push(''+e.attributes._user.username+'');
+                });
+                $('#chat-txt-message').textcomplete([
+                    {
+                        mentions: men,
+                        match: /\B@(\w*)$/,
+                        search: function (term, callback) {
+                            callback($.map(this.mentions, function (mention) {
+                                return mention.indexOf(term) === 0 ? mention : null;
+                            }));
+                        },
+                        index: 1,
+                        template: function (value) {
+                            var id = undefined;
+                            Dubtrack.cache.users.getByUsername(''+value+'', function(err, user) {
+                                if (err) {
+                                    console.log("user not found");
+                                } else {
+                                    id = user.id;
+                                }
+                            });
+                            return '<img src="https://api.dubtrack.fm/user/' + id + '/image"></img>' + value;
+                        },
+                        replace: function (mention) {
+                            return '@' + mention + ' ';
+                        }
+                    },
+                    {
+                        emojies: emo,
+                        match: /\B:([\-+\w]*)$/,
+                        search: function (term, callback) {
+                            callback($.map(this.emojies, function (emoji) {
+                                return emoji.indexOf(term) === 0 ? emoji : null;
+                            }));
+                        },
+                        index: 1,
+                        template: function (value) {
+                            return '<img src="https://cdn.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>' + value;
+                        },
+                        replace: function (value) {
+                            return ':' + value + ': ';
+                        }
+                    },
+                ]);
+                setInterval(function() {
+                    if( $(".textcomplete-dropdown").css('display') == 'block') {
+                        $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
+                    } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
+                        $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
+                    }
+                }, 500);   
+            }
         }
-        //autocompleteuser: function() {
-        //    setTimeout(function() {
-        //        Dubtrack.room.users.collection.models.forEach(function(e) {
-        //            var user = e.attributes._user.username;
-        //            var id = e.attributes._user._id;
-        //            var append = [
-        //                '<div class="autocompleteuser">',
-        //                    '<div class="autocompleteuser-image">',
-        //                        '<img src="https://api.dubtrack.fm/user/'+id+'/image">',
-        //                    '</div>',
-        //                    '<span class="autocompleteuser-name" id="'+user.toLowerCase()+'">@'+user.toLowerCase()+'</span>',
-        //                '</div>'
-        //            ].join('');
-        //            $('.autocomplete').append(append);
-        //        });
-        //    }, 2000);
-        //},
     };
     
     functions.mainmenu();
@@ -1151,6 +1261,9 @@ if (!run) {
         }
         if (localStorage.getItem('autoclearchat') === 'true') {
             functions.autoclearchat();
+        }
+        if (localStorage.getItem('autocomplete') === 'true') {
+            functions.autocomplete();
         }
         if (localStorage.getItem('autojoin') === 'true') {
             functions.aj();
@@ -1223,7 +1336,6 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
-        //functions.autocompleteuser();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
@@ -1231,7 +1343,6 @@ if (!run) {
         functions.updatebg();
         functions.updateafkmsg();
         functions.updatecss();
-        functions.notification('success', 'CMS loaded successfully.<br>'+version+'<br>Welcome '+Dubtrack.session.get('username')+'');
     }, 6000);
 } else {
     functions.notification('error', 'Sorry '+Dubtrack.session.get('username')+'<br>CMS is already running');
