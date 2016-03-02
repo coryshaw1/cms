@@ -1,0 +1,3 @@
+#chat .chat-container .chat-messages .chat-main li .meta-info .timeinfo {
+  display: block;
+}
