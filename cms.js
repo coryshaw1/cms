@@ -1258,11 +1258,9 @@ if (!run) {
             }
         },
         chatwidth: function() {
-            setInterval(function(){
-                $('.chat-main li').css('width', 'auto');
-                var width = $(".chat-main li").width() + 23;
-                $('.chat-main li').css('width', ''+width+'px');  
-            }, 200); 
+            $('.chat-main li').css('width', 'auto');
+            var width = $(".chat-main li").width() + 23;
+            $('.chat-main li').css('width', ''+width+'px');
         },
         notifyonmention: function(e){
             if (options.notifionmention) {
