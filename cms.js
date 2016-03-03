@@ -19,7 +19,7 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Splitchat, Show Timestamps, Notification On Mention, Autocomplete';
+    var motd = 'Autocomple! The new autocomplete is out for cms be careful it\'s case sensitive!';
     var version = 'Version - 11.10.01';
     var options = {
         autovote: false,
