@@ -1387,6 +1387,7 @@ if (!run) {
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
         Dubtrack.Events.bind('realtime:chat-message', functions.cmench);
         Dubtrack.Events.bind('realtime:chat-message', functions.commands);
+        Dubtrack.Events.bind('realtime:chat-message', functions.chatwidth);
         Dubtrack.Events.bind('realtime:user-mute', functions.Muted);
         Dubtrack.Events.bind('realtime:user-unmute', functions.Unmuted);
         Dubtrack.Events.bind('realtime:room_playlist-update', functions.boothalert);
@@ -1401,7 +1402,6 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
-        functions.chatwidth();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
