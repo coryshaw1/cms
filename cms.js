@@ -19,8 +19,10 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Autocomple! The new autocomplete is out for cms be careful it\'s case sensitive!';
-    var version = 'Version - 11.10.01';
+    var motd = 'Bug fixes and Warn On Navigation';
+    var version = 'Version - 11.10.02';
+    var emo = [];
+    var men = [];
     var options = {
         autovote: false,
         randomvote: false,
@@ -57,6 +59,7 @@ if (!run) {
         showtimestamp: false,
         splitchat: false,
         notifionmention: false,
+        alertonnav: false,
     };
 
     var gitroot = 'https://chilloutmusica.github.io/cms';
@@ -160,6 +163,10 @@ if (!run) {
                             '</li>',
                             '<li onclick="functions.showtimestamp();" class="main_content_li main_content_feature showtimestamp">',
                                 '<p class="main_content_p">Show Time Stamps</p>',
+                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                            '</li>',
+                            '<li onclick="functions.alertonnav();" class="main_content_li main_content_feature alertonnav">',
+                                '<p class="main_content_p">Warn On Navigation</p>',
                                 '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                             '</li>',
                             '<li onclick="functions.notifionmention();" class="main_content_li main_content_feature notifionmention">',
@@ -371,17 +378,37 @@ if (!run) {
                 $('#user-grab').remove();
             }
         },
+        alertonnav: function() {
+            if (!options.alertonnav) {
+                functions.enable('.alertonnav');
+                options.alertonnav = true;
+                functions.storage('alertonnav', 'true');
+                functions.alertonnavigation();
+            } else {
+                functions.disable('.alertonnav');
+                functions.storage('alertonnav', 'false');
+                options.alertonnav = false;
+            }
+        },
+        alertonnavigation: function() {
+            window.onbeforeunload = function() {
+                if (options.alertonnav) {
+                    return "CMS WARN ON NAVIGATION";
+                }
+            };
+        },
         autocomplete: function() {
             if (!options.autocomplete) {
                 functions.enable('.autocomplete');
-                options.autocomplete = true;
                 functions.storage('autocomplete', 'true');
+                options.autocomplete = true;
                 functions.autocompleteue();
+                $('.textcomplete-dropdown').removeClass('disabled');
             } else {
                 functions.disable('.autocomplete');
                 functions.storage('autocomplete', 'false');
                 options.autocomplete = false;
-                $('.textcomplete-dropdown').remove();
+                $('.textcomplete-dropdown').addClass('disabled');
             }
         },
         splitchat: function() {
@@ -952,9 +979,9 @@ if (!run) {
                     if (customMentions.some(function(f) {return content.indexOf(f.trim(' ')) >= 0;})) {
                         Dubtrack.room.chat.mentionChatSound.play();
                         customMentions.forEach(function(a) {
-                            var mention = a.trim();
-                            if (content.indexOf(mention) >= 0) {
-                                var newmsg = message.replace(''+a+'', '<span class="username-handle">'+a+'</span>');
+                            var b = $.trim(''+a+'');
+                            if (content.indexOf(b)) {
+                                var newmsg = message.replace(''+b+'', '<span class="username-handle">'+b+'</span>');
                                 var username = $('.chat-id-'+chatid+'').find('.meta-info').find('.username').text();
                                 $('.chat-id-'+chatid+'').find('.text').find('p').remove();
                                 $('.chat-id-'+chatid+'').find('.text').append('<p><a class="username">'+username+'</a>'+newmsg+'</p>');
@@ -1183,28 +1210,23 @@ if (!run) {
                 $('.hideavatars').remove();
             }
         },
+        updateuserarray: function(e) {
+            var user = e.user.username;
+            if (e.type === "user-join") {
+                men.push(''+user+'');
+            } else {
+                men.splice($.inArray(''+user+'', men), 1);
+            }
+        },
         autocompleteue: function() {
             if (options.autocomplete) {
-                var emo = [];
                 var emoarray = localStorage.getItem('emoarray').toLowerCase().split(',');
                 emoarray.forEach(function(e) {
                     emo.push(''+e+'');
                 });
-                var men = [];
                 Dubtrack.room.users.collection.models.forEach(function(e) {
-                       men.push(''+e.attributes._user.username+'');
-                });
-                Dubtrack.Events.bind("realtime:user-ban", function(e) {
-                    men.push(''+e.user.username+'');
-                });
-                Dubtrack.Events.bind("realtime:user-join", function(e) {
-                    men.push(''+e.user.username+'');
-                });
-                Dubtrack.Events.bind("realtime:user-kick", function(e) {
-                    men.push(''+e.user.username+'');
-                });
-                Dubtrack.Events.bind("realtime:user-leave", function(e) {
-                    men.push(''+e.user.username+'');
+                    var user = e.attributes._user.username;
+                    men.push(''+user+'');
                 });
                 $('#chat-txt-message').textcomplete([
                     {
@@ -1312,6 +1334,9 @@ if (!run) {
         if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
             $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
         }
+        if (localStorage.getItem('alertonnav') === 'true') {
+            functions.alertonnav();
+        }
         if (localStorage.getItem('showtimestamp') === 'true') {
             functions.showtimestamp();
         }
@@ -1379,6 +1404,10 @@ if (!run) {
             functions.afkmsg();
         }
         
+        Dubtrack.Events.bind("realtime:user-ban", functions.updateuserarray);
+        Dubtrack.Events.bind("realtime:user-join", functions.updateuserarray);
+        Dubtrack.Events.bind("realtime:user-kick", functions.updateuserarray);
+        Dubtrack.Events.bind("realtime:user-leave", functions.updateuserarray);
         Dubtrack.Events.bind('realtime:delete-chat-message', functions.msgdatadel);
         Dubtrack.Events.bind('realtime:chat-message', functions.notifyonmention);
         Dubtrack.Events.bind('realtime:chat-message', functions.msgdata);
@@ -1400,6 +1429,7 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
+        functions.chatwidth();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
