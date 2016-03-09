@@ -19,10 +19,16 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Bug fixes and Warn On Navigation';
-    var version = 'Version - 11.10.02';
+    var motd = 'New Menu!';
+    var version = 'Version - 11.10.03';
     var emo = [];
     var men = [];
+    var menu = {
+        main: false,
+        visibility: false,
+        notification: false,
+        customization: false,
+    };
     var options = {
         autovote: false,
         randomvote: false,
@@ -137,136 +143,122 @@ if (!run) {
                     '</div>',
                     '<ul class="main_content_ul">',
                         '<ul>',
-                            '<li onclick="functions.autovote();" class="main_content_li main_content_feature autovote">',
-                                '<p class="main_content_p">Autovote</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.randomvote();" class="main_content_li main_content_feature randomvote">',
-                                '<p class="main_content_p">Random Autovote</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.boothal();" class="main_content_li main_content_feature boothalert">',
-                                '<p class="main_content_p">Booth Alert</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.aj();" class="main_content_li main_content_feature autojoin">',
-                                '<p class="main_content_p">Auto Join</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.autocomplete();" class="main_content_li main_content_feature autocomplete">',
-                                '<p class="main_content_p">Auto Complete</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.splitchat();" class="main_content_li main_content_feature splitchat">',
-                                '<p class="main_content_p">Split Chat</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.showtimestamp();" class="main_content_li main_content_feature showtimestamp">',
-                                '<p class="main_content_p">Show Time Stamps</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.alertonnav();" class="main_content_li main_content_feature alertonnav">',
-                                '<p class="main_content_p">Warn On Navigation</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.notifionmention();" class="main_content_li main_content_feature notifionmention">',
-                                '<p class="main_content_p">Notification On Mention</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.hideavatars();" class="main_content_li main_content_feature avatars">',
-                                '<p class="main_content_p">Hide Avatars</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.autoclearchat();" class="main_content_li main_content_feature clearchat">',
-                                '<p class="main_content_p">Auto Clear Chat</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.workmode();" class="main_content_li main_content_feature workmode">',
-                                '<p class="main_content_p">Work Mode</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.chatmode();" class="main_content_li main_content_feature chatmode">',
-                                '<p class="main_content_p">Chat Mode</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.autocleardelmsg();" class="main_content_li main_content_feature autocleardelmsg">',
-                                '<p class="main_content_p">Hide Deleted Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.hidebackground();" class="main_content_li main_content_feature hidebackground">',
-                                '<p class="main_content_p">Hide Background</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.roomcss();" class="main_content_li main_content_feature roomcss">',
-                                '<p class="main_content_p">Community Theme</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.userjoin();" class="main_content_li main_content_feature userjoin">',
-                                '<p class="main_content_p">Join Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.userleave();" class="main_content_li main_content_feature userleave">',
-                                '<p class="main_content_p">Leave Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.usergrab();" class="main_content_li main_content_feature usergrab">',
-                                '<p class="main_content_p">Grab Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.userudub();" class="main_content_li main_content_feature userudub">',
-                                '<p class="main_content_p">Updub Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
-                            '</li>',
-                            '<li onclick="functions.afkmsg();" class="main_content_li main_content_feature afkmsg">',
-                                '<p class="main_content_p">Custom AFK Message</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
-                            '</li>',
-                            '<div class="INPUT AFKMSG">',
-                                '<li>',
-                                    '<textarea class="input afk" placeholder="I am currently AFK at the moment."></textarea>',
-                                    '<center class="edit">',
-                                        '<span class="CMSconfirm" onclick="functions.afkmsgc();" style="float: left;">Confirm</span>',
-                                        '<li class="afktoggle"><p onclick="functions.afktoggle();" class="main_content_off edt"><span class="CMSdisabled">Disabled</span></p></li>',
-                                    '</center>',
+                            '<p class="cms-menu-list" onclick="functions.md_main();" align="center">Main</p>',
+                            '<ul class="cms-menu-dropdown main" style="display: none;">',
+                                '<li onclick="functions.autovote();" class="main_content_li main_content_feature autovote">',
+                                    '<p class="main_content_p">Autovote</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                                 '</li>',
-                                '<br>',
-                            '</div>',
-                            '<li onclick="functions.cmen();" class="main_content_li main_content_feature cmen">',
-                                '<p class="main_content_p">Custom Mentions</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
-                            '</li>',
-                            '<div class="INPUT CMEN">',
-                                '<li>',
-                                    '<textarea class="input cmen" placeholder="separate, keywords, by, commas"></textarea>',
-                                    '<center class="edit">',
-                                        '<span class="CMSconfirm" onclick="functions.cmenc();" style="float: left;">Confirm</span>',
-                                        '<li class="cmentoggle"><p onclick="functions.cmentoggle();" class="main_content_off edt"><span class="CMSdisabled">Disabled</span></p></li>',
-                                    '</center>',
+                                '<li onclick="functions.randomvote();" class="main_content_li main_content_feature randomvote">',
+                                    '<p class="main_content_p">Random Autovote</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                                 '</li>',
-                                '<br>',
-                            '</div>',
-                            '<li onclick="functions.bginput();" class="main_content_li main_content_feature backgroudme">',
-                                '<p class="main_content_p">Custom Background</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
-                            '</li>',
-                            '<div class="INPUT BG">',
-                                '<li>',
-                                    '<textarea class="input bg" placeholder="https://example.com/example.jpg"></textarea>',
-                                    '<center><span class="CMSconfirm" onclick="functions.bgconfirm();">Confirm</span></center>',
+                                '<li onclick="functions.aj();" class="main_content_li main_content_feature autojoin">',
+                                    '<p class="main_content_p">Auto Join</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                                 '</li>',
-                                '<br>',
-                            '</div>',
-                            '<li onclick="functions.cssinput();" class="main_content_li main_content_feature mycss">',
-                                '<p class="main_content_p">Custom CSS</p>',
-                                '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
-                            '</li>',
-                            '<div class="INPUT CSS">',
-                                '<li>',
-                                    '<textarea class="input css" placeholder="https://example.com/example.css"></textarea>',
-                                    '<center><span class="CMSconfirm" onclick="functions.cssconfirm();">Confirm</span></center>',
+                                '<li onclick="functions.autocomplete();" class="main_content_li main_content_feature autocomplete">',
+                                    '<p class="main_content_p">Auto Complete</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                                 '</li>',
-                                '<br>',
-                            '</div>',
+                                '<li onclick="functions.autoclearchat();" class="main_content_li main_content_feature clearchat">',
+                                    '<p class="main_content_p">Auto Clear Chat</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.workmode();" class="main_content_li main_content_feature workmode">',
+                                    '<p class="main_content_p">Work Mode</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.chatmode();" class="main_content_li main_content_feature chatmode">',
+                                    '<p class="main_content_p">Chat Mode</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.autocleardelmsg();" class="main_content_li main_content_feature autocleardelmsg">',
+                                    '<p class="main_content_p">Hide Deleted Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                            '</ul>',
+                            '<p class="cms-menu-list" onclick="functions.md_visibility();" align="center">Visibility</p>',
+                            '<ul class="cms-menu-dropdown visibility" style="display: none;">',
+                                '<li onclick="functions.splitchat();" class="main_content_li main_content_feature splitchat">',
+                                    '<p class="main_content_p">Split Chat</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.showtimestamp();" class="main_content_li main_content_feature showtimestamp">',
+                                    '<p class="main_content_p">Show Time Stamps</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.hideavatars();" class="main_content_li main_content_feature avatars">',
+                                    '<p class="main_content_p">Hide Avatars</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.hidebackground();" class="main_content_li main_content_feature hidebackground">',
+                                    '<p class="main_content_p">Hide Background</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                            '</ul>',
+                            '<p class="cms-menu-list" onclick="functions.md_notification();" align="center">Notifications</p>',
+                            '<ul class="cms-menu-dropdown notification" style="display: none;">',
+                                '<li onclick="functions.boothal();" class="main_content_li main_content_feature boothalert">',
+                                    '<p class="main_content_p">Booth Alert</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.alertonnav();" class="main_content_li main_content_feature alertonnav">',
+                                    '<p class="main_content_p">Warn On Navigation</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.notifionmention();" class="main_content_li main_content_feature notifionmention">',
+                                    '<p class="main_content_p">Notification On Mention</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.userjoin();" class="main_content_li main_content_feature userjoin">',
+                                    '<p class="main_content_p">Join Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.userleave();" class="main_content_li main_content_feature userleave">',
+                                    '<p class="main_content_p">Leave Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.usergrab();" class="main_content_li main_content_feature usergrab">',
+                                    '<p class="main_content_p">Grab Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.userudub();" class="main_content_li main_content_feature userudub">',
+                                    '<p class="main_content_p">Updub Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                            '</ul>',
+                            '<p class="cms-menu-list" onclick="functions.md_customization();" align="center">Customization</p>',
+                            '<ul class="cms-menu-dropdown customization" style="display: none;">',
+                                '<li onclick="functions.afkmsg();" class="main_content_li main_content_feature">',
+                                    '<p class="main_content_p">Custom AFK Message</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
+                                '</li>',
+                                '<li style="border-bottom: 2px solid #878c8e;" onclick="functions.afktoggle();" class="main_content_li main_content_feature afktoggle">',
+                                    '<p class="main_content_p" style="margin-bottom: 5px;">&nbsp;</p>',
+                                    '<p class="main_content_off edt"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.cmen();" class="main_content_li main_content_feature" style="padding-top: 5px;">',
+                                    '<p class="main_content_p">Custom Mentions</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
+                                '</li>',
+                                '<li style="margin-bottom: 5px;border-bottom: 2px solid #878c8e;" onclick="functions.cmentoggle();" class="main_content_li main_content_feature cmentoggle">',
+                                    '<p class="main_content_p" style="margin-bottom: 5px;">&nbsp;</p>',
+                                    '<p class="main_content_off edt"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                                '<li onclick="functions.bginput();" class="main_content_li main_content_feature backgroudme">',
+                                    '<p class="main_content_p">Custom Background</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
+                                '</li>',
+                                '<li onclick="functions.cssinput();" class="main_content_li main_content_feature mycss">',
+                                    '<p class="main_content_p">Custom CSS</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Edit</span></p>',
+                                '</li>',
+                                '<li onclick="functions.roomcss();" class="main_content_li main_content_feature roomcss">',
+                                    '<p class="main_content_p">Community Theme</p>',
+                                    '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                                '</li>',
+                            '</ul>',
                         '</ul>',
                     '</ul>',
                 '</div>'
@@ -277,6 +269,82 @@ if (!run) {
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
             ].join('');
+            var afkmsg = [
+            '<div id="rs-dialog-container" class="INPUT AFKMSG is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">Custom Afk Message</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input afk" style="width: 450px;margin-left: 15px;" placeholder="I am currently AFK at the moment."></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;">',
+                        '<div onclick="functions.afkmsgc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            ].join('');
+            var custommention = [
+            '<div id="rs-dialog-container" class="INPUT CMEN is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">Custom Mentions</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input cmen" style="width: 450px;margin-left: 15px;" placeholder="separate, keywords, by, commas"></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;">',
+                        '<div onclick="functions.cmenc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            ].join('');
+            var custombg = [
+            '<div id="rs-dialog-container" class="INPUT BG is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">Custom Background</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input bg" style="width: 450px;margin-left: 15px;" placeholder="https://example.com/example.jpg"></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;">',
+                        '<div onclick="functions.bgconfirm();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            ].join('');
+            var customcss = [
+            '<div id="rs-dialog-container" class="INPUT CSS is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">Custom Css</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input css" style="width: 450px;margin-left: 15px;" placeholder="https://example.com/example.css"></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;">',
+                        '<div onclick="functions.cssconfirm();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            ].join('');
             setTimeout(function() {
                 $('.chat-main').append(welcome);
                 $(settingbtn).insertAfter('.chat-option-buttons-sound');
@@ -286,12 +354,14 @@ if (!run) {
                 }
             }, 5000);
             setTimeout(function() {
+                $('body').append(afkmsg);
+                $('body').append(custommention);
+                $('body').append(custombg);
+                $('body').append(customcss);
                 $('head').append('<script src="https://mitchdev.net/emoarray.js"></script>');
                 $('head').append('<script src="https://mitchdev.net/jquery.textcomplete.js"></script>');
                 $('.player_sharing').append('<span class="icon-history eta_btn" onclick="functions.eta();" onmouseover="functions.eta_tooltip();" onmouseout="functions.hide_eta_tooltip();"></span>');
                 $('.player_sharing').append('<span class="icon-mute snooze_btn" onclick="functions.snooze();" onmouseover="functions.snooze_tooltip();" onmouseout="functions.hide_snooze_tooltip();"></span>');
-                // $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0.5rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.eta();" class="eta">ETA</span>');
-                // $('.player_sharing').append('<span style="display: inline-block;font-size: 1.4rem;top: -.2rem;position: relative;margin-right: 0rem;color: #878c8e;text-transform: uppercase;font-weight: 700;" onclick="functions.snooze();" class="snooze">SNOOZE</span>');
                 $(dtapi).insertAfter('#main-menu-left .navigate.room-active-link');
                 $(ebtn).insertAfter('#main-menu-left .navigate.lobby-link');
                 $(btn).insertAfter('.player_header .room-info-display');
@@ -302,6 +372,50 @@ if (!run) {
                     $('.INPUT').hide();
                 }, 6000);
             }, 1000);
+        },
+        md_main: function() {
+            if (!menu.main) {
+                $('.cms-menu-dropdown.main').slideToggle('slow');
+                functions.storage('menu_main', 'true');
+                menu.main = true;
+            } else {
+                $('.cms-menu-dropdown.main').slideToggle('slow');
+                functions.storage('menu_main', 'false');
+                menu.main = false;
+            }
+        },
+        md_visibility: function() {
+            if (!menu.visibility) {
+                $('.cms-menu-dropdown.visibility').slideToggle('slow');
+                functions.storage('menu_visibility', 'true');
+                menu.visibility = true;
+            } else {
+                $('.cms-menu-dropdown.visibility').slideToggle('slow');
+                functions.storage('menu_visibility', 'false');
+                menu.visibility = false;
+            }
+        },
+        md_notification: function() {
+            if (!menu.notification) {
+                $('.cms-menu-dropdown.notification').slideToggle('slow');
+                functions.storage('menu_notification', 'true');
+                menu.notification = true;
+            } else {
+                $('.cms-menu-dropdown.notification').slideToggle('slow');
+                functions.storage('menu_notification', 'false');
+                menu.notification = false;
+            }
+        },
+        md_customization: function() {
+            if (!menu.customization) {
+                $('.cms-menu-dropdown.customization').slideToggle('slow');
+                functions.storage('menu_customization', 'true');
+                menu.customization = true;
+            } else {
+                $('.cms-menu-dropdown.customization').slideToggle('slow');
+                functions.storage('menu_customization', 'false');
+                menu.customization = false;
+            }
         },
         downdubhover: function() {
             $('.dubdown').hover(function() {
@@ -799,6 +913,7 @@ if (!run) {
             $('#new-messages-counter').click();
         },
         commands: function(e) {
+            var chatid = e.chatid;
             var message = e.message;
             var id = Dubtrack.session.id;
             var user = e.user.userInfo.userid;
@@ -818,6 +933,9 @@ if (!run) {
                     '</li>'
                 ].join('');
                 $('.chat-main').append(help);
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf('/commands') >-1 && id === user) {
                 var commands = [
@@ -838,6 +956,9 @@ if (!run) {
                     '</li>'
                 ].join('');
                 $('.chat-main').append(commands);
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/whois ") === 0 && id === user) {
                 message.replace(/( [A-Za-z0-9_.]+)/g, function(str) {
@@ -845,6 +966,9 @@ if (!run) {
                     var username = name.substr(1);
                     functions.whois(username);
                 });
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/whois @") === 0 && id === user) {
                 message.replace(/(@[A-Za-z0-9_.]+)/g, function(str) {
@@ -852,6 +976,9 @@ if (!run) {
                     var username = name.substr(1);
                     functions.whois(username);
                 });
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/volume ") === 0 && id === user) {
                 message.replace(/( [A-Za-z0-9_.]+)/g, function(number) {
@@ -859,16 +986,28 @@ if (!run) {
                     $('.ui-slider-handle').css('left',  ''+number+'px');
                     $('.ui-slider-range').css('width', ''+number+'%');
                 });
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/whoami") >-1 && id === user) {
                 var username = Dubtrack.session.get('username');
                 functions.whois(username);
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/eta") >-1 && id === user) {
                 functions.eta();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
             if (message.indexOf("/snooze") >-1 && id === user) {
                 functions.snooze();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'block');
+                $('.chat-id-'+chatid+'').find('.chatDelete').click();
+                $('.chat-id-'+chatid+'').find('.chatDelete').css('display', 'none');
             }
         },
         eta: function() {
@@ -1063,10 +1202,12 @@ if (!run) {
         afktoggle: function() {
             if (!options.afktoggle) {
                 options.afktoggle = true;
+                functions.storage('afktoggle','true');
                 functions.enable('.afktoggle');
             } else {
                 options.afktoggle = false;
                 functions.disable('.afktoggle');
+                functions.storage('afktoggle','false');
             }
         },
         cmentoggle: function() {
@@ -1329,10 +1470,33 @@ if (!run) {
         }
     };
     
+    $('.chat-main').on('DOMNodeInserted', function(e) {
+        var itemEl = $(e.target);
+        if(itemEl.prop('tagName').toLowerCase() !== 'li' || itemEl.attr('class').substring(0, 'user-'.length) !== 'user-') return;
+        var user = Dubtrack.room.users.collection.findWhere({userid: itemEl.attr('class').split(/-| /)[1]});
+        var role = !user.get('roleid') ? 'default' : Dubtrack.helpers.isDubtrackAdmin(user.get('userid')) ? 'admin' : user.get('roleid').type;
+        itemEl.addClass('user-role-'+role+'');
+    });
+    
     functions.mainmenu();
     setTimeout(function() {
+        $(window).resize(function() {
+            functions.chatwidth(); 
+        });
         if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
             $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
+        }
+        if (localStorage.getItem('menu_main') === 'true') {
+            functions.md_main();
+        }
+        if (localStorage.getItem('menu_visibility') === 'true') {
+            functions.md_visibility();
+        }
+        if (localStorage.getItem('menu_notification') === 'true') {
+            functions.md_notification();
+        }
+        if (localStorage.getItem('menu_customization') === 'true') {
+            functions.md_customization();
         }
         if (localStorage.getItem('alertonnav') === 'true') {
             functions.alertonnav();
@@ -1396,12 +1560,6 @@ if (!run) {
         }
         if (localStorage.getItem('avatars') === 'true') {
             functions.hideavatars();
-        }
-        if (localStorage.getItem('cmen')) {
-            functions.cmen();
-        }
-        if (localStorage.getItem('afkmsg')) {
-            functions.afkmsg();
         }
         
         Dubtrack.Events.bind("realtime:user-ban", functions.updateuserarray);
