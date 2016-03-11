@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = 'Version - 11.10.04';
+    var version = 'Version - 11.10.05';
     var emo = [];
     var men = [];
     var menu = {
@@ -1481,13 +1481,6 @@ if (!run) {
                 }, 500);   
             }
         },
-        chatwidth: function() {
-            $('.chat-main li').css('width', 'auto');
-            var width = $(".chat-main li").width() + 23;
-            if (width !== 23 || width > 23) {
-                $('.chat-main li').css('width', ''+width+'px');
-            }
-        },
         notifyonmention: function(e){
             if (options.notifionmention) {
                 var chatid = e.chatid;
@@ -1607,9 +1600,6 @@ if (!run) {
     
     functions.mainmenu();
     setTimeout(function() {
-        $(window).resize(function() {
-            functions.chatwidth();
-        });
         if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
             $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
         }
@@ -1702,7 +1692,6 @@ if (!run) {
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
         Dubtrack.Events.bind('realtime:chat-message', functions.cmench);
         Dubtrack.Events.bind('realtime:chat-message', functions.commands);
-        Dubtrack.Events.bind('realtime:chat-message', functions.chatwidth);
         Dubtrack.Events.bind('realtime:user-mute', functions.Muted);
         Dubtrack.Events.bind('realtime:user-unmute', functions.Unmuted);
         Dubtrack.Events.bind('realtime:room_playlist-update', functions.boothalert);
@@ -1717,7 +1706,6 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
-        functions.chatwidth();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
