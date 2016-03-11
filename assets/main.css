@@ -503,5 +503,5 @@ div#rs-dialog-ccc {
     font-size: 22px;
 }
 .chat-main {
-    padding-right: 0px;
+    padding-right: 0px !important;
 }
