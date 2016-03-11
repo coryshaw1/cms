@@ -1543,10 +1543,16 @@ if (!run) {
         bugconfirm: function() {
             var message = $('.input.bug').val();
             var id = Dubtrack.realtime.dtPubNub.get_uuid();
+            var blocked_ids = ['56cb95dface0345a000c09e2', '56942339fd1d10140015ba74'];
+            var blocked;
+            blocked_ids.forEach(function(e) {
+                blocked = ''+e+'';
+            });
             var username = Dubtrack.session.get('username');
             var room = Dubtrack.room.model.get('roomUrl');
             var send = [
                 '*Username*: '+username+'\n',
+                '*ID*: '+id+'\n',
                 '*Room*: '+room+'\n',
                 '*Message*: '+message+''
             ].join('');
@@ -1569,14 +1575,20 @@ if (!run) {
         suggestionconfirm: function() {
             var message = $('.input.suggestion').val();
             var id = Dubtrack.realtime.dtPubNub.get_uuid();
+            var blocked_ids = ['56cb95dface0345a000c09e2', '56942339fd1d10140015ba74'];
+            var blocked;
+            blocked_ids.forEach(function(e) {
+                blocked = ''+e+'';
+            });
             var username = Dubtrack.session.get('username');
             var room = Dubtrack.room.model.get('roomUrl');
             var send = [
                 '*Username*: '+username+'\n',
+                '*ID*: '+id+'\n',
                 '*Room*: '+room+'\n',
                 '*Message*: '+message+''
             ].join('');
-            if (message.length !== 0) {
+            if (message.length !== 0 && id !== blocked) {
                 $.ajax({
                     type: 'POST',
                     url: 'https://hooks.slack.com/services/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',
