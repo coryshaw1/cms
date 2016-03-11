@@ -19,8 +19,8 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'New Menu!';
-    var version = 'Version - 11.10.03';
+    var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
+    var version = 'Version - 11.10.04';
     var emo = [];
     var men = [];
     var menu = {
@@ -28,6 +28,7 @@ if (!run) {
         visibility: false,
         notification: false,
         customization: false,
+        contact: false,
     };
     var options = {
         autovote: false,
@@ -259,6 +260,18 @@ if (!run) {
                                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                                 '</li>',
                             '</ul>',
+                            '<p class="cms-menu-list" onclick="functions.md_contact();" align="center">Contact</p>',
+                            '<ul class="cms-menu-dropdown contact" style="display: none;">',
+                                '<li onclick="functions.bug();" class="main_content_li main_content_feature" align="center">',
+                                    '<p class="main_content_p">Bug</p>',
+                                '</li>',
+                                '<li onclick="functions.suggestion();" class="main_content_li main_content_feature" align="center">',
+                                    '<p class="main_content_p">Suggestion</p>',
+                                '</li>',
+                                '<li class="main_content_li main_content_feature" align="center">',
+                                    '<a target="_blank" href="https://github.com/ChilloutMusica/cms"><p class="main_content_p">Github</p></a>',
+                                '</li>',
+                            '</ul>',
                         '</ul>',
                     '</ul>',
                 '</div>'
@@ -268,6 +281,46 @@ if (!run) {
                     '<p class="main_content_p">Downdub Message</p>',
                     '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                 '</li>'
+            ].join('');
+            var bug = [
+            '<div id="rs-dialog-container" class="INPUT BUG is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">CMS Bug</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input bug" style="width: 450px;margin-left: 15px;"></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;">',
+                        '<div onclick="functions.bugcancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div>',
+                        '<div onclick="functions.bugconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            ].join('');
+            var suggestion = [
+            '<div id="rs-dialog-container" class="INPUT SUGGESTION is-preview is-rcs-model" style="display: none;">',
+                '<div id="rs-dialog-ccc" class="rs-dialog">',
+                    '<div class="dialog-frame" style="background: #282c35;">',
+                        '<span class="title">CMS Suggestion</span>',
+                    '</div>',
+                    '<div class="dialog-body">',
+                        '<span class="rs-dialog-message ccc">',
+                            '<div class="content" align="center" style="margin-bottom: 2px;">',
+                                '<textarea class="input suggestion" style="width: 450px;margin-left: 15px;"></textarea>',
+                            '</div>',
+                        '</span>',
+                    '</div>',
+                    '<div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;">',
+                        '<div onclick="functions.suggestioncancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div>',
+                        '<div onclick="functions.suggestionconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div>',
+                    '</div>',
+                '</div>',
+            '</div>',
             ].join('');
             var afkmsg = [
             '<div id="rs-dialog-container" class="INPUT AFKMSG is-preview is-rcs-model" style="display: none;">',
@@ -354,6 +407,8 @@ if (!run) {
                 }
             }, 5000);
             setTimeout(function() {
+                $('body').append(bug);
+                $('body').append(suggestion);
                 $('body').append(afkmsg);
                 $('body').append(custommention);
                 $('body').append(custombg);
@@ -372,6 +427,17 @@ if (!run) {
                     $('.INPUT').hide();
                 }, 6000);
             }, 1000);
+        },
+        md_contact: function() {
+            if (!menu.contact) {
+                $('.cms-menu-dropdown.contact').slideToggle('slow');
+                functions.storage('menu_contact', 'true');
+                menu.contact = true;
+            } else {
+                $('.cms-menu-dropdown.contact').slideToggle('slow');
+                functions.storage('menu_contact', 'false');
+                menu.contact = false;
+            }
         },
         md_main: function() {
             if (!menu.main) {
@@ -1467,6 +1533,58 @@ if (!run) {
                     }
                 });
             }
+        },
+        bug: function() {
+            $('.INPUT.BUG').show();
+        },
+        bugcancel: function() {
+            $('.INPUT.BUG').hide();
+        },
+        bugconfirm: function() {
+            var message = $('.input.bug').val();
+            var id = Dubtrack.realtime.dtPubNub.get_uuid();
+            var username = Dubtrack.session.get('username');
+            var room = Dubtrack.room.model.get('roomUrl');
+            var send = [
+                '*Username*: '+username+'\n',
+                '*Room*: '+room+'\n',
+                '*Message*: '+message+''
+            ].join('');
+            if (message.length !== 0) {
+                $.ajax({
+                type: 'POST',
+                url: 'https://hooks.slack.com/services/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',
+                data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                crossDomain: true
+                });
+                $('.INPUT.BUG').hide();
+            }
+        },
+        suggestion: function() {
+            $('.INPUT.SUGGESTION').show();
+        },
+        suggestioncancel: function() {
+            $('.INPUT.SUGGESTION').hide();
+        },
+        suggestionconfirm: function() {
+            var message = $('.input.suggestion').val();
+            var id = Dubtrack.realtime.dtPubNub.get_uuid();
+            var username = Dubtrack.session.get('username');
+            var room = Dubtrack.room.model.get('roomUrl');
+            var send = [
+                '*Username*: '+username+'\n',
+                '*Room*: '+room+'\n',
+                '*Message*: '+message+''
+            ].join('');
+            if (message.length !== 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://hooks.slack.com/services/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',
+                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    crossDomain: true
+                });
+                $('.INPUT.SUGGESTION').hide();
+            }
         }
     };
     
@@ -1488,6 +1606,9 @@ if (!run) {
         }
         if (localStorage.getItem('menu_main') === 'true') {
             functions.md_main();
+        }
+        if (localStorage.getItem('menu_contact') === 'true') {
+            functions.md_contact();
         }
         if (localStorage.getItem('menu_visibility') === 'true') {
             functions.md_visibility();
