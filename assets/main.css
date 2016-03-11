@@ -161,7 +161,6 @@
 	position: absolute;
 	width: 325px;
 	height: auto;
-	min-height: 50%;
 	max-height: calc(100% - 114px);
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -353,7 +352,7 @@ ul.avatar-list li.user-mitch p.dubs:before {
 	display: none !important;
 }
 .cms-menu-list {
-    color: #878c8e;
+    color: #5A93CC;
     font-size: .95rem;
     font-weight: bold;
     text-transform: uppercase;
