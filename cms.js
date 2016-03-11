@@ -126,12 +126,7 @@ if (!run) {
             var welcome = [
                 '<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br>',
                     '<span>CMS '+version+'</span><br>',
-                    '<span>'+motd+'</span><br><br>',
-                    '<span>Tell us what functions you have enabled!</span><br>',
-                        '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_right.png" title=":point_right:" alt=":point_right:" align="absmiddle"></img>',
-                        '<a target="_blank" href="https://cms3.typeform.com/to/x4jIDC"> Here </a>',
-                        '<img class="emoji" src="https://dubtrack-fm.s3.amazonaws.com/assets/emoji/images/emoji/point_left.png" title=":point_left:" alt=":point_left:" align="absmiddle"></img>',
-                    '</span><br><br><br>',
+                    '<span>'+motd+'</span><br><br><br>',
                 '</li>'
             ].join('');
             var mainmenu = [
@@ -1489,7 +1484,9 @@ if (!run) {
         chatwidth: function() {
             $('.chat-main li').css('width', 'auto');
             var width = $(".chat-main li").width() + 23;
-            $('.chat-main li').css('width', ''+width+'px');
+            if (width !== 23 || width > 23) {
+                $('.chat-main li').css('width', ''+width+'px');
+            }
         },
         notifyonmention: function(e){
             if (options.notifionmention) {
@@ -1611,7 +1608,7 @@ if (!run) {
     functions.mainmenu();
     setTimeout(function() {
         $(window).resize(function() {
-            functions.chatwidth(); 
+            functions.chatwidth();
         });
         if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
             $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
