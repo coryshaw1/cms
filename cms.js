@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = 'Version - 11.10.06';
+    var version = 'Version - 11.10.07';
     var emo = [];
     var men = [];
     var menu = {
@@ -1474,11 +1474,13 @@ if (!run) {
                         }
                     },
                 ]);
-                if( $(".textcomplete-dropdown").css('display') == 'block') {
-                    $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
-                } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
-                    $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
-                }
+                setInterval(function() {
+                    if( $(".textcomplete-dropdown").css('display') == 'block') {
+                        $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
+                    } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
+                        $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
+                    }
+                }, 500);
             }
         },
         notifyonmention: function(e){
@@ -1540,11 +1542,79 @@ if (!run) {
             });
             var username = Dubtrack.session.get('username');
             var room = Dubtrack.room.model.get('roomUrl');
+            var height = $(window).height();
+            var width = $(window).width();
+            var funenabled = [];
+            if (localStorage.getItem('alertonnav') === 'true') {
+                funenabled.push(' Alert On Navigation');
+            }
+            if (localStorage.getItem('showtimestamp') === 'true') {
+                funenabled.push(' Show Time Stamps');
+            }
+            if (localStorage.getItem('notifionmention') === 'true') {
+                funenabled.push(' Desktop Notification');
+            }
+            if (localStorage.getItem('autoclearchat') === 'true') {
+                funenabled.push(' Autoclear Chat');
+            }
+            if (localStorage.getItem('splitchat') === 'true') {
+                funenabled.push(' Split Chat');
+            }
+            if (localStorage.getItem('autocomplete') === 'true') {
+                funenabled.push(' Autocomplete');
+            }
+            if (localStorage.getItem('autojoin') === 'true') {
+                funenabled.push(' Autojoin');
+            }
+            if (localStorage.getItem('hidebackground') === 'true') {
+                funenabled.push(' Hide Background');
+            }
+            if (localStorage.getItem('afktoggle') === 'true') {
+                funenabled.push(' Afk Message');
+            }
+            if (localStorage.getItem('cmentoggle') === 'true') {
+                funenabled.push(' Custom Mentions');
+            }
+            if (localStorage.getItem('userjoin') === 'true') {
+                funenabled.push(' Join Message');
+            }
+            if (localStorage.getItem('userleave') === 'true') {
+                funenabled.push(' Leave Message');
+            }
+            if (localStorage.getItem('userddub') === 'true') {
+                funenabled.push(' Downdub Message');
+            }
+            if (localStorage.getItem('usergrab') === 'true') {
+                funenabled.push(' Grab Message');
+            }
+            if (localStorage.getItem('userudub') === 'true') {
+                funenabled.push(' Updub Message');
+            }
+            if (localStorage.getItem('boothalert') === 'true') {
+                funenabled.push(' Booth Alert');
+            }
+            if (localStorage.getItem('vote') === 'true') {
+                funenabled.push(' Autovote');
+            }
+            if (localStorage.getItem('randomvote') === 'true') {
+                funenabled.push(' Randomvote');
+            }
+            if (localStorage.getItem('css') === 'true') {
+                funenabled.push(' Community Css');
+            }
+            if (localStorage.getItem('cleardelmsg') === 'true') {
+                funenabled.push(' Hide Deleted Message');
+            }
+            if (localStorage.getItem('avatars') === 'true') {
+                funenabled.push(' Hide Avatars');
+            }
             var send = [
                 '*Username*: '+username+'\n',
                 '*ID*: '+id+'\n',
                 '*Room*: '+room+'\n',
-                '*Message*: '+message+''
+                '*Window Size*: w:'+width+', h:'+height+'\n',
+                '*Functions Enabled*: '+funenabled+'\n',
+                '*Message*: '+message+'',
             ].join('');
             if (message.length !== 0) {
                 $.ajax({
@@ -1572,11 +1642,79 @@ if (!run) {
             });
             var username = Dubtrack.session.get('username');
             var room = Dubtrack.room.model.get('roomUrl');
+            var height = $(window).height();
+            var width = $(window).width();
+            var funenabled = [];
+            if (localStorage.getItem('alertonnav') === 'true') {
+                funenabled.push(' Alert On Navigation');
+            }
+            if (localStorage.getItem('showtimestamp') === 'true') {
+                funenabled.push(' Show Time Stamps');
+            }
+            if (localStorage.getItem('notifionmention') === 'true') {
+                funenabled.push(' Desktop Notification');
+            }
+            if (localStorage.getItem('autoclearchat') === 'true') {
+                funenabled.push(' Autoclear Chat');
+            }
+            if (localStorage.getItem('splitchat') === 'true') {
+                funenabled.push(' Split Chat');
+            }
+            if (localStorage.getItem('autocomplete') === 'true') {
+                funenabled.push(' Autocomplete');
+            }
+            if (localStorage.getItem('autojoin') === 'true') {
+                funenabled.push(' Autojoin');
+            }
+            if (localStorage.getItem('hidebackground') === 'true') {
+                funenabled.push(' Hide Background');
+            }
+            if (localStorage.getItem('afktoggle') === 'true') {
+                funenabled.push(' Afk Message');
+            }
+            if (localStorage.getItem('cmentoggle') === 'true') {
+                funenabled.push(' Custom Mentions');
+            }
+            if (localStorage.getItem('userjoin') === 'true') {
+                funenabled.push(' Join Message');
+            }
+            if (localStorage.getItem('userleave') === 'true') {
+                funenabled.push(' Leave Message');
+            }
+            if (localStorage.getItem('userddub') === 'true') {
+                funenabled.push(' Downdub Message');
+            }
+            if (localStorage.getItem('usergrab') === 'true') {
+                funenabled.push(' Grab Message');
+            }
+            if (localStorage.getItem('userudub') === 'true') {
+                funenabled.push(' Updub Message');
+            }
+            if (localStorage.getItem('boothalert') === 'true') {
+                funenabled.push(' Booth Alert');
+            }
+            if (localStorage.getItem('vote') === 'true') {
+                funenabled.push(' Autovote');
+            }
+            if (localStorage.getItem('randomvote') === 'true') {
+                funenabled.push(' Randomvote');
+            }
+            if (localStorage.getItem('css') === 'true') {
+                funenabled.push(' Community Css');
+            }
+            if (localStorage.getItem('cleardelmsg') === 'true') {
+                funenabled.push(' Hide Deleted Message');
+            }
+            if (localStorage.getItem('avatars') === 'true') {
+                funenabled.push(' Hide Avatars');
+            }
             var send = [
                 '*Username*: '+username+'\n',
                 '*ID*: '+id+'\n',
                 '*Room*: '+room+'\n',
-                '*Message*: '+message+''
+                '*Window Size*: w:'+width+', h:'+height+'\n',
+                '*Functions Enabled*: '+funenabled+'\n',
+                '*Message*: '+message+'',
             ].join('');
             if (message.length !== 0 && id !== blocked) {
                 $.ajax({
