@@ -505,3 +505,6 @@ div#rs-dialog-ccc {
 .chat-main {
     padding-right: 0px !important;
 }
+.chatDelete {
+    padding-right: 1.3rem !important;
+}
