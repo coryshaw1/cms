@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = 'Version - 11.10.05';
+    var version = 'Version - 11.10.06';
     var emo = [];
     var men = [];
     var menu = {
@@ -960,10 +960,12 @@ if (!run) {
         clearchat: function() {
             if (options.clearchat) {
                 setInterval(function() {
-                    $('.clearChatToggle').click();
-                    setTimeout(function() {
-                        functions.notification('info', 'Chat cleared automatically by CMS');
-                    }, 1000);
+                    if (options.clearchat) {
+                        $('.clearChatToggle').click();
+                        setTimeout(function() {
+                            functions.notification('info', 'Chat cleared automatically by CMS');
+                        }, 1000);
+                    }
                 }, 1800000);
             }
         },
@@ -1472,13 +1474,11 @@ if (!run) {
                         }
                     },
                 ]);
-                setInterval(function() {
-                    if( $(".textcomplete-dropdown").css('display') == 'block') {
-                        $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
-                    } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
-                        $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
-                    }
-                }, 500);   
+                if( $(".textcomplete-dropdown").css('display') == 'block') {
+                    $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
+                } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
+                    $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
+                }
             }
         },
         notifyonmention: function(e){
