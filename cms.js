@@ -1724,7 +1724,7 @@ if (!run) {
                 $.ajax({
                     type: 'POST',
                     url: 'https://hooks.slack.com/services/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',
-                    data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "'+username+'","short": true},{"title": "Room","value": "'+room+'","short": true},{"title": "ID","value": "'+id+'","short": true},{"title": "Version","value": "'+version+'","short": true}],"color": "#5A93CC"}], "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    data: 'payload={"username": "'+username+' enabled cms", "attachments": [{"fields": [{"title": "Username","value": "'+username+'","short": true},{"title": "Room","value": "'+room+'","short": true},{"title": "ID","value": "'+id+'","short": true},{"title": "Version","value": "'+version+'","short": true}],"color": "#5A93CC"}], "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
                     crossDomain: true
                 });
             }
