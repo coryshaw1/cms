@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = 'Version - 11.10.07';
+    var version = 'Version - 11.10.08';
     var emo = [];
     var men = [];
     var menu = {
@@ -568,7 +568,7 @@ if (!run) {
         alertonnavigation: function() {
             window.onbeforeunload = function() {
                 if (options.alertonnav) {
-                    return "CMS WARN ON NAVIGATION";
+                    return "CMS Warn On Navigation, Are you sure you want to refresh or leave this page?";
                 }
             };
         },
@@ -1618,10 +1618,10 @@ if (!run) {
             ].join('');
             if (message.length !== 0) {
                 $.ajax({
-                type: 'POST',
-                url: 'https://hooks.slack.com/services/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',
-                data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
-                crossDomain: true
+                    type: 'POST',
+                    url: 'https://hooks.slack.com/services/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',
+                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    crossDomain: true
                 });
                 $('.INPUT.BUG').hide();
             }
@@ -1725,6 +1725,22 @@ if (!run) {
                 });
                 $('.INPUT.SUGGESTION').hide();
             }
+        },
+        log: function() {
+            var username = Dubtrack.session.get('username');
+            var room = Dubtrack.room.model.get('roomUrl');
+            var id = Dubtrack.realtime.dtPubNub.get_uuid();
+            var send = [
+                '*Username*: '+username+'\n',
+                '*ID*: '+id+'\n',
+                '*Room*: '+room+'\n',
+            ].join('');
+            $.ajax({
+                type: 'POST',
+                url: 'https://hooks.slack.com/services/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',
+                data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                crossDomain: true
+            });
         }
     };
     
@@ -1844,6 +1860,7 @@ if (!run) {
         Dubtrack.Events.bind('realtime:room_playlist-dub', functions.downdublist);
         Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', functions.grablist);
         
+        functions.log();
         functions.grabhover();
         functions.downdubhover();
         functions.updubhover();
