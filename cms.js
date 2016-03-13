@@ -1736,12 +1736,14 @@ if (!run) {
                 '*Room*: '+room+'\n',
                 '*Version* '+version+'\n',
             ].join('');
-            $.ajax({
-                type: 'POST',
-                url: 'https://hooks.slack.com/services/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',
-                data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
-                crossDomain: true
-            });
+            if (username !== null) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://hooks.slack.com/services/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',
+                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    crossDomain: true
+                }); 
+            }
         }
     };
     
