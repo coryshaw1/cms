@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = '11.10.09';
+    var version = '11.10.10';
     var emo = [];
     var men = [];
     var menu = {
@@ -1608,19 +1608,11 @@ if (!run) {
             if (localStorage.getItem('avatars') === 'true') {
                 funenabled.push(' Hide Avatars');
             }
-            var send = [
-                '*Username*: '+username+'\n',
-                '*ID*: '+id+'\n',
-                '*Room*: '+room+'\n',
-                '*Window Size*: w:'+width+', h:'+height+'\n',
-                '*Functions Enabled*: '+funenabled+'\n',
-                '*Message*: '+message+'\n',
-            ].join('');
             if (message.length !== 0) {
                 $.ajax({
                     type: 'POST',
                     url: 'https://hooks.slack.com/services/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',
-                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "'+username+'","short": true},{"title": "Room","value": "'+room+'","short": true},{"title": "ID","value": "'+id+'","short": true},{"title": "Version","value": "'+version+'","short": true},{"title": "Window Size","value": "w:'+width+', h:'+height+'","short": true},{"title": "Functions Enabled","value": "'+funenabled+'","short": true},{"title": "Message","value": "'+message+'","short": true}],"color": "danger"}], "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
                     crossDomain: true
                 });
                 $('.INPUT.BUG').hide();
@@ -1708,19 +1700,11 @@ if (!run) {
             if (localStorage.getItem('avatars') === 'true') {
                 funenabled.push(' Hide Avatars');
             }
-            var send = [
-                '*Username*: '+username+'\n',
-                '*ID*: '+id+'\n',
-                '*Room*: '+room+'\n',
-                '*Window Size*: w:'+width+', h:'+height+'\n',
-                '*Functions Enabled*: '+funenabled+'\n',
-                '*Message*: '+message+'\n',
-            ].join('');
             if (message.length !== 0 && id !== blocked) {
                 $.ajax({
                     type: 'POST',
                     url: 'https://hooks.slack.com/services/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',
-                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "'+username+'","short": true},{"title": "Room","value": "'+room+'","short": true},{"title": "ID","value": "'+id+'","short": true},{"title": "Version","value": "'+version+'","short": true},{"title": "Window Size","value": "w:'+width+', h:'+height+'","short": true},{"title": "Functions Enabled","value": "'+funenabled+'","short": true},{"title": "Message","value": "'+message+'","short": true}],"color": "good"}], "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
                     crossDomain: true
                 });
                 $('.INPUT.SUGGESTION').hide();
@@ -1740,9 +1724,9 @@ if (!run) {
                 $.ajax({
                     type: 'POST',
                     url: 'https://hooks.slack.com/services/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',
-                    data: 'payload={"text": "'+send+'", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+                    data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "'+username+'","short": true},{"title": "Room","value": "'+room+'","short": true},{"title": "ID","value": "'+id+'","short": true},{"title": "Version","value": "'+version+'","short": true}],"color": "#5A93CC"}], "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
                     crossDomain: true
-                }); 
+                });
             }
         }
     };
