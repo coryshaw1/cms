@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = 'Version - 11.10.08';
+    var version = '11.10.09';
     var emo = [];
     var men = [];
     var menu = {
@@ -125,7 +125,7 @@ if (!run) {
             ].join('');
             var welcome = [
                 '<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br>',
-                    '<span>CMS '+version+'</span><br>',
+                    '<span>CMS Version - '+version+'</span><br>',
                     '<span>'+motd+'</span><br><br><br>',
                 '</li>'
             ].join('');
@@ -135,7 +135,7 @@ if (!run) {
                 '<div class="main_content">',
                     '<div class="headerbox" onclick="functions.menufade();">',
                         '<span class="main_content_ver"><center>CMS</center></span>',
-                        '<span class="main_content_version"><center>'+version+'<br>/help - For help about cms!</center></span>',
+                        '<span class="main_content_version"><center>Version - '+version+'<br>/help - For help about cms!</center></span>',
                     '</div>',
                     '<ul class="main_content_ul">',
                         '<ul>',
@@ -1614,7 +1614,7 @@ if (!run) {
                 '*Room*: '+room+'\n',
                 '*Window Size*: w:'+width+', h:'+height+'\n',
                 '*Functions Enabled*: '+funenabled+'\n',
-                '*Message*: '+message+'',
+                '*Message*: '+message+'\n',
             ].join('');
             if (message.length !== 0) {
                 $.ajax({
@@ -1714,7 +1714,7 @@ if (!run) {
                 '*Room*: '+room+'\n',
                 '*Window Size*: w:'+width+', h:'+height+'\n',
                 '*Functions Enabled*: '+funenabled+'\n',
-                '*Message*: '+message+'',
+                '*Message*: '+message+'\n',
             ].join('');
             if (message.length !== 0 && id !== blocked) {
                 $.ajax({
@@ -1734,6 +1734,7 @@ if (!run) {
                 '*Username*: '+username+'\n',
                 '*ID*: '+id+'\n',
                 '*Room*: '+room+'\n',
+                '*Version* '+version+'\n',
             ].join('');
             $.ajax({
                 type: 'POST',
