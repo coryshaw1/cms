@@ -20,7 +20,7 @@ var run;
 if (!run) {
     run = true;
     var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = '11.10.10';
+    var version = '11.10.11';
     var emo = [];
     var men = [];
     var menu = {
@@ -1728,15 +1728,27 @@ if (!run) {
                     crossDomain: true
                 });
             }
+        },
+        newmessage: function() {
+            if ($('#new-messages-counter').css('display') === 'block') {
+                var count = $('.messages-display').text().slice(0,2);
+                $('.cms-new-message-counter').remove();
+                $('.chat_tools').find('.display-chat').append('<i style="font-size: .85rem;margin-left: 5px;color: #545655;font-weight: 700;" class="cms-new-message-counter">+'+count+'</i>');
+            } else {
+                $('.cms-new-message-counter').remove();
+            }
         }
     };
     
     $('.chat-main').on('DOMNodeInserted', function(e) {
         var itemEl = $(e.target);
-        if(itemEl.prop('tagName').toLowerCase() !== 'li' || itemEl.attr('class').substring(0, 'user-'.length) !== 'user-') return;
+        if (itemEl.prop('tagName').toLowerCase() !== 'li' || itemEl.attr('class').substring(0, 'user-'.length) !== 'user-') return;
         var user = Dubtrack.room.users.collection.findWhere({userid: itemEl.attr('class').split(/-| /)[1]});
         var role = !user.get('roleid') ? 'default' : Dubtrack.helpers.isDubtrackAdmin(user.get('userid')) ? 'admin' : user.get('roleid').type;
         itemEl.addClass('user-role-'+role+'');
+    });
+    $('#new-messages-counter').on('click', function() {
+        $('.cms-new-message-counter').remove(); 
     });
     
     functions.mainmenu();
@@ -1828,6 +1840,7 @@ if (!run) {
         Dubtrack.Events.bind("realtime:user-kick", functions.updateuserarray);
         Dubtrack.Events.bind("realtime:user-leave", functions.updateuserarray);
         Dubtrack.Events.bind('realtime:delete-chat-message', functions.msgdatadel);
+        Dubtrack.Events.bind('realtime:chat-message', functions.newmessage);
         Dubtrack.Events.bind('realtime:chat-message', functions.notifyonmention);
         Dubtrack.Events.bind('realtime:chat-message', functions.msgdata);
         Dubtrack.Events.bind('realtime:chat-message', functions.afkch);
