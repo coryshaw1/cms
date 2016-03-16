@@ -19,8 +19,8 @@ with permission from the owners of the dubx project
 var run;
 if (!run) {
     run = true;
-    var motd = 'Post Suggestions Or Report A Bug In The New Contact Section!';
-    var version = '11.10.11';
+    var motd = 'Bug Free!';
+    var version = '11.10.12';
     var emo = [];
     var men = [];
     var menu = {
@@ -1480,7 +1480,7 @@ if (!run) {
                     } else if ( $(".textcomplete-dropdown").css('display') == 'none') {
                         $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
                     }
-                }, 500);
+                }, 100);
             }
         },
         notifyonmention: function(e){
