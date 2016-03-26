@@ -508,3 +508,6 @@ div#rs-dialog-ccc {
 .chatDelete {
     padding-right: 1.3rem !important;
 }
+.main_content_li:hover p {
+    color: #FFF;
+}
