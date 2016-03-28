@@ -511,3 +511,6 @@ div#rs-dialog-ccc {
 .main_content_li:hover p {
     color: #FFF;
 }
+#profileSidebar {
+    width: calc(100% - 15rem);
+}
