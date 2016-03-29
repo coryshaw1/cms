@@ -1100,6 +1100,9 @@ a, body, button, input, select, textarea{
 .playerPreview .player-preview-container-wrapper .ui-slider-handle {
     background: #eee;
 }
+#main_player .player_header #topbanner {
+    margin-top: -4rem;
+}
 
 /* User profile page */
 #profileMainSection .profileView .header .pictureContainer .updatePictureGif {
