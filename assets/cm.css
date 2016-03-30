@@ -741,7 +741,7 @@ a, body, button, input, select, textarea{
 #main_player .play-song-link-container .play-song-link-browser:hover i {
     color: #5A93CC;
 }
-    
+   
 /* Playlist browser */
     /* Header */
 #browser .browser-content {
@@ -1101,7 +1101,10 @@ a, body, button, input, select, textarea{
     background: #eee;
 }
 #main_player .player_header #topbanner {
-    margin-top: -4rem;
+    margin-top: -6rem;
+}
+#main-room .left_section {
+    margin-top: 0rem;
 }
 
 /* User profile page */
