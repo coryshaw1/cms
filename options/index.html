@@ -1,70 +1,49 @@
 <html>
 	<head>
-		<title>CMS - Options</title>
+		<title>CMS - Computer</title>
 		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/web.css">
-        <style>
-            h1 {
-                margin-top: 35px;
-                margin-bottom: 50px;
-                color: #eee;
-            }
-        </style>
+		<style type="text/css">
+			pre {
+			    display: block;
+			    padding: 10.5px;
+			    margin: 0 0 11px;
+			    font-size: 13px;
+			    line-height: 1.61803399;
+			    word-break: break-all;
+			    word-wrap: break-word;
+			    color: #333;
+			    background-color: #f5f5f5;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			}
+		</style>
 	</head>
 	<body>
 		<a type="button" class="btn btn-lg btn-info btn-dl pc" href="https://chilloutmusica.github.io/cms">Back</a>
 		<div class="container">
-            <h1 align="center"><b>Chillout Music Script - Options</b></h1>
-            <div class="options" align="center">
-	            <div class="option">
-	                <h4>Autovote</h4>
-	                <p>Automatically updubs current song.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Auto Clear Chat</h4>
-	                <p>Automatically clears the chat every 30 minutes.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Work Mode</h4>
-	                <p>Disables the video, options and the chat.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Chat Mode</h4>
-	                <p>Disables the video, options and makes chat bigger.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Hide Deleted Messages</h4>
-	                <p>Hides messages that have been deleted.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Community Theme</h4>
-	                <p>Enables the room's custom theme set in the description.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Join Message</h4>
-	                <p>Displays who joined the room in chat.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Leave Message</h4>
-	                <p>Displays who leaves the room in chat.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Grab Message</h4>
-	                <p>Displays who grabs the song in chat.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Up Dub Message</h4>
-	                <p>Displays who updubs the song in chat.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Custom Background</h4>
-	                <p>Allows you to set a custom background with an image link.</p>
-	            </div>
-	            <div class="option">
-	                <h4>Custom Css</h4>
-	                <p>Allows you to set a custom theme (css) with a css file link.</p>
-	            </div>
-	        </div>
+			<div class="jumbotron">
+				<center>
+    				<h1><b>Chillout Music Script - Room Options Example</b></h1>
+    				<p>We Recommend Using PHP</p>
+    				<pre>@cms=https://example.com/example.php</pre>
+    				<pre>
+    					<?php
+							header("Access-Control-Allow-Origin: *");
+						?>
+						{
+							"css": "https://example.com/example.css",
+							"community_icon": "https://example.com/example.png",
+							"communtiy_link": "https://exmaple.com",
+							"emotes": {
+								"example": "https://example.com/example.png",
+								"example2": "https://exmaple.com/example2.jpg",
+								"example3": "https://exmaple.com/example3.gif"
+							}
+						}
+					</pre>
+    			</center>
+  			</div>
   		</div>
 	</body>
 </html>
