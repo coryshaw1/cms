@@ -11,11 +11,12 @@ This license is governed by the Laws of Norway.
 Disputes shall be settled by Oslo City Court.
 */
 /*global Notification*/
+/*global localStorage*/
 /*global Dubtrack*/
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
-var motd = 'Bug Fixes & Code Cleaning';
-var version = '11.10.14';
+var motd = 'Bug Fixes';
+var version = '11.10.20';
 var emo = [];
 var men = [];
 var menu = {
@@ -228,6 +229,7 @@ function append() {
         }
     }, 5000);
     setTimeout(function() {
+        $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
         $('body').append('<div id="rs-dialog-container" class="INPUT BUG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">CMS Bug</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input bug" style="width: 450px;margin-left: 15px;"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;"><div onclick="bugcancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div><div onclick="bugconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT SUGGESTION is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">CMS Suggestion</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input suggestion" style="width: 450px;margin-left: 15px;"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;"><div onclick="suggestioncancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div><div onclick="suggestionconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT AFKMSG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Afk Message</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input afk" style="width: 450px;margin-left: 15px;" placeholder="I am currently AFK at the moment."></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="afkmsgc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
@@ -355,9 +357,11 @@ function grablist(e) {
     }, 1000);
 }
 function updatelist(e) {
-    $('.updublist').find('p').remove();
-    $('.downdublist').find('p').remove();
-    $('.grablist').find('p').remove();
+    if (e.startTime < 2) {
+        $('.updublist').find('p').remove();
+        $('.downdublist').find('p').remove();
+        $('.grablist').find('p').remove();
+    }
 }
 function alertonnav() {
     if (!options.alertonnav) {
@@ -900,12 +904,37 @@ function hide_eta_tooltip() {
     $('.eta_tooltip').remove();
 }
 function whois(username) {
+    console.log(username);
     $.ajax({
         type: 'GET',
         url: 'https://api.dubtrack.fm/user/'+username+'/',
     }).done(function(e) {
         var id = e.data._id;
         var locale = e.data.userInfo.locale;
+        var grole = 'User';
+        if (Dubtrack.helpers.isDubtrackAdmin(''+id+'')) {
+            grole = 'Admin';
+        }
+        var cr = ''+e.data.created+'';
+        var created = cr.substr(0, cr.length-3);
+        var d = new Date(created * 1000);
+        var yyyy = d.getFullYear();
+        var mm = ('0' + (d.getMonth() + 1)).slice(-2);
+        var dd = ('0' + d.getDate()).slice(-2);
+        var hh = d.getHours();
+        var h = hh;
+        var ampm = 'AM';
+        var min = ('0' + d.getMinutes()).slice(-2);
+        if (hh > 12) {
+            h = hh - 12;
+            ampm = 'PM';
+        } else if (hh === 12) {
+            h = 12;
+            ampm = 'PM';
+        } else if (hh === 0) {
+            h = 12;
+        }
+        var time = yyyy+'/'+mm+'/'+dd+' - '+hh+':'+min+ampm;
         $.ajax({
             type: 'GET',
             url: 'https://api.dubtrack.fm/room/'+Dubtrack.room.model.get('_id')+'/users/'+id+'/',
@@ -913,9 +942,6 @@ function whois(username) {
             var songsinqueue = e.data.songsInQueue;
             var active = e.data.active;
             var dubs = e.data.dubs;
-            var username = e.data._user.username;
-            var cr = ''+e.data._user.created+'';
-            var created = cr.substr(0, cr.length-3);
             var role = 'User';
             if (Dubtrack.room.users.getIfOwner(''+id+'')) {
                 role = 'Co-Owner';
@@ -928,29 +954,11 @@ function whois(username) {
             } else if (Dubtrack.room.users.getIfResidentDJ(''+id+'')) {
                 role = 'Rdj';
             }
-            var grole = 'User';
-            if (Dubtrack.helpers.isDubtrackAdmin(''+id+'')) {
-                grole = 'Admin';
+            if (dubs === undefined && active === undefined) {
+                addToChat('<span>whois - '+username+'</span><br><br><span>GLOBAL INFO</span><br><span>Username: '+username+'</span><br><span>Uuid: '+id+'</span><br><span>Created: '+time+'</span><br><span>Locale: '+locale+'</span><br><span>Role: '+grole+'</span><br><br><span>ROOM INFO</span><br><span>User Has Never Been In This Room</span>');
+            } else {
+                addToChat('<span>whois - '+username+'</span><br><br><span>GLOBAL INFO</span><br><span>Username: '+username+'</span><br><span>Uuid: '+id+'</span><br><span>Created: '+time+'</span><br><span>Locale: '+locale+'</span><br><span>Role: '+grole+'</span><br><br><span>ROOM INFO</span><br><span>In Room: '+active+'</span><br><span>Dubs: '+dubs+'</span><br><span>Songs Queued: '+songsinqueue+'</span><br><span>Role: '+role+'</span>');
             }
-            var d = new Date(created * 1000);
-            var yyyy = d.getFullYear();
-            var mm = ('0' + (d.getMonth() + 1)).slice(-2);
-            var dd = ('0' + d.getDate()).slice(-2);
-            var hh = d.getHours();
-            var h = hh;
-            var ampm = 'AM';
-            var min = ('0' + d.getMinutes()).slice(-2);
-            if (hh > 12) {
-                h = hh - 12;
-                ampm = 'PM';
-            } else if (hh === 12) {
-                h = 12;
-                ampm = 'PM';
-            } else if (hh === 0) {
-                h = 12;
-            }
-            var time = yyyy+'/'+mm+'/'+dd+' - '+hh+':'+min+ampm;
-            addToChat('<span>whois - '+username+'</span><br><br><span>GLOBAL INFO</span><br><span>Username: '+username+'</span><br><span>Uuid: '+id+'</span><br><span>Created: '+time+'</span><br><span>Locale: '+locale+'</span><br><span>Role: '+grole+'</span><br><br><span>ROOM INFO</span><br><span>In Room: '+active+'</span><br><span>Dubs: '+dubs+'</span><br><span>Songs Queued: '+songsinqueue+'</span><br><span>Role: '+role+'</span>');
        });
     });
 }
@@ -1550,21 +1558,6 @@ function newmessage() {
         $('.cms-new-message-counter').remove();
     }
 }
-function usercontent() {
-    setInterval(function() {
-        if ($('#user_popover').css('display') === 'block') {
-            var username = $('.usercontent').find('h3').text();
-            var id = Dubtrack.cache.users.collection.findWhere({username: ""+username+""}).id;
-            $('.cms-show_ids').remove();
-            $('.usercontent header').append('<p class="cms-show_ids" style="margin: 0;font-size: 1rem;color: #ccc;">ID: '+id+'</p>');
-            if (username === 'mitch' || username === 'Kris') {
-                $('.usercontent').find('h3').text(''+username+' - CMS Developer');
-            } else if (username === 'brcr') {
-                $('.usercontent').find('h3').text(''+username+' - CMS Contributor');
-            }
-        }
-    }, 100);
-}
 function showids() {
     if (!options.showids) {
         enable('.showids');
@@ -1583,6 +1576,42 @@ function displayidschat(e) {
         var id = e.user._id;
         $('.chat-main').find('.chat-id-'+chatid+'').find('.text').find('.username').text(''+username+' - '+id+'');
     }
+}
+function usercontent() {
+    setInterval(function() {
+        if ($('#user_popover').css('display') === 'block') {
+            var username = $('.usercontent').find('h3').text();
+            var id = Dubtrack.cache.users.collection.findWhere({username: ""+username+""}).id;
+            $('.cms-show_ids').remove();
+            $('.usercontent header').append('<p class="cms-show_ids" style="margin: 0;font-size: 1rem;color: #ccc;">ID: '+id+'</p>');
+            if (username === 'mitch' || username === 'Kris') {
+                $('.usercontent').find('h3').text(''+username+' - CMS Developer');
+            } else if (username === 'brcr') {
+                $('.usercontent').find('h3').text(''+username+' - CMS Contributor');
+            }
+        }
+    }, 100);
+}
+function april() {
+    $('#main-section').append('<div onclick="fool();" style="cursor: pointer;width: 70px;height: 25px;background-color: pink;position: fixed;left: 0;bottom: 56px;color: black;font-weight: 700;padding-left: 13px;padding-top: 2px;">Click</div>')
+}
+function fool() {
+    var rick = [
+    '<div class="playerPreview cms-april_fools" style="top: 14% !important;width: 65rem !important;">',
+        '<div class="player-preview-container-wrapper">',
+            '<div class="close" onclick="roll();">',
+                '<span class="icon-close"></span>',
+            '</div>',
+            '<div class="playerDubContainer">',
+                '<iframe id="ejGJP0Sjt5U_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="360" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&start=43&amp;rel=0&autoplay=1&amp;showinfo=0&amp;autoplay=0&amp;modestbranding=1&amp;output=embed&amp;wmode=transparent&amp;playsinline=1&amp;iv_load_policy=3&amp;html5=1&amp;is_html5_mobile_device=1&amp;disablekb=1&amp;frameborder=0&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fwww.dubtrack.fm"></iframe>',
+            '</div>',
+        '</div>',
+    '</div>'
+    ].join('');
+    $('body').append(rick)
+}
+function roll() {
+    $('.cms-april_fools').remove();
 }
 $('.chat-main').on('DOMNodeInserted', function(e) {
     var itemEl = $(e.target);
@@ -1702,6 +1731,7 @@ setTimeout(function() {
     Dubtrack.Events.bind('realtime:room_playlist-update', autojoin);
     Dubtrack.Events.bind('realtime:room_playlist-dub', dublist);
     Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', grablist);
+    april();
     usercontent();
     log();
     listhover();
