@@ -15,7 +15,7 @@ Disputes shall be settled by Oslo City Court.
 /*global Dubtrack*/
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
-var motd = 'Bug Fixes';
+var motd = 'Video Mode';
 var version = '11.10.20';
 var emo = [];
 var men = [];
@@ -31,6 +31,7 @@ var options = {
     randomvote: false,
     workmode: false,
     chatmode: false,
+    videomode: false,
     roomcss: false,
     inputbg: false,
     inputcss: false,
@@ -103,6 +104,13 @@ function append() {
                             '<p class="main_content_p">Auto Clear Chat</p>',
                             '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                         '</li>',
+                        '<li onclick="autocleardelmsg();" class="main_content_li main_content_feature autocleardelmsg">',
+                            '<p class="main_content_p">Hide Deleted Message</p>',
+                            '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+                        '</li>',
+                    '</ul>',
+                    '<p class="cms-menu-list" onclick="md_visibility();" align="center">Visibility</p>',
+                    '<ul class="cms-menu-dropdown visibility" style="display: none;">',
                         '<li onclick="workmode();" class="main_content_li main_content_feature workmode">',
                             '<p class="main_content_p">Work Mode</p>',
                             '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -111,13 +119,10 @@ function append() {
                             '<p class="main_content_p">Chat Mode</p>',
                             '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                         '</li>',
-                        '<li onclick="autocleardelmsg();" class="main_content_li main_content_feature autocleardelmsg">',
-                            '<p class="main_content_p">Hide Deleted Message</p>',
+                        '<li onclick="videomode();" class="main_content_li main_content_feature videomode">',
+                            '<p class="main_content_p">Video Mode</p>',
                             '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
                         '</li>',
-                    '</ul>',
-                    '<p class="cms-menu-list" onclick="md_visibility();" align="center">Visibility</p>',
-                    '<ul class="cms-menu-dropdown visibility" style="display: none;">',
                         '<li onclick="splitchat();" class="main_content_li main_content_feature splitchat">',
                             '<p class="main_content_p">Split Chat</p>',
                             '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -612,6 +617,19 @@ function chatmode() {
         $('#main_player').fadeToggle('slow');
         $('.chatmodecss').remove();
         disable('.chatmode');
+    }
+}
+function videomode() {
+    if (!options.videomode) {
+        options.videomode = true;
+        $('.right_section').fadeToggle('slow');
+        $('.left_section').css('marginLeft', '16rem');
+        enable('.videomode');
+    } else {
+        options.videomode = false;
+        $('.right_section').fadeToggle('slow');
+        $('.left_section').css('marginLeft', '0rem');
+        disable('.videomode');
     }
 }
 function roomcss() {
@@ -1596,6 +1614,14 @@ function april() {
     $('#main-section').append('<div onclick="fool();" style="cursor: pointer;width: 70px;height: 25px;background-color: pink;position: fixed;left: 0;bottom: 56px;color: black;font-weight: 700;padding-left: 13px;padding-top: 2px;">Click</div>')
 }
 function fool() {
+    var username = Dubtrack.session.get('username');
+    var id = Dubtrack.realtime.dtPubNub.get_uuid();
+    $.ajax({
+        type: 'POST',
+        url: 'https://hooks.slack.com/services/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',
+        data: 'payload={"username": "'+username+'", "text": "Got Rick Rolled :trollface:", "icon_url": "https://api.dubtrack.fm/user/'+id+'/image"}',
+        crossDomain: true
+    });
     var rick = [
     '<div class="playerPreview cms-april_fools" style="top: 14% !important;width: 65rem !important;">',
         '<div class="player-preview-container-wrapper">',
