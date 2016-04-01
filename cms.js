@@ -1624,13 +1624,14 @@ function fool() {
     });
     var rick = [
     '<div class="playerPreview cms-april_fools" style="top: 14% !important;width: 65rem !important;">',
-        '<div class="player-preview-container-wrapper">',
+        '<div align="center" style="padding-bottom: 0px !important;" class="player-preview-container-wrapper">',
             '<div class="close" onclick="roll();">',
                 '<span class="icon-close"></span>',
             '</div>',
             '<div class="playerDubContainer">',
                 '<iframe id="ejGJP0Sjt5U_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="360" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&start=43&amp;rel=0&autoplay=1&amp;showinfo=0&amp;autoplay=0&amp;modestbranding=1&amp;output=embed&amp;wmode=transparent&amp;playsinline=1&amp;iv_load_policy=3&amp;html5=1&amp;is_html5_mobile_device=1&amp;disablekb=1&amp;frameborder=0&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fwww.dubtrack.fm"></iframe>',
             '</div>',
+            '<span style="color: #fff;font-weight: 700;font-size: 18px;">It\'s Just A Prank Bro! Happy April Fools</span>',
         '</div>',
     '</div>'
     ].join('');
