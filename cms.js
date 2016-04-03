@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Video Mode and More!';
-var version = '11.10.22';
+var version = '11.10.23';
 var emo = [];
 var men = [];
 var menu = {
@@ -1413,10 +1413,10 @@ function autocompleteue() {
         });
         $('#chat-txt-message').textcomplete([{
             mentions: men,
-            match: /\B@([\-+\w]*)$/i,
+            match: /\B@([\-+\w]*)$/,
             search: function(term, callback) {
                 callback($.map(this.mentions, function(mention) {
-                    return mention.indexOf(term) === 0 ? mention : null;
+                    return mention.toLowerCase().indexOf(term.toLowerCase()) === 0 ? mention : null;
                 }));
             },
             index: 1,
