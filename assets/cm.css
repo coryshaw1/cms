@@ -432,7 +432,7 @@ a, body, button, input, select, textarea{
     color: #fff;
 }
 #chat .chat-container .chat-messages .chat-main li.current-chat-user .activity-row .text p a.username {
-    color: #FFDD6F;
+    color: #FFDD6F!important;
 }
 
     /* Special Users */
