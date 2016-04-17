@@ -11,7 +11,7 @@ Team
 -------------
 How to use
 ---
-- Instructions on [website](https://mitchdev.net/cms/)
+- Instructions on [website](http://chilloutmusica.github.io/cms/)
 
 -------------
 Links
