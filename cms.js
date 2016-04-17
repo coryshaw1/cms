@@ -499,7 +499,6 @@ function cssconfirm() {
         if (text.indexOf('http')) {
             $('head').append('<style class="CMSccss" type="text/css">' + text + '</style>');
         } else {
-            $('head').append('<link class="CMSccss" href="' + text + '" rel="stylesheet">');
             $('head').append('<link class="CMSccss" href="' + text + '" rel="stylesheet" type="text/css">');
         }
         $('.INPUT.CSS').hide();
