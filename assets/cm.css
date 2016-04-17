@@ -436,20 +436,23 @@ a, body, button, input, select, textarea{
 }
 
     /* Special Users */
-#chat .chat-container ul.chat-main li.user-5600e1bf2e803803000fee40 .activity-row .text p a.username, /* Roomba */
-#chat .chat-container ul.chat-main li.user-56208ef772fbd14400119c64 .activity-row .text p a.username, /* Roomba new */
-#chat .chat-container ul.chat-main li.user-55ff1b594c828c03008bd5f7 .activity-row .text p a.username { /* Chillbot */
-    color: #5A93CC!important;
-    font-weight: 600!important;
+        /* Roomba */
+        /* Roomba new */
+        /* Chillbot */
+#chat .chat-container ul.chat-main li.user-5600e1bf2e803803000fee40 .activity-row .text p a.username, 
+#chat .chat-container ul.chat-main li.user-56208ef772fbd14400119c64 .activity-row .text p a.username, 
+#chat .chat-container ul.chat-main li.user-55ff1b594c828c03008bd5f7 .activity-row .text p a.username { 
+    color: #5DB4FF!important;
+    font-weight: 700!important;
     font-size: 1em;
     text-shadow: 0px 0px 1px rgba(0,0,0,0.5);
 }
-#chat .chat-container ul.chat-main li.user-56208ef772fbd14400119c64 .activity-row .text p a.username:before { /* Roomba new */
-/*     content: url(https://rawgit.com/ChilloutMusica/dubtheme/master/icons/roomba.png); */
+/*#chat .chat-container ul.chat-main li.user-56208ef772fbd14400119c64 .activity-row .text p a.username:before {
+    content: url(https://rawgit.com/ChilloutMusica/dubtheme/master/icons/roomba.png);
     position: relative;
     top: 3px;
     padding-right: 4px;
-}
+}*/
 #chat .chat-container .chat-messages .chat-main li.isCo-owner .activity-row .text p .username, 
 #chat .chat-container .chat-messages .chat-main li.isCo-owner .activity-row .text p .username:visited {
     color: #d3dbe0;
@@ -546,6 +549,20 @@ a, body, button, input, select, textarea{
 #main_avatar_room #main-user-list-room #avatar-list li.dj p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li:after p.username:after {
     color: #fff;
+}
+    /* Special */
+ul.avatar-list .userid-56208ef772fbd14400119c64:after,
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.dubs,
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.dubs:before,
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.username,
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.username:after {
+    color: #5DB4FF !important;
+}
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.username:after {
+    content: "-  BOT " url('http://i.imgur.com/mgql1pW.gif') !important;
+}
+ul.avatar-list .userid-56208ef772fbd14400119c64 p.dubs {
+    display: none!important;
 }
 
 /* Options tab */

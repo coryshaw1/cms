@@ -15,8 +15,8 @@ Disputes shall be settled by Oslo City Court.
 /*global Dubtrack*/
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
-var motd = 'Video Mode and More!';
-var version = '11.11';
+var motd = 'Scroll on video to change volume!';
+var version = '11.11.1';
 var emo = [];
 var men = [];
 var menu = {

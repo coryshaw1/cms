@@ -225,16 +225,34 @@ ul.avatar-list li.user-mrsuffocate,
 #chat .chat-container .chat-messages .chat-main li.user-5609dc356c09ec03001e7748 .activity-row .text a.username:hover {
 	cursor: url('https://mitchdev.net/cms/pizza.cur'), pointer !important;
 }
-p.user-mitch,
-ul.avatar-list li.user-mitch p.dubs:before,
-ul.avatar-list li.user-mitch p.username:after,
-ul.avatar-list li.user-mitch p.username {
+/* Mitch */
+#chat .chat-container ul.chat-main li.user-55ff8bf7196f170300cc0b2a .activity-row .text p a.username {
+    color: #AA74FE !important;
+    text-shadow: 0px 0px 1px rgba(0,0,0,.5);
+}
+.userid-55ff8bf7196f170300cc0b2a,
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs,
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs:before,
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username,
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username:after {
 	color: #AA74FE !important;
 }
-ul.avatar-list li.user-kris p.dubs:hover:before {
+/* Kris */
+#chat .chat-container ul.chat-main li.user-55ff52375335f703008b0d38 .activity-row .text p a.username {
+    color: #409fff !important;
+    text-shadow: 0px 0px 1px rgba(0,0,0,.5);
+}
+.userid-55ff52375335f703008b0d38,
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs,
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs:before,
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.username,
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.username:after {
+    color: #409fff !important;
+}
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs:hover:before {
 	content: "Developer - " !important;
 }
-ul.avatar-list li.user-mitch p.dubs:hover:before {
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs:hover:before {
 	content: "Developer & Owner - " !important;
 }
 ul.avatar-list li.user-brcr p.dubs:hover:before {
