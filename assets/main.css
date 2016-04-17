@@ -351,3 +351,166 @@ ul.avatar-list li.user-mitch p.dubs:before {
 .disabled {
 	display: none !important;
 }
+.cms-menu-list {
+    color: #5A93CC;
+    font-size: .95rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    bottom: 1px;
+    border-top: 2px solid;
+    cursor: pointer;
+    padding-top: 5px;
+    margin-top: 15px;
+}
+#rs-dialog-container {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 345px;
+    bottom: 0;
+    left: 0;
+    z-index: 999999;
+    background: rgba(17,19,23,.8);
+    text-align: center;
+    white-space: nowrap;
+    width: 100%;
+}
+#rs-dialog-container:before {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: -.25em;
+    height: 100%;
+    content: '';
+    vertical-align: middle;
+}
+div#rs-dialog-ccc {
+	min-width: 480px !important;
+}
+.rs-dialog {
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	max-width: 90%;
+	background: rgb(17, 19, 23) !important;
+	box-shadow: 0 0 5px #000;
+	vertical-align: middle;
+	white-space: normal;
+}
+.dialog-frame {
+	height: 55px;
+}
+.dialog-frame .title {
+	position: absolute;
+	top: 7px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 28px;
+}
+.dialog-body {
+	background: #111317;
+}
+.dialog-frame,
+.dialog-body {
+	position: relative;
+	width: 100%;
+}
+.rs-dialog-message {
+	top: 9px;
+    left: 10px;
+    overflow: hidden;
+    width: 464px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.rs-dialog .dialog-body .content {
+    left: 0px;
+    margin-left: 0px;
+    margin-bottom: 14px;
+}
+.rs-dialog .dialog-body .content {
+    position: relative;
+    width: 49%;
+    margin-top: 10px;
+    float: left;
+}
+.ccctxt-left {
+    text-align: left !important;
+}
+.rs-paragraph {
+    left: 10px;
+    margin-left: 0px;
+    margin-bottom: 14px;
+    margin-right: 10px;
+}
+.rs-dialog-message .ccc {
+    white-space: normal !important;
+}
+.ccc {
+    line-height: 16px;
+    font-size: 12px;
+}
+.relative {
+    position: relative;
+}
+.rs-paragraph {
+    left: 10px;
+    margin-left: 0px;
+    margin-bottom: 14px;
+    margin-right: 10px;
+}
+.rs-paragraph span.title {
+    font-size: 18px;
+    margin-right: -9px;
+    margin-left: 10px;
+}
+.cccleft {
+    float: left !important;
+    margin-right: 10px !important;
+    width: 80px;
+    font-size: 12px;
+    height: 16px;
+}
+.rs-custom-inputs {
+    background: #282c35;
+    color: #FFF;
+    height: 25px;
+    outline: none;
+    border: none;
+    padding: 3px 10px 3px 10px;
+    float: right;
+}
+.ccctxt-right {
+    text-align: right !important;
+}
+.ccctxt-right {
+    text-align: right !important;
+}
+.cccright {
+    float: right !important;
+    margin-left: 10px !important;
+    width: 80px;
+    font-size: 12px;
+    height: 25px;
+}
+.dialog-frame .button span {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+}
+.chat-main {
+    padding-right: 0px !important;
+}
+.chatDelete {
+    padding-right: 1.3rem !important;
+}
+.main_content_li:hover p {
+    color: #FFF;
+}
+#profileSidebar {
+    width: calc(100% - 15rem);
+}
