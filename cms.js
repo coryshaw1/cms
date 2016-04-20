@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.1';
+var version = '11.11.3';
 var emo = [];
 var men = [];
 var menu = {
@@ -243,8 +243,8 @@ function append() {
         $('body').append('<div id="rs-dialog-container" class="INPUT CMEN is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Mentions</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input cmen" style="width: 450px;margin-left: 15px;" placeholder="separate, keywords, by, commas"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="cmenc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT BG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Background</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input bg" style="width: 450px;margin-left: 15px;" placeholder="https://example.com/example.jpg / #ffffff"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="bgconfirm();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT CSS is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Css</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input css" style="width: 450px;margin-left: 15px;" placeholder="https://example.com/example.css / body { background-color: #fff; }"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="cssconfirm();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
-        $('head').append('<script src="https://mitchdev.net/emoarray.js"></script>');
-        $('head').append('<script src="https://mitchdev.net/jquery.textcomplete.js"></script>');
+        $('head').append('<script src="https://mitchdev.net/dt/emoarray.js"></script>');
+        $('head').append('<script src="https://mitchdev.net/dt/jquery.textcomplete.js"></script>');
         $('.player_sharing').append('<span class="icon-history eta_btn" onclick="eta();" onmouseover="eta_tooltip();" onmouseout="hide_eta_tooltip();"></span>');
         $('.player_sharing').append('<span class="icon-mute snooze_btn" onclick="snooze();" onmouseover="snooze_tooltip();" onmouseout="hide_snooze_tooltip();"></span>');
         $('<a class="dtapibtn" href="http://docs.dubtrackfmapiv11.apiary.io/" target="blank">Dubtrack API</a>').insertAfter('#main-menu-left .navigate.room-active-link');
@@ -910,9 +910,6 @@ function commands(e) {
             '<span>CMS HELP</span>',
             '<br>',
             '<br>',
-            '<span><a target="_blank" href="https://mitchdev.net/cms/o/">CMS Options Help</a></span>',
-            '<br>',
-            '<br>',
             '<span>/commands - Displays a list of CMS chat commands</span>',
             '<br>',
             '</li>'
@@ -1277,7 +1274,7 @@ function songadvance(e) {
 
 function volumeScroll() {
     var volume = 0;
-    $(".volume, .left_section").bind("mousewheel", function(e){
+    $(".volume, .player_container").bind("mousewheel", function(e){
         var increment = 5;
         if (e.originalEvent.wheelDelta /120 > 0) setVolume(getVolume() + increment);
         else setVolume(getVolume() - increment);

@@ -559,10 +559,10 @@ ul.avatar-list .userid-56208ef772fbd14400119c64 p.username:after {
     color: #5DB4FF !important;
 }
 ul.avatar-list .userid-56208ef772fbd14400119c64 p.username:after {
-    content: "-  BOT " url('http://i.imgur.com/mgql1pW.gif') !important;
+    content: "-  BOT "!important;
 }
 ul.avatar-list .userid-56208ef772fbd14400119c64 p.dubs {
-    display: none!important;
+    content: url('http://i.imgur.com/mgql1pW.gif') !important;
 }
 
 /* Options tab */
