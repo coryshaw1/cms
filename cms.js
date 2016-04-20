@@ -16,7 +16,11 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
+<<<<<<< HEAD
 var version = '11.11.3';
+=======
+var version = '11.11.2';
+>>>>>>> 358a9238c28430efc3a0b7147a3b72645375c1b4
 var emo = [];
 var men = [];
 var menu = {
