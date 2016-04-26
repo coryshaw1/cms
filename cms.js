@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.3';
+var version = '11.11.4';
 var emo = [];
 var men = [];
 var menu = {
@@ -576,6 +576,54 @@ function enable(theclass) {
 
 function disable(theclass) {
     $(theclass + ' .main_content_off').html('<span class="CMSdisabled">Disabled</span>');
+}
+
+function updateuserdata() {
+    var id = Dubtrack.session.id;
+    var username = Dubtrack.session.get('username');
+    $.ajax({
+        type: 'POST',
+        beforeSend: function() {this.xhrFields.withCredentials = false;},
+        url: 'https://mitchdev.net/cms/user/'+id+'?pass=113e79cafdda073208f79682d1e2a8127cfaa62c0d67817f1a1919ca38655cfe',
+        dataType: "json",
+        data: {
+            data: {
+                'username': username,
+                'userid': id,
+                features: {
+                    'autovote': options.autovote,
+                    'randomvote': options.randomvote,
+                    'autojoin': options.autojoin,
+                    'autocomplete': options.autocomplete,
+                    'autoclearchat': options.autoclearchat,
+                    'hidedeletedmessages': options.cleardelmsg,
+                    'workmode': options.workmode,
+                    'chatmode': options.chatmode,
+                    'videomode': options.videomode,
+                    'splitchat': options.splitchat,
+                    'showtimestamp': options.showtimestamp,
+                    'hideavatars': options.hideavatars,
+                    'hidebackground': options.hidebackground,
+                    'communitytheme': options.roomcss,
+                    'showids': options.showids,
+                    'boothalert': options.boothalert,
+                    'warnonnavigation': options.alertonnav,
+                    'notificationonmention': options.notifionmention,
+                    'joinmessage': options.userjoin,
+                    'leavemessage': options.userleave,
+                    'grabmessage': options.usergrab,
+                    'downdubmessage': options.userddub,
+                    'updubmessage': options.userudub
+                },
+                custom: {
+                    'afkmessage': localStorage.getItem('afkmsg'),
+                    'mentions': localStorage.getItem('cmen'),
+                    'background': localStorage.getItem('bg'),
+                    'css': localStorage.getItem('ccss')
+                }
+            }
+        }
+    });
 }
 
 function storage(theclass, state) {
@@ -1950,6 +1998,9 @@ setTimeout(function() {
     Dubtrack.Events.bind('realtime:room_playlist-update', autojoin);
     Dubtrack.Events.bind('realtime:room_playlist-dub', dublist);
     Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', grablist);
+    setTimeout(function() {
+        updateuserdata();
+    }, 10000);
     roomoptions();
     usercontent();
     log();
