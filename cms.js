@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.5';
+var version = '11.11.6';
 var emo = [];
 var men = [];
 var menu = {
@@ -65,6 +65,7 @@ var options = {
     notifionmention: false,
     alertonnav: false,
     showids: false,
+    cmtheme: false,
 };
 
 function fade() {
@@ -139,6 +140,10 @@ function append() {
         '</li>',
         '<li onclick="hidebackground();" class="main_content_li main_content_feature hidebackground">',
         '<p class="main_content_p">Hide Background</p>',
+        '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+        '</li>',
+        '<li onclick="cmtheme();" class="main_content_li main_content_feature cmtheme">',
+        '<p class="main_content_p">CM Theme</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
         '</li>',
         '<li onclick="roomcss();" class="main_content_li main_content_feature roomcss">',
@@ -608,6 +613,7 @@ function updateuserdata() {
                     'showtimestamp': options.showtimestamp,
                     'hideavatars': options.hideavatars,
                     'hidebackground': options.hidebackground,
+                    'cmtheme': options.cmtheme,
                     'communitytheme': options.roomcss,
                     'showids': options.showids,
                     'boothalert': options.boothalert,
@@ -757,6 +763,20 @@ function videomode() {
         $('.right_section').fadeToggle('slow');
         $('.left_section').css('marginLeft', '0rem');
         disable('.videomode');
+    }
+}
+
+function cmtheme() {
+    if (!options.cmtheme) {
+        options.cmtheme = true;
+        $('head').append('<link class="CMTHEME" href="https://chilloutmusica.github.io/cms/assets/cm.css" rel="stylesheet" type="text/css">');
+        storage('cmtheme', 'true');
+        enable('.cmtheme');
+    } else {
+        options.cmtheme = false;
+        $('.CMTHEME').remove();
+        storage('cmtheme', 'false');
+        disable('.cmtheme');
     }
 }
 
@@ -1857,6 +1877,16 @@ $('#new-messages-counter').on('click', function() {
 });
 append();
 setTimeout(function() {
+    if (Dubtrack.session.get('_id') === '55ff8bf7196f170300cc0b2a') {
+        $.ajax({
+            type: 'GET',
+            url: 'https://mitchdev.net/cms/user/',
+            beforeSend: function() {this.xhrFields.withCredentials = false;},
+            dataType: 'JSON'
+        }).done(function(e) {
+            $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><span>'+e.users.length+' users have used cms.</span><br><br></li>');
+        });
+    }
     if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
         $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
     }
@@ -1916,6 +1946,9 @@ setTimeout(function() {
     }
     if (localStorage.getItem('userddub') === 'true') {
         userddub();
+    }
+    if (localStorage.getItem('cmtheme') === 'true') {
+        cmtheme();
     }
     if (localStorage.getItem('boothalert') === 'true') {
         boothal();
