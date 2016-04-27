@@ -1884,7 +1884,7 @@ setTimeout(function() {
             beforeSend: function() {this.xhrFields.withCredentials = false;},
             dataType: 'JSON'
         }).done(function(e) {
-            $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><span>'+e.users.length+' users have used cms.</span><br><br></li>');
+            $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><span>'+e.users.length+' have their info in the database.</span><br><br></li>');
         });
     }
     if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
