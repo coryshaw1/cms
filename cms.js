@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.6';
+var version = '11.11.7';
 var emo = [];
 var men = [];
 var menu = {
@@ -1760,18 +1760,6 @@ function log() {
             data: 'payload={"username": "' + username + ' enabled cms", "attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true}],"color": "#93CC5A"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
-        window.onbeforeunload = function() {
-            localStorage.removeItem('room_css');
-            localStorage.removeItem('room_social_icon');
-            localStorage.removeItem('room_social_link');
-            //localStorage.removeItem('room_emotes');
-            $.ajax({
-                type: 'POST',
-                url: 'https://hooks.slack.com/services/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',
-                data: 'payload={"username": "' + username + ' disabled cms", "attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true}],"color": "#FF4060"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
-                crossDomain: true
-            });
-        };
     }
 }
 
