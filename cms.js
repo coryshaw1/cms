@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.7';
+var version = '11.11.8';
 var emo = [];
 var men = [];
 var menu = {
@@ -70,7 +70,8 @@ var options = {
 
 function fade() {
     if (!options.workfade) {
-        $('.main_content').fadeToggle('slow');
+        $('.main_content').stop().fadeToggle('slow');
+        $('.CMSbtn').toggleClass('active');
     }
 }
 
@@ -181,6 +182,10 @@ function append() {
         '<p class="main_content_p">Grab Message</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
         '</li>',
+        '<li onclick="userddub();" class="main_content_li main_content_feature userddub">',
+        '<p class="main_content_p">Downdub Message</p>',
+        '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+        '</li>',
         '<li onclick="userudub();" class="main_content_li main_content_feature userudub">',
         '<p class="main_content_p">Updub Message</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -238,10 +243,6 @@ function append() {
     setTimeout(function() {
         $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><span>Owners/Co-Owners Please Note That Community Css Has Been Changed Click <a target="_blank" href="http://chilloutmusica.github.io/cms/options/">Here</a> To See How It Is Now Done.<br>Emotes Are A Work In Progress.<br>Thank You.</span><br><br><br></li>');
         $('<span class="chat-option-header">CMS</span><div class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
-        if (userHasPerm()) {
-            $('<li onclick="userddub();" class="main_content_li main_content_feature userddub"><p class="main_content_p">Downdub Message</p><p class="main_content_off"><span class="CMSdisabled">Disabled</span></p></li>').insertAfter('.usergrab');
-            $('<div class="downdublist" style="display: none;"><center><div class="downdublistheader" style="margin-top: 10px;"><h1>Downdubs</h1></div><div class="downdublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>').insertAfter('.updublist');
-        }
     }, 5000);
     setTimeout(function() {
         $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
@@ -260,6 +261,7 @@ function append() {
         $('<a class="CMSEbtn" onclick="fade();">CMS</a>').insertAfter('#main-menu-left .navigate.lobby-link');
         $('<span class="CMSbtn" onclick="fade();" style="margin-left:3px;">CMS</span>').insertAfter('.player_header .room-info-display');
         $('body').prepend(mainmenu);
+        $('body').append('<div class="downdublist" style="display: none;"><center><div class="downdublistheader" style="margin-top: 10px;"><h1>Downdubs</h1></div><div class="downdublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         $('body').append('<div class="updublist" style="display: none;"><center><div class="updublistheader" style="margin-top: 10px;"><h1>Updubs</h1></div><div class="updublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         $('body').append('<div class="grablist" style="display: none;"><center><div class="grablistheader" style="margin-top: 10px;"><h1>Grabs</h1></div><div class="grablistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         setTimeout(function() {
@@ -270,12 +272,12 @@ function append() {
 
 function md_contact() {
     if (!menu.contact) {
-        $('.cms-menu-dropdown.contact').slideToggle('slow');
+        $('.cms-menu-dropdown.contact').stop().slideToggle('slow');
         storage('menu_contact', 'true');
         menu.contact = true;
     }
     else {
-        $('.cms-menu-dropdown.contact').slideToggle('slow');
+        $('.cms-menu-dropdown.contact').stop().slideToggle('slow');
         storage('menu_contact', 'false');
         menu.contact = false;
     }
@@ -283,12 +285,12 @@ function md_contact() {
 
 function md_main() {
     if (!menu.main) {
-        $('.cms-menu-dropdown.main').slideToggle('slow');
+        $('.cms-menu-dropdown.main').stop().slideToggle('slow');
         storage('menu_main', 'true');
         menu.main = true;
     }
     else {
-        $('.cms-menu-dropdown.main').slideToggle('slow');
+        $('.cms-menu-dropdown.main').stop().slideToggle('slow');
         storage('menu_main', 'false');
         menu.main = false;
     }
@@ -296,12 +298,12 @@ function md_main() {
 
 function md_visibility() {
     if (!menu.visibility) {
-        $('.cms-menu-dropdown.visibility').slideToggle('slow');
+        $('.cms-menu-dropdown.visibility').stop().slideToggle('slow');
         storage('menu_visibility', 'true');
         menu.visibility = true;
     }
     else {
-        $('.cms-menu-dropdown.visibility').slideToggle('slow');
+        $('.cms-menu-dropdown.visibility').stop().slideToggle('slow');
         storage('menu_visibility', 'false');
         menu.visibility = false;
     }
@@ -309,12 +311,12 @@ function md_visibility() {
 
 function md_notification() {
     if (!menu.notification) {
-        $('.cms-menu-dropdown.notification').slideToggle('slow');
+        $('.cms-menu-dropdown.notification').stop().slideToggle('slow');
         storage('menu_notification', 'true');
         menu.notification = true;
     }
     else {
-        $('.cms-menu-dropdown.notification').slideToggle('slow');
+        $('.cms-menu-dropdown.notification').stop().slideToggle('slow');
         storage('menu_notification', 'false');
         menu.notification = false;
     }
@@ -322,12 +324,12 @@ function md_notification() {
 
 function md_customization() {
     if (!menu.customization) {
-        $('.cms-menu-dropdown.customization').slideToggle('slow');
+        $('.cms-menu-dropdown.customization').stop().slideToggle('slow');
         storage('menu_customization', 'true');
         menu.customization = true;
     }
     else {
-        $('.cms-menu-dropdown.customization').slideToggle('slow');
+        $('.cms-menu-dropdown.customization').stop().slideToggle('slow');
         storage('menu_customization', 'false');
         menu.customization = false;
     }
@@ -337,7 +339,7 @@ function listhover() {
     $('.dubup').hover(function() {
         options.updubhover = true;
         if (options.updubhover) {
-            $('.updublist').slideToggle("slow");
+            $('.updublist').stop().slideToggle("slow");
         }
     });
     $('.dubup').mouseout(function() {
@@ -346,7 +348,7 @@ function listhover() {
     $('.dubdown').hover(function() {
         options.downdubhover = true;
         if (options.downdubhover) {
-            $('.downdublist').slideToggle("slow");
+            $('.downdublist').stop().slideToggle("slow");
         }
     });
     $('.dubdown').mouseout(function() {
@@ -355,7 +357,7 @@ function listhover() {
     $('.add-to-playlist-button').hover(function() {
         options.grabhover = true;
         if (options.grabhover) {
-            $('.grablist').slideToggle("slow");
+            $('.grablist').stop().slideToggle("slow");
         }
     });
     $('.add-to-playlist-button').mouseout(function() {
@@ -887,32 +889,23 @@ function Euserudub(e) {
 }
 
 function userddub() {
-    if (userHasPerm()) {
-        if (!options.userddub) {
-            options.userddub = true;
-            enable('.userddub');
-            storage('userddub', 'true');
-            Dubtrack.Events.bind('realtime:room_playlist-dub', Euserddub);
-        }
-        else {
-            options.userddub = false;
-            disable('.userddub');
-            storage('userddub', 'false');
-            Dubtrack.Events.unbind('realtime:room_playlist-dub', Euserddub);
-        }
+    if (!options.userddub) {
+        options.userddub = true;
+        enable('.userddub');
+        storage('userddub', 'true');
+        Dubtrack.Events.bind('realtime:room_playlist-dub', Euserddub);
     }
     else {
         options.userddub = false;
         disable('.userddub');
+        storage('userddub', 'false');
         Dubtrack.Events.unbind('realtime:room_playlist-dub', Euserddub);
     }
 }
 
 function Euserddub(e) {
-    if (userHasPerm()) {
-        if (e.dubtype === "downdub") {
-            addToChat('<span class="system-userddub">@' + e.user.username + ' downdubbed this song</span>');
-        }
+    if (e.dubtype === "downdub") {
+        addToChat('<span class="system-userddub">@' + e.user.username + ' downdubbed this song</span>');
     }
 }
 
@@ -1687,6 +1680,8 @@ function bugconfirm() {
             data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Window Size","value": "w:' + width + ', h:' + height + '","short": true},{"title": "Functions Enabled","value": "' + funenabled + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "danger"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
+        $('.input.bug').val('');
+        notification('info', 'Bug successfully sent');
         $('.INPUT.BUG').hide();
     }
 }
@@ -1724,6 +1719,8 @@ function suggestionconfirm() {
             data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "good"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
+        $('.input.suggestion').val('');
+        notification('info', 'Suggestion successfully sent');
         $('.INPUT.SUGGESTION').hide();
     }
 }
@@ -1745,6 +1742,8 @@ function feedbackconfirm() {
             data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "warning"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
+        $('.input.feedback').val('');
+        notification('info', 'Feedback successfully sent');
         $('.INPUT.FEEDBACK').hide();
     }
 }
