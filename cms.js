@@ -339,7 +339,7 @@ function listhover() {
     $('.dubup').hover(function() {
         options.updubhover = true;
         if (options.updubhover) {
-            $('.updublist').stop().slideToggle("slow");
+            $('.updublist').slideToggle("fast");
         }
     });
     $('.dubup').mouseout(function() {
@@ -348,7 +348,7 @@ function listhover() {
     $('.dubdown').hover(function() {
         options.downdubhover = true;
         if (options.downdubhover) {
-            $('.downdublist').stop().slideToggle("slow");
+            $('.downdublist').slideToggle("fast");
         }
     });
     $('.dubdown').mouseout(function() {
@@ -357,7 +357,7 @@ function listhover() {
     $('.add-to-playlist-button').hover(function() {
         options.grabhover = true;
         if (options.grabhover) {
-            $('.grablist').stop().slideToggle("slow");
+            $('.grablist').slideToggle("fast");
         }
     });
     $('.add-to-playlist-button').mouseout(function() {
@@ -1525,7 +1525,7 @@ function autocompleteue() {
             },
             index: 1,
             template: function(value) {
-                return '<img src="https://cdn.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
+                return '<img src="https://www.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
             },
             replace: function(value) {
                 return ':' + value + ': ';
