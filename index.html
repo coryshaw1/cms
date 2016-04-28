@@ -1,23 +1,45 @@
 <html>
- 	<head>
-		<title>CMS - Home</title>
-		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-		<link type="text/css" rel="stylesheet" href="https://chilloutmusica.github.io/cms/assets/web.css">
-	</head>
-	<body>
-		<div class="container">
-			<div class="jumbotron">
-				<center>
-    				<h1><b>Chillout Music Script</b></h1>
-    				<span>
-	    				<a type="button" class="btn btn-lg btn-info btn-dl" href="computer">Computer</a>
-	  					<a type="button" class="btn btn-lg btn-info btn-dl" href="moblie">Mobile</a>
-	  					<a type="button" class="btn btn-lg btn-info btn-dl" href="options">Room Options Example</a>
-	  					<a type="button" class="btn btn-lg btn-info btn-dl" href="team">Team</a>
-	  					<a type="button" class="btn btn-lg btn-info btn-dl" href="https://github.com/chilloutmusica/cms">Github</a>
-	  				</span>
-    			</center>
-  			</div>
-  		</div>
-  	</body>
+    <head>
+        <title>ChilloutMusica Script</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="assets/main.css">
+    </head>
+    <body align="center">
+        <div id="info-page">
+            <div id="info-content">
+                <header>
+                    <div id="logo">About & Download</div>
+                </header>
+                <div id="project" class="info-section">
+                    <h2>ChilloutMusica Script</h2>
+                    <p>CMS is an extension for <a target="_blank" href="https://www.dubtrack.fm">dubtrack.fm</a>. CMS comes with a load of great features such as Auto and Random Vote, Booth Alert, Community Theme, Join/Leave/Grab Messages, Custom CSS/BG and much much more.</p>
+                </div>
+                <div>
+                    <div class="btn" style="cursor:pointer;display:inline-block;">
+                        <a href="https://chilloutmusica.github.io/cms/extensions/cms.user.js"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">User Script</p></a>
+                    </div>
+                    <div class="btn" style="cursor:pointer;display:inline-block;">
+                        <a href="https://chrome.google.com/webstore/detail/cms/pcmddbmdajejpddlhjkhfechjhkibpoa?authuser=1"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">Chrome Extension</p></a>
+                    </div>
+                    <div class="bookmark btn" style="cursor:pointer;display:inline-block;">
+                        <a href="javascript:(function(){$.getScript('https://chilloutmusica.github.io/cms/cms.js');}());"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">Bookmark</p></a>
+                        <div class="tooltip" style="position: absolute;font: 1rem/1.5 proxima-nova,sans-serif;display: none;right: -15px;cursor: pointer;border-radius: 1.5rem;padding: 8px 16px;background: #bbb;font-weight: 700;font-size: 13.6px;color: #333;text-align: center;z-index: 9;">Drag onto bookmarks bar</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="btn" style="cursor:pointer;display:inline-block;">
+                        <a href="https://chilloutmusica.github.io/cms/team/"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">Team</p></a>
+                    </div>
+                    <div class="btn" style="cursor:pointer;display:inline-block;">
+                        <a href="https://chilloutmusica.github.io/cms/options"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">Room Options</p></a>
+                    </div>
+                    <div class="btn" style="cursor:pointer;display:inline-block;">
+                        <a href="https://github.com/ChilloutMusica/cms"><p style="color:#333;font-weight: 700;padding-left: 15px;padding-right: 15px;">Github</p></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="assets/main.js"></script>
+    </body>
 </html>
