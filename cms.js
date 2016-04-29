@@ -424,7 +424,7 @@ function autocomplete() {
         enable('.autocomplete');
         storage('autocomplete', 'true');
         options.autocomplete = true;
-        autocompleteue();
+        //autocompleteue();
         $('.textcomplete-dropdown').removeClass('disabled');
     }
     else {
@@ -1471,15 +1471,15 @@ function hideavatars() {
     }
 }
 
-function updateuserarray(e) {
-    var user = e.user.username;
-    if (e.type === "user-join") {
-        men.push('' + user + '');
-    }
-    else {
-        men.splice($.inArray('' + user + '', men), 1);
-    }
-}
+//function updateuserarray(e) {
+    //var user = e.user.username;
+    //if (e.type === "user-join") {
+        //men.push('' + user + '');
+    //}
+    //else {
+       // men.splice($.inArray('' + user + '', men), 1);
+    //}
+//}
 
 //function autocompleteue() {
     //if (options.autocomplete) {
@@ -1963,10 +1963,10 @@ setTimeout(function() {
     if (localStorage.getItem('avatars') === 'true') {
         hideavatars();
     }
-    Dubtrack.Events.bind("realtime:user-ban", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-join", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-kick", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-leave", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-ban", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-join", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-kick", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-leave", updateuserarray);
     Dubtrack.Events.bind('realtime:delete-chat-message', msgdatadel);
     Dubtrack.Events.bind('realtime:chat-message', displayidschat);
     Dubtrack.Events.bind('realtime:chat-message', newmessage);
