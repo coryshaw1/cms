@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.3';
+var version = '11.11.8';
 var emo = [];
 var men = [];
 var menu = {
@@ -65,11 +65,13 @@ var options = {
     notifionmention: false,
     alertonnav: false,
     showids: false,
+    cmtheme: false,
 };
 
 function fade() {
     if (!options.workfade) {
-        $('.main_content').fadeToggle('slow');
+        $('.main_content').stop().fadeToggle('slow');
+        $('.CMSbtn').toggleClass('active');
     }
 }
 
@@ -141,6 +143,10 @@ function append() {
         '<p class="main_content_p">Hide Background</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
         '</li>',
+        '<li onclick="cmtheme();" class="main_content_li main_content_feature cmtheme">',
+        '<p class="main_content_p">CM Theme</p>',
+        '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+        '</li>',
         '<li onclick="roomcss();" class="main_content_li main_content_feature roomcss">',
         '<p class="main_content_p">Community Theme</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
@@ -174,6 +180,10 @@ function append() {
         '</li>',
         '<li onclick="usergrab();" class="main_content_li main_content_feature usergrab">',
         '<p class="main_content_p">Grab Message</p>',
+        '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
+        '</li>',
+        '<li onclick="userddub();" class="main_content_li main_content_feature userddub">',
+        '<p class="main_content_p">Downdub Message</p>',
         '<p class="main_content_off"><span class="CMSdisabled">Disabled</span></p>',
         '</li>',
         '<li onclick="userudub();" class="main_content_li main_content_feature userudub">',
@@ -216,6 +226,9 @@ function append() {
         '<li onclick="suggestion();" class="main_content_li main_content_feature" align="center">',
         '<p class="main_content_p">Suggestion</p>',
         '</li>',
+        '<li onclick="feedback();" class="main_content_li main_content_feature" align="center">',
+        '<p class="main_content_p">General Feedback</p>',
+        '</li>',
         '<li class="main_content_li main_content_feature" align="center">',
         '<a target="_blank" href="https://github.com/ChilloutMusica/cms"><p class="main_content_p">Github</p></a>',
         '</li>',
@@ -230,15 +243,12 @@ function append() {
     setTimeout(function() {
         $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><span>Owners/Co-Owners Please Note That Community Css Has Been Changed Click <a target="_blank" href="http://chilloutmusica.github.io/cms/options/">Here</a> To See How It Is Now Done.<br>Emotes Are A Work In Progress.<br>Thank You.</span><br><br><br></li>');
         $('<span class="chat-option-header">CMS</span><div class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
-        if (userHasPerm()) {
-            $('<li onclick="userddub();" class="main_content_li main_content_feature userddub"><p class="main_content_p">Downdub Message</p><p class="main_content_off"><span class="CMSdisabled">Disabled</span></p></li>').insertAfter('.usergrab');
-            $('<div class="downdublist" style="display: none;"><center><div class="downdublistheader" style="margin-top: 10px;"><h1>Downdubs</h1></div><div class="downdublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>').insertAfter('.updublist');
-        }
     }, 5000);
     setTimeout(function() {
         $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
         $('body').append('<div id="rs-dialog-container" class="INPUT BUG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">CMS Bug</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input bug" style="width: 450px;margin-left: 15px;"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;"><div onclick="bugcancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div><div onclick="bugconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT SUGGESTION is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">CMS Suggestion</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input suggestion" style="width: 450px;margin-left: 15px;"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;"><div onclick="suggestioncancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div><div onclick="suggestionconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div></div></div></div>');
+        $('body').append('<div id="rs-dialog-container" class="INPUT FEEDBACK is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">CMS General Feedback</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input feedback" style="width: 450px;margin-left: 15px;"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;"><div onclick="feedbackcancel();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #282c35;" id="rs-ccc-saveDialog"><span>Cancel</span></div><div onclick="feedbackconfirm();" class="button submit" style="cursor: pointer;height: 100%;width:100% !important;background: #5A93CC;" id="rs-ccc-saveDialog"><span style="margin-top: 55px;">Confirm And Send</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT AFKMSG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Afk Message</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input afk" style="width: 450px;margin-left: 15px;" placeholder="I am currently AFK at the moment."></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="afkmsgc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT CMEN is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Mentions</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input cmen" style="width: 450px;margin-left: 15px;" placeholder="separate, keywords, by, commas"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="cmenc();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
         $('body').append('<div id="rs-dialog-container" class="INPUT BG is-preview is-rcs-model" style="display: none;"><div id="rs-dialog-ccc" class="rs-dialog"><div class="dialog-frame" style="background: #282c35;"><span class="title">Custom Background</span></div><div class="dialog-body"><span class="rs-dialog-message ccc"><div class="content" align="center" style="margin-bottom: 2px;"><textarea class="input bg" style="width: 450px;margin-left: 15px;" placeholder="https://example.com/example.jpg / #ffffff"></textarea></div></span></div><div class="dialog-frame" style="display: inherit;bottom: -5px;color: #eee;background: #5A93CC;"><div onclick="bgconfirm();" class="button submit" style="cursor: pointer;width:100% !important" id="rs-ccc-saveDialog"><span>Save and Close</span></div></div></div></div>');
@@ -251,6 +261,7 @@ function append() {
         $('<a class="CMSEbtn" onclick="fade();">CMS</a>').insertAfter('#main-menu-left .navigate.lobby-link');
         $('<span class="CMSbtn" onclick="fade();" style="margin-left:3px;">CMS</span>').insertAfter('.player_header .room-info-display');
         $('body').prepend(mainmenu);
+        $('body').append('<div class="downdublist" style="display: none;"><center><div class="downdublistheader" style="margin-top: 10px;"><h1>Downdubs</h1></div><div class="downdublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         $('body').append('<div class="updublist" style="display: none;"><center><div class="updublistheader" style="margin-top: 10px;"><h1>Updubs</h1></div><div class="updublistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         $('body').append('<div class="grablist" style="display: none;"><center><div class="grablistheader" style="margin-top: 10px;"><h1>Grabs</h1></div><div class="grablistpeople" style="margin-top: 10px;margin-bottom:10px;"></div></center></div>');
         setTimeout(function() {
@@ -261,12 +272,12 @@ function append() {
 
 function md_contact() {
     if (!menu.contact) {
-        $('.cms-menu-dropdown.contact').slideToggle('slow');
+        $('.cms-menu-dropdown.contact').stop().slideToggle('slow');
         storage('menu_contact', 'true');
         menu.contact = true;
     }
     else {
-        $('.cms-menu-dropdown.contact').slideToggle('slow');
+        $('.cms-menu-dropdown.contact').stop().slideToggle('slow');
         storage('menu_contact', 'false');
         menu.contact = false;
     }
@@ -274,12 +285,12 @@ function md_contact() {
 
 function md_main() {
     if (!menu.main) {
-        $('.cms-menu-dropdown.main').slideToggle('slow');
+        $('.cms-menu-dropdown.main').stop().slideToggle('slow');
         storage('menu_main', 'true');
         menu.main = true;
     }
     else {
-        $('.cms-menu-dropdown.main').slideToggle('slow');
+        $('.cms-menu-dropdown.main').stop().slideToggle('slow');
         storage('menu_main', 'false');
         menu.main = false;
     }
@@ -287,12 +298,12 @@ function md_main() {
 
 function md_visibility() {
     if (!menu.visibility) {
-        $('.cms-menu-dropdown.visibility').slideToggle('slow');
+        $('.cms-menu-dropdown.visibility').stop().slideToggle('slow');
         storage('menu_visibility', 'true');
         menu.visibility = true;
     }
     else {
-        $('.cms-menu-dropdown.visibility').slideToggle('slow');
+        $('.cms-menu-dropdown.visibility').stop().slideToggle('slow');
         storage('menu_visibility', 'false');
         menu.visibility = false;
     }
@@ -300,12 +311,12 @@ function md_visibility() {
 
 function md_notification() {
     if (!menu.notification) {
-        $('.cms-menu-dropdown.notification').slideToggle('slow');
+        $('.cms-menu-dropdown.notification').stop().slideToggle('slow');
         storage('menu_notification', 'true');
         menu.notification = true;
     }
     else {
-        $('.cms-menu-dropdown.notification').slideToggle('slow');
+        $('.cms-menu-dropdown.notification').stop().slideToggle('slow');
         storage('menu_notification', 'false');
         menu.notification = false;
     }
@@ -313,12 +324,12 @@ function md_notification() {
 
 function md_customization() {
     if (!menu.customization) {
-        $('.cms-menu-dropdown.customization').slideToggle('slow');
+        $('.cms-menu-dropdown.customization').stop().slideToggle('slow');
         storage('menu_customization', 'true');
         menu.customization = true;
     }
     else {
-        $('.cms-menu-dropdown.customization').slideToggle('slow');
+        $('.cms-menu-dropdown.customization').stop().slideToggle('slow');
         storage('menu_customization', 'false');
         menu.customization = false;
     }
@@ -328,7 +339,7 @@ function listhover() {
     $('.dubup').hover(function() {
         options.updubhover = true;
         if (options.updubhover) {
-            $('.updublist').slideToggle("slow");
+            $('.updublist').slideToggle("fast");
         }
     });
     $('.dubup').mouseout(function() {
@@ -337,7 +348,7 @@ function listhover() {
     $('.dubdown').hover(function() {
         options.downdubhover = true;
         if (options.downdubhover) {
-            $('.downdublist').slideToggle("slow");
+            $('.downdublist').slideToggle("fast");
         }
     });
     $('.dubdown').mouseout(function() {
@@ -346,7 +357,7 @@ function listhover() {
     $('.add-to-playlist-button').hover(function() {
         options.grabhover = true;
         if (options.grabhover) {
-            $('.grablist').slideToggle("slow");
+            $('.grablist').slideToggle("fast");
         }
     });
     $('.add-to-playlist-button').mouseout(function() {
@@ -413,7 +424,7 @@ function autocomplete() {
         enable('.autocomplete');
         storage('autocomplete', 'true');
         options.autocomplete = true;
-        autocompleteue();
+        //autocompleteue();
         $('.textcomplete-dropdown').removeClass('disabled');
     }
     else {
@@ -578,6 +589,55 @@ function disable(theclass) {
     $(theclass + ' .main_content_off').html('<span class="CMSdisabled">Disabled</span>');
 }
 
+function updateuserdata() {
+    var id = Dubtrack.session.id;
+    var username = Dubtrack.session.get('username');
+    $.ajax({
+        type: 'POST',
+        beforeSend: function() {this.xhrFields.withCredentials = false;},
+        url: 'https://mitchdev.net/cms/user/'+id+'?pass=113e79cafdda073208f79682d1e2a8127cfaa62c0d67817f1a1919ca38655cfe',
+        dataType: "json",
+        data: {
+            data: {
+                'username': username,
+                'userid': id,
+                features: {
+                    'autovote': options.autovote,
+                    'randomvote': options.randomvote,
+                    'autojoin': options.autojoin,
+                    'autocomplete': options.autocomplete,
+                    'autoclearchat': options.autoclearchat,
+                    'hidedeletedmessages': options.cleardelmsg,
+                    'workmode': options.workmode,
+                    'chatmode': options.chatmode,
+                    'videomode': options.videomode,
+                    'splitchat': options.splitchat,
+                    'showtimestamp': options.showtimestamp,
+                    'hideavatars': options.hideavatars,
+                    'hidebackground': options.hidebackground,
+                    'cmtheme': options.cmtheme,
+                    'communitytheme': options.roomcss,
+                    'showids': options.showids,
+                    'boothalert': options.boothalert,
+                    'warnonnavigation': options.alertonnav,
+                    'notificationonmention': options.notifionmention,
+                    'joinmessage': options.userjoin,
+                    'leavemessage': options.userleave,
+                    'grabmessage': options.usergrab,
+                    'downdubmessage': options.userddub,
+                    'updubmessage': options.userudub
+                },
+                custom: {
+                    'afkmessage': localStorage.getItem('afkmsg'),
+                    'mentions': localStorage.getItem('cmen'),
+                    'background': localStorage.getItem('bg'),
+                    'css': localStorage.getItem('ccss')
+                }
+            }
+        }
+    });
+}
+
 function storage(theclass, state) {
     localStorage.setItem(theclass, state);
 }
@@ -708,6 +768,20 @@ function videomode() {
     }
 }
 
+function cmtheme() {
+    if (!options.cmtheme) {
+        options.cmtheme = true;
+        $('head').append('<link class="CMTHEME" href="https://chilloutmusica.github.io/cms/assets/cm.css" rel="stylesheet" type="text/css">');
+        storage('cmtheme', 'true');
+        enable('.cmtheme');
+    } else {
+        options.cmtheme = false;
+        $('.CMTHEME').remove();
+        storage('cmtheme', 'false');
+        disable('.cmtheme');
+    }
+}
+
 function roomcss() {
     if (!options.roomcss) {
         options.roomcss = true;
@@ -815,32 +889,23 @@ function Euserudub(e) {
 }
 
 function userddub() {
-    if (userHasPerm()) {
-        if (!options.userddub) {
-            options.userddub = true;
-            enable('.userddub');
-            storage('userddub', 'true');
-            Dubtrack.Events.bind('realtime:room_playlist-dub', Euserddub);
-        }
-        else {
-            options.userddub = false;
-            disable('.userddub');
-            storage('userddub', 'false');
-            Dubtrack.Events.unbind('realtime:room_playlist-dub', Euserddub);
-        }
+    if (!options.userddub) {
+        options.userddub = true;
+        enable('.userddub');
+        storage('userddub', 'true');
+        Dubtrack.Events.bind('realtime:room_playlist-dub', Euserddub);
     }
     else {
         options.userddub = false;
         disable('.userddub');
+        storage('userddub', 'false');
         Dubtrack.Events.unbind('realtime:room_playlist-dub', Euserddub);
     }
 }
 
 function Euserddub(e) {
-    if (userHasPerm()) {
-        if (e.dubtype === "downdub") {
-            addToChat('<span class="system-userddub">@' + e.user.username + ' downdubbed this song</span>');
-        }
+    if (e.dubtype === "downdub") {
+        addToChat('<span class="system-userddub">@' + e.user.username + ' downdubbed this song</span>');
     }
 }
 
@@ -1406,76 +1471,76 @@ function hideavatars() {
     }
 }
 
-function updateuserarray(e) {
-    var user = e.user.username;
-    if (e.type === "user-join") {
-        men.push('' + user + '');
-    }
-    else {
-        men.splice($.inArray('' + user + '', men), 1);
-    }
-}
+//function updateuserarray(e) {
+    //var user = e.user.username;
+    //if (e.type === "user-join") {
+        //men.push('' + user + '');
+    //}
+    //else {
+       // men.splice($.inArray('' + user + '', men), 1);
+    //}
+//}
 
-function autocompleteue() {
-    if (options.autocomplete) {
-        var emoarray = localStorage.getItem('emoarray').toLowerCase().split(',');
-        emoarray.forEach(function(e) {
-            emo.push('' + e + '');
-        });
-        Dubtrack.room.users.collection.models.forEach(function(e) {
-            var user = e.attributes._user.username;
-            men.push('' + user + '');
-        });
-        $('#chat-txt-message').textcomplete([{
-            mentions: men,
-            match: /\B@([\-+\w]*)$/,
-            search: function(term, callback) {
-                callback($.map(this.mentions, function(mention) {
-                    return mention.toLowerCase().indexOf(term.toLowerCase()) === 0 ? mention : null;
-                }));
-            },
-            index: 1,
-            template: function(value) {
-                var id;
-                Dubtrack.cache.users.getByUsername('' + value + '', function(err, user) {
-                    if (err) {
-                        console.log("user not found");
-                    }
-                    else {
-                        id = user.id;
-                    }
-                });
-                return '<img src="https://api.dubtrack.fm/user/' + id + '/image"></img>@' + value + '<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
-            },
-            replace: function(mention) {
-                return '@' + mention + ' ';
-            }
-        }, {
-            emojies: emo,
-            match: /\B:([\-+\w]*)$/,
-            search: function(term, callback) {
-                callback($.map(this.emojies, function(emoji) {
-                    return emoji.indexOf(term) === 0 ? emoji : null;
-                }));
-            },
-            index: 1,
-            template: function(value) {
-                return '<img src="https://cdn.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
-            },
-            replace: function(value) {
-                return ':' + value + ': ';
-            }
-        }, ]);
-        setInterval(function() {
-            if ($(".textcomplete-dropdown").css('display') == 'block') {
-                $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
-            }
-            else if ($(".textcomplete-dropdown").css('display') == 'none') {
-                $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
-            }
-        }, 500);
-    }
-}
+//function autocompleteue() {
+    //if (options.autocomplete) {
+        //var emoarray = localStorage.getItem('emoarray').toLowerCase().split(',');
+        //emoarray.forEach(function(e) {
+            //emo.push('' + e + '');
+        //});
+        //Dubtrack.room.users.collection.models.forEach(function(e) {
+            //var user = e.attributes._user.username;
+            //men.push('' + user + '');
+        //});
+        //$('#chat-txt-message').textcomplete([{
+            //mentions: men,
+            //match: /\B@([\-+\w]*)$/,
+            //search: function(term, callback) {
+                //callback($.map(this.mentions, function(mention) {
+                    //return mention.toLowerCase().indexOf(term.toLowerCase()) === 0 ? mention : null;
+                //}));
+            //},
+            //index: 1,
+            //template: function(value) {
+                //var id;
+                //Dubtrack.cache.users.getByUsername('' + value + '', function(err, user) {
+                    //if (err) {
+                        //console.log("user not found");
+                    //}
+                    //else {
+                        //id = user.id;
+                    //}
+                //});
+                //return '<img src="https://api.dubtrack.fm/user/' + id + '/image"></img>@' + value + '<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
+            //},
+            //replace: function(mention) {
+                //return '@' + mention + ' ';
+            //}
+        //}, {
+            //emojies: emo,
+            //match: /\B:([\-+\w]*)$/,
+            //search: function(term, callback) {
+                //callback($.map(this.emojies, function(emoji) {
+                    //return emoji.indexOf(term) === 0 ? emoji : null;
+               //}));
+            //},
+            //index: 1,
+            //template: function(value) {
+                //return '<img src="https://www.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
+            //},
+            //replace: function(value) {
+                //return ':' + value + ': ';
+            //}
+        //}]);
+        //setInterval(function() {
+            //if ($(".textcomplete-dropdown").css('display') == 'block') {
+                //$('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
+            //}
+            //else if ($(".textcomplete-dropdown").css('display') == 'none') {
+                //$('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
+            //}
+        //}, 500);
+    //}
+//}
 
 function notifyonmention(e) {
     if (options.notifionmention) {
@@ -1615,6 +1680,8 @@ function bugconfirm() {
             data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Window Size","value": "w:' + width + ', h:' + height + '","short": true},{"title": "Functions Enabled","value": "' + funenabled + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "danger"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
+        $('.input.bug').val('');
+        notification('info', 'Bug successfully sent');
         $('.INPUT.BUG').hide();
     }
 }
@@ -1623,8 +1690,16 @@ function suggestion() {
     $('.INPUT.SUGGESTION').show();
 }
 
+function feedback() {
+    $('.INPUT.FEEDBACK').show();
+}
+
 function suggestioncancel() {
     $('.INPUT.SUGGESTION').hide();
+}
+
+function feedbackcancel() {
+    $('.INPUT.FEEDBACK').hide();
 }
 
 function suggestionconfirm() {
@@ -1637,80 +1712,39 @@ function suggestionconfirm() {
     });
     var username = Dubtrack.session.get('username');
     var room = Dubtrack.room.model.get('roomUrl');
-    var height = $(window).height();
-    var width = $(window).width();
-    var funenabled = [];
-    if (localStorage.getItem('alertonnav') === 'true') {
-        funenabled.push(' Alert On Navigation');
-    }
-    if (localStorage.getItem('showtimestamp') === 'true') {
-        funenabled.push(' Show Time Stamps');
-    }
-    if (localStorage.getItem('notifionmention') === 'true') {
-        funenabled.push(' Desktop Notification');
-    }
-    if (localStorage.getItem('autoclearchat') === 'true') {
-        funenabled.push(' Autoclear Chat');
-    }
-    if (localStorage.getItem('splitchat') === 'true') {
-        funenabled.push(' Split Chat');
-    }
-    if (localStorage.getItem('autocomplete') === 'true') {
-        funenabled.push(' Autocomplete');
-    }
-    if (localStorage.getItem('autojoin') === 'true') {
-        funenabled.push(' Autojoin');
-    }
-    if (localStorage.getItem('hidebackground') === 'true') {
-        funenabled.push(' Hide Background');
-    }
-    if (localStorage.getItem('afktoggle') === 'true') {
-        funenabled.push(' Afk Message');
-    }
-    if (localStorage.getItem('cmentoggle') === 'true') {
-        funenabled.push(' Custom Mentions');
-    }
-    if (localStorage.getItem('userjoin') === 'true') {
-        funenabled.push(' Join Message');
-    }
-    if (localStorage.getItem('userleave') === 'true') {
-        funenabled.push(' Leave Message');
-    }
-    if (localStorage.getItem('userddub') === 'true') {
-        funenabled.push(' Downdub Message');
-    }
-    if (localStorage.getItem('usergrab') === 'true') {
-        funenabled.push(' Grab Message');
-    }
-    if (localStorage.getItem('userudub') === 'true') {
-        funenabled.push(' Updub Message');
-    }
-    if (localStorage.getItem('boothalert') === 'true') {
-        funenabled.push(' Booth Alert');
-    }
-    if (localStorage.getItem('vote') === 'true') {
-        funenabled.push(' Autovote');
-    }
-    if (localStorage.getItem('randomvote') === 'true') {
-        funenabled.push(' Randomvote');
-    }
-    if (localStorage.getItem('css') === 'true') {
-        funenabled.push(' Community Css');
-    }
-    if (localStorage.getItem('cleardelmsg') === 'true') {
-        funenabled.push(' Hide Deleted Message');
-    }
-    if (localStorage.getItem('avatars') === 'true') {
-        funenabled.push(' Hide Avatars');
-    }
     if (message.length !== 0 && id !== blocked) {
         $.ajax({
             type: 'POST',
             url: 'https://hooks.slack.com/services/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',
-            data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Window Size","value": "w:' + width + ', h:' + height + '","short": true},{"title": "Functions Enabled","value": "' + funenabled + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "good"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
+            data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "good"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
+        $('.input.suggestion').val('');
+        notification('info', 'Suggestion successfully sent');
         $('.INPUT.SUGGESTION').hide();
+    }
+}
+
+function feedbackconfirm() {
+    var message = $('.input.feedback').val();
+    var id = Dubtrack.realtime.dtPubNub.get_uuid();
+    var blocked_ids = ['56cb95dface0345a000c09e2', '56942339fd1d10140015ba74'];
+    var blocked;
+    blocked_ids.forEach(function(e) {
+        blocked = '' + e + '';
+    });
+    var username = Dubtrack.session.get('username');
+    var room = Dubtrack.room.model.get('roomUrl');
+    if (message.length !== 0 && id !== blocked) {
+        $.ajax({
+            type: 'POST',
+            url: 'https://hooks.slack.com/services/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',
+            data: 'payload={"attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true},{"title": "Message","value": "' + message + '","short": true}],"color": "warning"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
+            crossDomain: true
+        });
+        $('.input.feedback').val('');
+        notification('info', 'Feedback successfully sent');
+        $('.INPUT.FEEDBACK').hide();
     }
 }
 
@@ -1725,18 +1759,6 @@ function log() {
             data: 'payload={"username": "' + username + ' enabled cms", "attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true}],"color": "#93CC5A"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
             crossDomain: true
         });
-        window.onbeforeunload = function() {
-            localStorage.removeItem('room_css');
-            localStorage.removeItem('room_social_icon');
-            localStorage.removeItem('room_social_link');
-            //localStorage.removeItem('room_emotes');
-            $.ajax({
-                type: 'POST',
-                url: 'https://hooks.slack.com/services/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',
-                data: 'payload={"username": "' + username + ' disabled cms", "attachments": [{"fields": [{"title": "Username","value": "' + username + '","short": true},{"title": "Room","value": "' + room + '","short": true},{"title": "ID","value": "' + id + '","short": true},{"title": "Version","value": "' + version + '","short": true}],"color": "#FF4060"}], "icon_url": "https://api.dubtrack.fm/user/' + id + '/image"}',
-                crossDomain: true
-            });
-        };
     }
 }
 
@@ -1842,6 +1864,16 @@ $('#new-messages-counter').on('click', function() {
 });
 append();
 setTimeout(function() {
+    if (Dubtrack.session.get('_id') === '55ff8bf7196f170300cc0b2a') {
+        $.ajax({
+            type: 'GET',
+            url: 'https://mitchdev.net/cms/user/',
+            beforeSend: function() {this.xhrFields.withCredentials = false;},
+            dataType: 'JSON'
+        }).done(function(e) {
+            $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><span>'+e.users.length+' users have their info in the database.</span><br><br></li>');
+        });
+    }
     if (Dubtrack.session.get('_id') === '5609dc356c09ec03001e7748') {
         $('body').append('<div class="pizza" style="background: url(http://i.imgur.com/A0qhlG2.gif);"></div>');
     }
@@ -1902,6 +1934,9 @@ setTimeout(function() {
     if (localStorage.getItem('userddub') === 'true') {
         userddub();
     }
+    if (localStorage.getItem('cmtheme') === 'true') {
+        cmtheme();
+    }
     if (localStorage.getItem('boothalert') === 'true') {
         boothal();
     }
@@ -1928,10 +1963,10 @@ setTimeout(function() {
     if (localStorage.getItem('avatars') === 'true') {
         hideavatars();
     }
-    Dubtrack.Events.bind("realtime:user-ban", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-join", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-kick", updateuserarray);
-    Dubtrack.Events.bind("realtime:user-leave", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-ban", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-join", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-kick", updateuserarray);
+    //Dubtrack.Events.bind("realtime:user-leave", updateuserarray);
     Dubtrack.Events.bind('realtime:delete-chat-message', msgdatadel);
     Dubtrack.Events.bind('realtime:chat-message', displayidschat);
     Dubtrack.Events.bind('realtime:chat-message', newmessage);
@@ -1950,6 +1985,9 @@ setTimeout(function() {
     Dubtrack.Events.bind('realtime:room_playlist-update', autojoin);
     Dubtrack.Events.bind('realtime:room_playlist-dub', dublist);
     Dubtrack.Events.bind('realtime:room_playlist-queue-update-grabs', grablist);
+    setTimeout(function() {
+        updateuserdata();
+    }, 10000);
     roomoptions();
     usercontent();
     log();

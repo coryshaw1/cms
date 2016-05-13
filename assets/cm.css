@@ -1,7 +1,7 @@
 /*
 
     Custom CSS for Dubtrack.fm
-    Blue theme and UI improvements
+    Custom theme and UI improvements
     Made by @Kris
     https://www.dubtrack.fm/kris
     https://github.com/PossiblyKris
@@ -539,15 +539,14 @@ a, body, button, input, select, textarea{
 }
 #main_avatar_room #main-user-list-room #avatar-list li p.username:hover,
 #main_avatar_room #main-user-list-room #avatar-list li.admin p.username:after, 
-#main_avatar_room #main-user-list-room #avatar-list li.co-owner p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li.creator p.username:after, 
-#main_avatar_room #main-user-list-room #avatar-list li.currentDJ p.username:after, 
+#main_avatar_room #main-user-list-room #avatar-list li.co-owner p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li.manager p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li.mod p.username:after, 
-#main_avatar_room #main-user-list-room #avatar-list li.resident-dj p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li.vip p.username:after, 
+#main_avatar_room #main-user-list-room #avatar-list li.resident-dj p.username:after, 
 #main_avatar_room #main-user-list-room #avatar-list li.dj p.username:after, 
-#main_avatar_room #main-user-list-room #avatar-list li:after p.username:after {
+#main_avatar_room #main-user-list-room #avatar-list li.currentDJ p.username:after {
     color: #fff;
 }
     /* Special */
