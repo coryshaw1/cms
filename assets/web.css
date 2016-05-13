@@ -1,39 +1,59 @@
-body {
-	background-color: #363636;
-}
-code {
-	padding: 2px 4px !important;
-    font-size: 90% !important;
-    color: #fff !important;
-    background-color: #333 !important;
-    border-radius: 3px !important;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,.25) !important;
-}
-.btn {
-	margin: 25px;
-	border-radius: 10px;
-}
-.jumbotron {
-	margin-top: 150px;
-	border-radius: 10px !important;
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
 }
 ::-webkit-scrollbar {
     display: none;
 }
-.option {
-    border: 1px solid #474747;
-    margin-bottom: 45px;
-    background: #eee;
+a {
+    color: #a3bc7f;
+    text-decoration: none;
+    transition: all 0.3s ease 0s;
 }
-h4 {
-    background: #474747;
-    color: #eee;
-    line-height: 52px;
-    margin-top: 0;
-    margin-bottom: 20px;
+a:hover {
+    color: #c2d9a0;
 }
-p {
-    font-weight: 500;
-    font-size: 20px;
-    padding: 0 32px 25px;
+#icon-content {
+    position: relative;
+    width: 100%;
+    padding: 40px 0px;
+}
+header {
+    text-align: center;
+}
+#logo {
+    font-size: 40px;
+}
+#info-page {
+    width: 100%;
+    background-color: #333;
+    color: #d8d8d8;
+}
+#info-content {
+    position: relative;
+    width: 600px;
+    margin: auto;
+    font-size: 17px;
+}
+#info-content h2 {
+    font-size: 25px;
+    color: #fff;
+}
+#project {
+    padding-bottom: 40px;
+}
+.info-section {
+    padding-top: 30px;
+}
+.btn {
+    background-color: #bbb;
+    width: auto;
+    height: 50px;
+    margin-top: 100px;
+    margin-left: 50px;
+}
+.btn:hover {
+    background-color: #aaa;
 }
