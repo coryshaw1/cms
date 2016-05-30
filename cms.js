@@ -16,7 +16,7 @@ Disputes shall be settled by Oslo City Court.
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
 var motd = 'Scroll on video to change volume!';
-var version = '11.11.8';
+var version = '11.11.9';
 var emo = [];
 var men = [];
 var menu = {
@@ -424,7 +424,7 @@ function autocomplete() {
         enable('.autocomplete');
         storage('autocomplete', 'true');
         options.autocomplete = true;
-        //autocompleteue();
+        autocompleteue();
         $('.textcomplete-dropdown').removeClass('disabled');
     }
     else {
@@ -1471,76 +1471,74 @@ function hideavatars() {
     }
 }
 
-//function updateuserarray(e) {
-    //var user = e.user.username;
-    //if (e.type === "user-join") {
-        //men.push('' + user + '');
-    //}
-    //else {
-       // men.splice($.inArray('' + user + '', men), 1);
-    //}
-//}
+function updateuserarray(e) {
+    var user = e.user.username;
+    if (e.type === "user-join") {
+        men.push('' + user + '');
+    } else {
+       men.splice($.inArray('' + user + '', men), 1);
+    }
+}
 
-//function autocompleteue() {
-    //if (options.autocomplete) {
-        //var emoarray = localStorage.getItem('emoarray').toLowerCase().split(',');
-        //emoarray.forEach(function(e) {
-            //emo.push('' + e + '');
-        //});
-        //Dubtrack.room.users.collection.models.forEach(function(e) {
-            //var user = e.attributes._user.username;
-            //men.push('' + user + '');
-        //});
-        //$('#chat-txt-message').textcomplete([{
-            //mentions: men,
-            //match: /\B@([\-+\w]*)$/,
-            //search: function(term, callback) {
-                //callback($.map(this.mentions, function(mention) {
-                    //return mention.toLowerCase().indexOf(term.toLowerCase()) === 0 ? mention : null;
-                //}));
-            //},
-            //index: 1,
-            //template: function(value) {
-                //var id;
-                //Dubtrack.cache.users.getByUsername('' + value + '', function(err, user) {
-                    //if (err) {
-                        //console.log("user not found");
-                    //}
-                    //else {
-                        //id = user.id;
-                    //}
-                //});
-                //return '<img src="https://api.dubtrack.fm/user/' + id + '/image"></img>@' + value + '<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
-            //},
-            //replace: function(mention) {
-                //return '@' + mention + ' ';
-            //}
-        //}, {
-            //emojies: emo,
-            //match: /\B:([\-+\w]*)$/,
-            //search: function(term, callback) {
-                //callback($.map(this.emojies, function(emoji) {
-                    //return emoji.indexOf(term) === 0 ? emoji : null;
-               //}));
-            //},
-            //index: 1,
-            //template: function(value) {
-                //return '<img src="https://www.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
-            //},
-            //replace: function(value) {
-                //return ':' + value + ': ';
-            //}
-        //}]);
-        //setInterval(function() {
-            //if ($(".textcomplete-dropdown").css('display') == 'block') {
-                //$('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
-            //}
-            //else if ($(".textcomplete-dropdown").css('display') == 'none') {
-                //$('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
-            //}
-        //}, 500);
-    //}
-//}
+function autocompleteue() {
+    if (options.autocomplete) {
+        var emoarray = localStorage.getItem('emoarray').toLowerCase().split(',');
+        emoarray.forEach(function(e) {
+            emo.push('' + e + '');
+        });
+        Dubtrack.room.users.collection.models.forEach(function(e) {
+            var user = e.attributes._user.username;
+            men.push('' + user + '');
+        });
+        $('#chat-txt-message').textcomplete([{
+            mentions: men,
+            match: /\B@([\-+\w]*)$/,
+            search: function(term, callback) {
+                callback($.map(this.mentions, function(mention) {
+                    return mention.toLowerCase().indexOf(term.toLowerCase()) === 0 ? mention : null;
+                }));
+            },
+            index: 1,
+            template: function(value) {
+                var id;
+                Dubtrack.cache.users.getByUsername('' + value + '', function(err, user) {
+                    if (err) {
+                        console.log("user not found");
+                    } else {
+                        id = user.id;
+                    }
+                });
+                return '<img src="https://api.dubtrack.fm/user/' + id + '/image"></img>@' + value + '<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
+            },
+            replace: function(mention) {
+                return '@' + mention + ' ';
+            }
+        }, {
+            emojies: emo,
+            match: /\B:([\-+\w]*)$/,
+            search: function(term, callback) {
+                callback($.map(this.emojies, function(emoji) {
+                    return emoji.indexOf(term) === 0 ? emoji : null;
+               }));
+            },
+            index: 1,
+            template: function(value) {
+                return '<img src="https://www.dubtrack.fm/assets/emoji/images/emoji/' + value + '.png"></img>:' + value + ':<span class="a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;press enter to select</span>';
+            },
+            replace: function(value) {
+                return ':' + value + ': ';
+            }
+        }]);
+        setInterval(function() {
+            if ($(".textcomplete-dropdown").css('display') == 'block') {
+                $('.pusher-chat-widget-input').find('input').attr('id', 'disabled-for-autocomplete');
+            }
+            else if ($(".textcomplete-dropdown").css('display') == 'none') {
+                $('.pusher-chat-widget-input').find('input').attr('id', 'chat-txt-message');
+            }
+        }, 500);
+    }
+}
 
 function notifyonmention(e) {
     if (options.notifionmention) {
