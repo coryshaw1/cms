@@ -221,10 +221,6 @@
 /* CMS MENU */
 
 /* CMS SPECIAL */
-ul.avatar-list li.user-mrsuffocate,		
-#chat .chat-container .chat-messages .chat-main li.user-5609dc356c09ec03001e7748 .activity-row .text a.username:hover {
-	cursor: url('https://mitchdev.net/cms/pizza.cur'), pointer !important;
-}
 /* Mitch */
 #chat .chat-container ul.chat-main li.user-55ff8bf7196f170300cc0b2a .activity-row .text p a.username {
     color: #AA74FE !important;
@@ -263,29 +259,37 @@ ul.avatar-list li.user-kris p.dubs:before,
 ul.avatar-list li.user-mitch p.dubs:before {
 	content: "CMS - " !important;
 }
-#avatar-list li.currentDJ p.username:after {
-	content: "-  DJ";
+#avatar-list li.currentDJ span.user-role {
+	/*content: "-  DJ";*/
+	font-weight: 600;
 }
-#avatar-list li.admin p.username:after {
-	content: "-  Admin";
+#avatar-list li.admin span.user-role {
+	/*content: "-  Admin";*/
+	font-weight: 600;
 }
-#avatar-list li.creator p.username:after {
-	content: "-  Creator";
+#avatar-list li.creator span.user-role {
+	/*content: "-  Creator";*/
+	font-weight: 600;
 }
-#avatar-list li.co-owner p.username:after {
-	content: "-  Co-owner";
+#avatar-list li.co-owner span.user-role {
+	/*content: "-  Co-owner";*/
+	font-weight: 600;
 }
-#avatar-list li.manager p.username:after {
-	content: "-  Manager";
+#avatar-list li.manager span.user-role {
+	/*content: "-  Manager";*/
+	font-weight: 600;
 }
-#avatar-list li.mod p.username:after {
-	content: "-  Mod";
+#avatar-list li.mod span.user-role {
+	/*content: "-  Mod";*/
+	font-weight: 600;
 }
-#avatar-list li.vip p.username:after {
-	content: "-  VIP";
+#avatar-list li.vip span.user-role {
+	/*content: "-  VIP";*/
+	font-weight: 600;
 }
-#avatar-list li.resident-dj p.username:after {
-	content: "-  Resident DJ";
+#avatar-list li.resident-dj span.user-role {
+	/*content: "-  Resident DJ";*/
+	font-weight: 600;
 }
 /* CMS SPECIAL */
 
