@@ -15,8 +15,8 @@ Disputes shall be settled by Oslo City Court.
 /*global Dubtrack*/
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
-var motd = 'Scroll on video to change volume!';
-var version = '11.11.9';
+var motd = 'Bug Fixes!';
+var version = '11.11.11';
 var emo = [];
 var men = [];
 var menu = {
@@ -241,8 +241,8 @@ function append() {
         '</div>'
     ].join('');
     setTimeout(function() {
-        $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><span>Owners/Co-Owners Please Note That Community Css Has Been Changed Click <a target="_blank" href="http://chilloutmusica.github.io/cms/options/">Here</a> To See How It Is Now Done.<br>Emotes Are A Work In Progress.<br>Thank You.</span><br><br><br></li>');
-        $('<span class="chat-option-header">CMS</span><div class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
+        $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><br></li>');
+        $('<span class="chat-option-header">CMS</span><div class="chat-option-buttons cmsbtns"><span style="width: 50%;" class="cmsbtns" onclick="fade();">Main menu</span><span style="width: 50%;" class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
     }, 5000);
     setTimeout(function() {
         $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
@@ -1816,7 +1816,7 @@ function roomsocial() {
     var icon = localStorage.getItem('room_social_icon');
     var link = localStorage.getItem('room_social_link');
     var append = [
-        '<a target="_blank" href="' + link + '"><div title="' + link + '" style="cursor: pointer;width: 50px;height: 50px;position: fixed;right: 20px;top: 80px;">',
+        '<a target="_blank" href="' + link + '"><div title="' + link + '" style="display:none;cursor: pointer;width: 50px;height: 50px;position: fixed;right: 20px;top: 80px;">',
         '<img style="border-radius: 15px;" src="' + icon + '">',
         '</div></a>'
     ].join('');
