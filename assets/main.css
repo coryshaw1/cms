@@ -226,11 +226,11 @@
     color: #AA74FE !important;
     text-shadow: 0px 0px 1px rgba(0,0,0,.5);
 }
-.userid-55ff8bf7196f170300cc0b2a,
 ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs,
-ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs:before,
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.dubs:before/*,
+.userid-55ff8bf7196f170300cc0b2a,
 ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username,
-ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username:after {
+ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username:after*/ {
 	color: #AA74FE !important;
 }
 /* Kris */
@@ -238,11 +238,11 @@ ul.avatar-list .userid-55ff8bf7196f170300cc0b2a p.username:after {
     color: #409fff !important;
     text-shadow: 0px 0px 1px rgba(0,0,0,.5);
 }
-.userid-55ff52375335f703008b0d38,
 ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs,
-ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs:before,
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs:before/*,
+.userid-55ff52375335f703008b0d38,
 ul.avatar-list .userid-55ff52375335f703008b0d38 p.username,
-ul.avatar-list .userid-55ff52375335f703008b0d38 p.username:after {
+ul.avatar-list .userid-55ff52375335f703008b0d38 p.username:after*/ {
     color: #409fff !important;
 }
 ul.avatar-list .userid-55ff52375335f703008b0d38 p.dubs:hover:before {
