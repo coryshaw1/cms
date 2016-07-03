@@ -242,7 +242,7 @@ function append() {
     ].join('');
     setTimeout(function() {
         $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><br></li>');
-        $('<span class="chat-option-header">CMS</span><div style="padding: 8px;" class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
+        $('<span class="chat-option-header">CMS</span><div style="padding: 8px;" class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span style="margin-top: 8px;" class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
     }, 5000);
     setTimeout(function() {
         $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
