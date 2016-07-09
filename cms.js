@@ -15,8 +15,8 @@ Disputes shall be settled by Oslo City Court.
 /*global Dubtrack*/
 /*global $*/
 var gitroot = 'https://chilloutmusica.github.io/cms';
-var motd = 'Bug Fixes!';
-var version = '11.11.11';
+var motd = 'Scroll on video to change volume!';
+var version = '11.11.10';
 var emo = [];
 var men = [];
 var menu = {
@@ -241,8 +241,8 @@ function append() {
         '</div>'
     ].join('');
     setTimeout(function() {
-        $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><br></li>');
-        $('<span class="chat-option-header">CMS</span><div style="padding: 8px;" class="chat-option-buttons cmsbtns"><span class="cmsbtns" onclick="fade();">Main menu</span><span style="margin-top: 8px;" class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
+        $('.chat-main').append('<li class="chat-welcome-message" style="text-align: center; color: #CCC;"><br><br><br><span>CMS Version - ' + version + '<br>' + motd + '<br><br><span>Owners/Co-Owners Please Note That Community Css Has Been Changed Click <a target="_blank" href="http://chilloutmusica.github.io/cms/options/">Here</a> To See How It Is Now Done.<br>Emotes Are A Work In Progress.<br>Thank You.</span><br><br><br></li>');
+        $('<span class="chat-option-header">CMS</span><div class="chat-option-buttons cmsbtns"><span style="width: 50%;" class="cmsbtns" onclick="fade();">Main menu</span><span style="width: 50%;" class="cmsbtns" onclick="chatmode();">Chat mode</span></div>').insertAfter('.chat-option-buttons-sound');
     }, 5000);
     setTimeout(function() {
         $('body').append('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">');
@@ -682,7 +682,9 @@ function vote(e) {
             }, timeout);
         }
         else if (options.autovote) {
-            Dubtrack.playerController.voteUpAction();
+            setTimeout(function(e) {
+                Dubtrack.playerController.voteUpAction();
+            }, 2000);
         }
     }
 }
@@ -1830,22 +1832,24 @@ function roomoptions() {
         url: 'https://api.dubtrack.fm/room/' + location,
     }).done(function(e) {
         var content = e.data.description;
-        var data = '' + content.match(/(@cms=)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/) + '';
-        var json = data.split('@cms=')[1].replace(',', '');
-        $.ajax({
-            type: 'GET',
-            beforeSend: function() {
-                this.xhrFields.withCredentials = false;
-            },
-            url: json,
-            dataType: "json"
-        }).done(function(f) {
-            localStorage.setItem('room_css', f.css);
-            localStorage.setItem('room_social_icon', f.social.icon);
-            localStorage.setItem('room_social_link', f.social.link);
-            //localStorage.setItem('room_emotes', f.emotes);
-            roomsocial();
-        });
+        if (content.indexOf('@cms=')) {
+            var data = '' + content.match(/(@cms=)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/) + '';
+            var json = data.split('@cms=')[1].replace(',', '');
+            $.ajax({
+                type: 'GET',
+                beforeSend: function() {
+                    this.xhrFields.withCredentials = false;
+                },
+                url: json,
+                dataType: "json"
+            }).done(function(f) {
+                localStorage.setItem('room_css', f.css);
+                localStorage.setItem('room_social_icon', f.social.icon);
+                localStorage.setItem('room_social_link', f.social.link);
+                //localStorage.setItem('room_emotes', f.emotes);
+                roomsocial();
+            });
+        }
     });
 }
 $('.chat-main').on('DOMNodeInserted', function(e) {
